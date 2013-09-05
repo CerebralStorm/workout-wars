@@ -1,0 +1,48 @@
+%header  
+  %nav.navbar.navbar-default{:role => "navigation"}
+    .navbar-header
+      %button.navbar-toggle{"data-target" => ".navbar-ex1-collapse", "data-toggle" => "collapse", :type => "button"}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to "Fortis", root_path, class: 'navbar-brand'
+    .collapse.navbar-collapse.navbar-ex1-collapse
+      %ul.nav.navbar-nav
+        %li.active
+          = link_to "Leaderboard", root_path
+        %li
+          = link_to "Feedback", root_path
+        %li.dropdown
+          %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+            Settings
+            %b.caret
+          %ul.dropdown-menu
+            %li
+              %a{:href => "#"} Profile
+            %li
+              %a{:href => "#"} Settings
+            %li
+              %a{:href => "#"} Create Competition
+      %form.navbar-form.navbar-left{:role => "search"}
+        .form-group
+          %input.form-control{:placeholder => "Search", :type => "text"}/
+        %button.btn.btn-default{:type => "submit"} Submit
+      %ul.nav.navbar-nav.navbar-right
+        %li
+          %a{:href => "#"} Link
+        %li.dropdown
+          %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+            Session
+            %b.caret
+          %ul.dropdown-menu
+            -if user_signed_in?
+              %li
+                %a{:href => "#"} Sign Out
+            -else
+              %li
+                %a{:href => "#"} Sign In
+            %li
+              %a{:href => "#"} Something else here
+            %li
+              %a{:href => "#"} Separated link
