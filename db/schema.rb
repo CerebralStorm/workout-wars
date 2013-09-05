@@ -36,6 +36,8 @@ ActiveRecord::Schema.define(version: 20130905012735) do
     t.float    "weight"
     t.float    "height"
     t.boolean  "admin",                  default: false
+    t.string   "provider"
+    t.string   "uid"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

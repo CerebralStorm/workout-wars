@@ -10,6 +10,8 @@ FactoryGirl.define do
     phone "2125552368"
     height 72
     weight 175
+    provider "facebook"
+    uid "12345"
 
     factory :admin do
       admin true

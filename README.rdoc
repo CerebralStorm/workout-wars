@@ -11,6 +11,11 @@ Things you may want to cover:
 * System dependencies
 
 * Configuration
+  For local login with facebook, first install pow and create a link to the site.
+    - curl get.pow.cx | sh
+    - cd ~/.pow
+    - ln -s ~/Projects/myapp
+  The site can now be found at http://fortis.dev
 
 * Database creation
   Create ROLE Fortis in PostgreSQL by

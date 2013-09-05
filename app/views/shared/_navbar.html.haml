@@ -30,7 +30,7 @@
         %button.btn.btn-default{:type => "submit"} Submit
       %ul.nav.navbar-nav.navbar-right
         %li
-          %a{:href => "#"} Link
+          = link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook)
         %li.dropdown
           %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
             Session
