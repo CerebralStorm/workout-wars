@@ -9,8 +9,7 @@
     = render 'shared/navbar'
     .wrapper
       .container
-        %p.notice= notice
-        %p.alert= alert
+        = render 'shared/flash'
 
         = yield
     = render 'shared/footer'

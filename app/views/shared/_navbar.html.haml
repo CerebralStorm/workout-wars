@@ -38,10 +38,10 @@
           %ul.dropdown-menu
             -if user_signed_in?
               %li
-                %a{:href => "#"} Sign Out
+                = link_to "Sign Out", destroy_user_session_path, method: :delete
             -else
               %li
-                %a{:href => "#"} Sign In
+                = link_to "Sign In", new_user_session_path
             %li
               %a{:href => "#"} Something else here
             %li
