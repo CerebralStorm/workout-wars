@@ -18,10 +18,6 @@ describe User do
   end
 
   context "validations" do
-    it "should require a name" do
-      FactoryGirl.build(:user, :name => "").should_not be_valid
-    end
-
     it "should require an email address" do
       FactoryGirl.build(:user, :email => "").should_not be_valid
     end
