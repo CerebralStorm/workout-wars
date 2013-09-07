@@ -8,9 +8,9 @@
 
   - @workouts.each do |workout|
     %tr
-      %td=# link_to 'Show', user_workout_path(workout)
-      %td=#link_to 'Edit', edit_user_workout_path(workout)
-      %td=# link_to 'Destroy', user_workout_path(workout), :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %td= link_to 'Show', user_workout_path(current_user, workout)
+      %td= link_to 'Edit', edit_user_workout_path(current_user, workout)
+      %td= link_to 'Destroy', user_workout_path(current_user, workout), :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 
