@@ -1,15 +1,15 @@
 class WorkoutsController < ApplicationController
   before_action :set_workout, only: [:show, :edit, :update, :destroy]
+  before_action :set_user
 
   def index
-    @workouts = Workout.all
+    @workouts = @user.workouts
   end
 
   def show
   end
 
   def new
-    @user = User.find(params[:user_id])
     @workout = Workout.new
   end
 
@@ -23,7 +23,7 @@ class WorkoutsController < ApplicationController
     respond_to do |format|
       if @workout.save
         format.html { redirect_to user_workouts_path, notice: 'Workout was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @workout }
+        format.json { render action: 'show', status: :created, location: user_workout_path(@user, @workout) }
       else
         format.html { render action: 'new' }
         format.json { render json: @workout.errors, status: :unprocessable_entity }
@@ -34,7 +34,7 @@ class WorkoutsController < ApplicationController
   def update
     respond_to do |format|
       if @workout.update(workout_params)
-        format.html { redirect_to @workout, notice: 'Workout was successfully updated.' }
+        format.html { redirect_to user_workout_path(@user, @workout), notice: 'Workout was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -46,7 +46,7 @@ class WorkoutsController < ApplicationController
   def destroy
     @workout.destroy
     respond_to do |format|
-      format.html { redirect_to workouts_url }
+      format.html { redirect_to user_workouts_path(@user) }
       format.json { head :no_content }
     end
   end
@@ -54,6 +54,10 @@ class WorkoutsController < ApplicationController
   private
     def set_workout
       @workout = Workout.find(params[:id])
+    end
+
+    def set_user
+      @user = User.find(params[:user_id])
     end
 
     def workout_params
