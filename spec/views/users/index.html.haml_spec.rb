@@ -1,5 +1,15 @@
 require 'spec_helper'
 
 describe "users/index.html.haml" do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before do
+    10.times do 
+      FactoryGirl.create(:user)
+    end
+    @users = User.all
+  end
+
+  it "displays editing and the users name" do
+    render
+    expect(rendered).to match /Users/ 
+  end
 end

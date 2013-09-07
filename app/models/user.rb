@@ -13,7 +13,6 @@ class User < ActiveRecord::Base
   has_many :workouts
 
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
-    binding.pry
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
     if user.nil?
       user = User.create(name:auth.extra.raw_info.name, provider:auth.provider, 

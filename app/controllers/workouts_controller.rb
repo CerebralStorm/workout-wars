@@ -17,8 +17,7 @@ class WorkoutsController < ApplicationController
   end
 
   def create
-    @user = User.find(params[:user_id])
-    @workout = @user.workouts.new(workout_params)
+    @workout = @user.workouts.build(workout_params)
 
     respond_to do |format|
       if @workout.save

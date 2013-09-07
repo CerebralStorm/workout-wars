@@ -17,7 +17,7 @@ private
   end
 
   def activity_params
-    params[:activity]
+    params.require(:activity).permit(:name, :reps, :sets, :duration, :distance)
   end
 
 end

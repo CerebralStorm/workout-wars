@@ -1,5 +1,8 @@
 Fortis::Application.routes.draw do
   root :to => "static#index"
+  get '/leaderboard', to: "static#leaderboard"
+  get '/suggestions', to: "static#suggestions"
+  get '/help', to: "static#help"
 
   resources :activities, only: [:create, :update, :destroy]
 

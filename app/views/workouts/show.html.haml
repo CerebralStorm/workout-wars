@@ -1,6 +1,9 @@
 %p#notice= notice
 
-
+%P
+  = @workout.date
+%p
+  = @workout.reps
 = link_to 'Edit', edit_user_workout_path(current_user, @workout)
 \|
 = link_to 'Back', user_workouts_path
