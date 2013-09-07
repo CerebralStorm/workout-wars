@@ -1,12 +1,13 @@
 Fortis::Application.routes.draw do
   root :to => "static#index"
 
-  resources :workouts 
   resources :activities, only: [:create, :update, :destroy]
 
   devise_for :users, controllers: { :omniauth_callbacks => "users/omniauth_callbacks" }
 
-  resources :users, only: [:index, :show, :edit, :update, :destroy]
+  resources :users, only: [:index, :show, :edit, :update, :destroy] do
+    resources :workouts 
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

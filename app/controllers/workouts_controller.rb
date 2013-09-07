@@ -9,6 +9,7 @@ class WorkoutsController < ApplicationController
   end
 
   def new
+    @user = User.find(params[:user_id])
     @workout = Workout.new
   end
 
@@ -16,11 +17,12 @@ class WorkoutsController < ApplicationController
   end
 
   def create
-    @workout = Workout.new(workout_params)
+    @user = User.find(params[:user_id])
+    @workout = @user.workouts.new(workout_params)
 
     respond_to do |format|
       if @workout.save
-        format.html { redirect_to @workout, notice: 'Workout was successfully created.' }
+        format.html { redirect_to user_workouts_path, notice: 'Workout was successfully created.' }
         format.json { render action: 'show', status: :created, location: @workout }
       else
         format.html { render action: 'new' }
@@ -55,6 +57,6 @@ class WorkoutsController < ApplicationController
     end
 
     def workout_params
-      params[:workout]
+      params.require(:workout).permit(:date, activities_attributes: [:name, :reps, :sets, :duration, :distance])
     end
 end
