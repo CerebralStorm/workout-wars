@@ -9,33 +9,11 @@
     = f.label :date, class: "control-label"
     .controls
       = f.date_select :date
-    
+
+    = link_to_add_fields "Add activity", f, :activities
+
     = f.fields_for :activities do |builder|
-      .control-group
-        = builder.label :name, class: "control-label"
-        .controls
-          = builder.text_field :name
-
-      .control-group
-        = builder.label :reps, class: "control-label"
-        .controls
-          = builder.text_field :reps
-
-      .control-group
-        = builder.label :sets, class: "control-label"
-        .controls
-          = builder.text_field :sets
-
-      .control-group
-        = builder.label :duration, class: "control-label"
-        .controls
-          = builder.text_field :duration
-
-      .control-group
-        = builder.label :distance, class: "control-label"
-        .controls
-          = builder.text_field :distance
-
+      = render partial: 'workouts/activity_fields', locals: { f: builder }
 
   .actions
     = f.submit 'Save'
