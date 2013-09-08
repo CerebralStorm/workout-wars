@@ -7,6 +7,6 @@ describe "users/show.html.haml" do
 
   it "displays editing and the users name" do
     render
-    expect(rendered).to match /Profile for #{@user.name}/ 
+    expect(rendered).to match /Profile for #{@user.email}/ 
   end
 end
