@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20130908222151) do
     t.datetime "end_date"
     t.integer  "max_participants"
     t.string   "difficulty"
-    t.boolean  "private",          default: false
+    t.boolean  "is_private",       default: false
     t.integer  "creator_id"
     t.datetime "created_at"
     t.datetime "updated_at"
