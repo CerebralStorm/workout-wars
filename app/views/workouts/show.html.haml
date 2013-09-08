@@ -1,0 +1,33 @@
+%p#notice= notice
+
+%p
+  = @workout.date
+%P
+  %table.table.table-hover
+    %tr
+      %td
+        Activity Name
+      %td
+        Sets
+      %td
+        Reps
+      %td
+        Duration
+      %td
+        Distance
+    - @workout.activities.each do |activity|
+      %tr
+        %td 
+          = activity.name
+        %td
+          = activity.sets
+        %td
+          = activity.reps
+        %td
+          = activity.duration
+        %td
+          = activity.distance
+
+= link_to 'Edit', edit_user_workout_path(current_user, @workout)
+\|
+= link_to 'Back', user_workouts_path
