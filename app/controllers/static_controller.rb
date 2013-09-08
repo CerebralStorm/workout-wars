@@ -3,4 +3,13 @@ class StaticController < ApplicationController
   
   def index
   end
+
+  def leaderboard
+  end
+
+  def suggestions
+  end
+
+  def help
+  end
 end

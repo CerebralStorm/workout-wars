@@ -1,0 +1,7 @@
+%h1 Editing workout
+
+= render 'form'
+
+= link_to 'Show', user_workout_path(current_user, @workout)
+\|
+= link_to 'Back', user_workouts_path
