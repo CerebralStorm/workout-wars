@@ -1,4 +1,7 @@
 Fortis::Application.routes.draw do
+  resources :competitions
+  resources :competition_subscriptions, only: [:create, :destroy]
+
   root :to => "static#index"
   get '/leaderboard', to: "static#leaderboard"
   get '/suggestions', to: "static#suggestions"

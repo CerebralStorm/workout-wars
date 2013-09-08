@@ -14,7 +14,7 @@
         %li
           = link_to "Leaderboard", leaderboard_path
         %li
-          = link_to "Competions", "#"
+          = link_to "Competions", competitions_path
         -if user_signed_in?
           %li
             = link_to "My Profile", user_path(current_user)
