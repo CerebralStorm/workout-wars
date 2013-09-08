@@ -1,5 +1,9 @@
 require 'spec_helper'
 
 describe Activity do
-  pending "add some examples to (or delete) #{__FILE__}"
+  context "validations" do
+    it "should require a name" do
+      FactoryGirl.build(:pushups, name: "").should_not be_valid
+    end
+  end
 end
