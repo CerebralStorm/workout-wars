@@ -5,7 +5,7 @@ class CreateCompetitions < ActiveRecord::Migration
       t.datetime :start_date
       t.datetime :end_date
       t.integer :max_participants
-      t.string :difficulty
+      t.integer :difficulty_id
       t.boolean :is_private, default: false
       t.integer :creator_id
 

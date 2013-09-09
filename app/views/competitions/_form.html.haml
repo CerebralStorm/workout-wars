@@ -19,8 +19,8 @@
     = f.label :max_participants
     = f.number_field :max_participants
   .field
-    = f.label :difficulty
-    = f.text_field :difficulty
+    = f.label :difficulty_id
+    = f.collection_select(:difficulty_id, Difficulty.all, :id, :level)
   .field
     = f.label :is_private, "Private"
     = f.check_box :is_private

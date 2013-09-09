@@ -15,3 +15,8 @@ Activity.delete_all
 ].each do |activity|
   Activity.create!(activity)
 end
+
+Difficulty.delete_all
+["Very Easy", "Easy", "Average", "Hard", "Insane"].each do |level|
+  Difficulty.find_or_create_by_level(level)
+end

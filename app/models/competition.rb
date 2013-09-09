@@ -1,6 +1,7 @@
 class Competition < ActiveRecord::Base
   has_many :users, through: :competition_subscriptions
   has_many :competition_subscriptions
+  has_one :difficulty
 
   validates_presence_of :name
   validates_presence_of :start_date
