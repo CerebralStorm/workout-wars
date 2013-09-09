@@ -1,7 +1,9 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+Activity.destroy_all!
+[
+  {name: 'Pushups', activity_type: 'strength', use_reps: true, use_sets: true, use_duration: false, use_distance: false, use_weight: false},
+  {name: 'Pullups', activity_type: 'strength', use_reps: true, use_sets: true, use_duration: false, use_distance: false, use_weight: false},
+  {name: 'Situps', activity_type: 'strength', use_reps: true, use_sets: true, use_duration: false, use_distance: false, use_weight: false},
+  {name: 'Squats', activity_type: 'strength', use_reps: true, use_sets: true, use_duration: false, use_distance: false, use_weight: false}
+].each do |activity|
+  Activity.create!(activity)
+end
