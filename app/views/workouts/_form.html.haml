@@ -12,7 +12,7 @@
 
     = link_to_add_fields "Add activity", f, :activities
 
-    = f.fields_for :activities do |builder|
+    = f.fields_for :exercises do |builder|
       = render partial: 'workouts/activity_fields', locals: { f: builder }
 
   .actions

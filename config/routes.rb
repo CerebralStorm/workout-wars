@@ -1,16 +1,17 @@
 Fortis::Application.routes.draw do
-  resources :competitions
-  resources :competition_subscriptions, only: [:create, :destroy]
+  resources :exercises
 
   root :to => "static#index"
   get '/leaderboard', to: "static#leaderboard"
   get '/suggestions', to: "static#suggestions"
   get '/help', to: "static#help"
 
-  resources :activities, only: [:create, :update, :destroy]
+  resources :excercises, only: [:create, :update, :destroy]
+  resources :competitions
+  resources :competition_subscriptions, only: [:create, :destroy]
+  resources :activities, only: [:create, :update, :destroy]  
 
   devise_for :users, controllers: { :omniauth_callbacks => "users/omniauth_callbacks" }
-
   resources :users, only: [:index, :show, :edit, :update, :destroy] do
     resources :workouts 
   end

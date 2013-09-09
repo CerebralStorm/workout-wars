@@ -19,11 +19,12 @@ ActiveRecord::Schema.define(version: 20130908222151) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
-    t.integer  "workout_id"
-    t.integer  "reps"
-    t.integer  "sets"
-    t.float    "duration"
-    t.float    "distance"
+    t.string   "activity_type"
+    t.boolean  "use_reps",      default: false
+    t.boolean  "use_sets",      default: false
+    t.boolean  "use_duration",  default: false
+    t.boolean  "use_distance",  default: false
+    t.boolean  "use_weight",    default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -61,6 +62,7 @@ ActiveRecord::Schema.define(version: 20130908222151) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
+    t.string   "gender"
     t.string   "address"
     t.string   "phone"
     t.float    "weight"
