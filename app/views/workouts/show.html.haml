@@ -6,7 +6,7 @@
   %table.table.table-hover
     %tr
       %td
-        Activity Name
+        Exercise Name
       %td
         Sets
       %td
@@ -15,18 +15,18 @@
         Duration
       %td
         Distance
-    - @workout.activities.each do |activity|
+    - @workout.exercises.each do |exercise|
       %tr
         %td 
-          = activity.name
+          = exercises.name
         %td
-          = activity.sets
+          = exercises.sets
         %td
-          = activity.reps
+          = exercises.reps
         %td
-          = activity.duration
+          = exercises.duration
         %td
-          = activity.distance
+          = exercises.distance
 
 = link_to 'Edit', edit_user_workout_path(current_user, @workout)
 \|
