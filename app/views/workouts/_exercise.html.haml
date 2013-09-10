@@ -1,0 +1,6 @@
+= table_header(e)
+%tr
+  -e.fields.each do |field|  
+    %td 
+      = e.send(field)
+ 

@@ -4,29 +4,8 @@
   = @workout.date
 %P
   %table.table.table-hover
-    %tr
-      %td
-        Exercise Name
-      %td
-        Sets
-      %td
-        Reps
-      %td
-        Duration
-      %td
-        Distance
     - @workout.exercises.each do |exercise|
-      %tr
-        %td 
-          = exercise.name
-        %td
-          = exercise.sets
-        %td
-          = exercise.reps
-        %td
-          = exercise.duration
-        %td
-          = exercise.distance
+      = render partial: 'workouts/exercise', locals: {e: exercise}
 
 = link_to 'Edit', edit_user_workout_path(current_user, @workout)
 \|
