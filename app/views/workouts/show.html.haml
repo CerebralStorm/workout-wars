@@ -18,15 +18,15 @@
     - @workout.exercises.each do |exercise|
       %tr
         %td 
-          = exercises.name
+          = exercise.name
         %td
-          = exercises.sets
+          = exercise.sets
         %td
-          = exercises.reps
+          = exercise.reps
         %td
-          = exercises.duration
+          = exercise.duration
         %td
-          = exercises.distance
+          = exercise.distance
 
 = link_to 'Edit', edit_user_workout_path(current_user, @workout)
 \|

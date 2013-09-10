@@ -11,7 +11,7 @@ class WorkoutsController < ApplicationController
 
   def new
     @workout = Workout.new
-    @workout.activities.build
+    @workout.exercises.build
   end
 
   def edit
@@ -19,7 +19,7 @@ class WorkoutsController < ApplicationController
 
   def create
     @workout = @user.workouts.build(workout_params)
-
+    
     respond_to do |format|
       if @workout.save
         format.html { redirect_to user_workouts_path, notice: 'Workout was successfully created.' }
@@ -61,6 +61,6 @@ class WorkoutsController < ApplicationController
     end
 
     def workout_params
-      params.require(:workout).permit(:date, activities_attributes: [:name, :reps, :sets, :duration, :distance])
+      params.require(:workout).permit(:date, exercises_attributes: [:activity_id, :workout_id, :name, :reps, :sets, :duration, :distance])
     end
 end
