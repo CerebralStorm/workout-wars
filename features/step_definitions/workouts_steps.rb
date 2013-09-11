@@ -35,3 +35,7 @@ Then(/^the workout totals should be changed$/) do
   page.should have_content 25
   page.should have_content 4
 end
+
+Then(/^I should see a delete message$/) do
+  page.should have_content "Workout was successfully deleted."
+end

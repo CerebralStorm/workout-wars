@@ -1,9 +1,9 @@
-When(/^I click on "(.*?)"$/) do |arg1|
-  find("[rel='#{arg1}']").click
+Given(/^database is seeded$/) do
+  load "#{Rails.root}/db/seeds.rb"
 end
 
-Then /^show me the page$/ do
-  save_and_open_page
+When(/^I click on "(.*?)"$/) do |arg1|
+  find("[rel='#{arg1}']").click
 end
 
 When /^I fill out the form with the following attributes:$/ do |table|
@@ -21,6 +21,10 @@ When /^I select "(.*)" from "(.*)"$/ do |value, field|
   select(value, :from => field) 
 end
 
-Given(/^database is seeded$/) do
-  load "#{Rails.root}/db/seeds.rb"
+When(/^I confirm$/) do
+  page.driver.browser.switch_to.alert.accept
+end
+
+Then /^show me the page$/ do
+  save_and_open_page
 end

@@ -19,7 +19,7 @@ Feature: Workouts
     Then I should see a success message
 
   @javascript
-  Scenario: Edit a new workout
+  Scenario: Edit an exisiting workout
     When I click on "edit-workout-link"
     And I fill out the form with the following attributes:
       | workout[exercises_attributes][0][reps]  | 25  |
@@ -27,3 +27,9 @@ Feature: Workouts
     And I click on "save-workout-link"
     Then I should see an update message
     And the workout totals should be changed
+
+  @javascript
+  Scenario: Delete an exisiting workout
+    When I click on "delete-workout-link nofollow"
+    And I confirm
+    Then I should see a delete message

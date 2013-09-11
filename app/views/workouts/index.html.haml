@@ -14,7 +14,7 @@
       %td= link_to workout.date, user_workout_path(current_user, workout)
       %td= link_to 'Show', user_workout_path(current_user, workout)
       %td= link_to 'Edit', edit_user_workout_path(current_user, workout), rel: "edit-workout-link"
-      %td= link_to 'Destroy', user_workout_path(current_user, workout), :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %td= link_to 'Destroy', user_workout_path(current_user, workout), :method => :delete, :data => { :confirm => 'Are you sure?' }, rel: "delete-workout-link"
 
 %br
 
