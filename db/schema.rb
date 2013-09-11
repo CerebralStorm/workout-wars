@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130906174653) do
+ActiveRecord::Schema.define(version: 20130909063223) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,11 +19,49 @@ ActiveRecord::Schema.define(version: 20130906174653) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
+    t.string   "activity_type"
+    t.boolean  "use_reps",      default: false
+    t.boolean  "use_sets",      default: false
+    t.boolean  "use_duration",  default: false
+    t.boolean  "use_distance",  default: false
+    t.boolean  "use_weight",    default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "competition_subscriptions", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "competition_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "competitions", force: true do |t|
+    t.string   "name"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.integer  "max_participants"
+    t.integer  "difficulty_id"
+    t.boolean  "is_private",       default: false
+    t.integer  "creator_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "difficulties", force: true do |t|
+    t.string   "level"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "exercises", force: true do |t|
     t.integer  "workout_id"
+    t.integer  "activity_id"
     t.integer  "reps"
     t.integer  "sets"
-    t.float    "duration"
     t.float    "distance"
+    t.integer  "duration"
+    t.integer  "weight"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -42,6 +80,7 @@ ActiveRecord::Schema.define(version: 20130906174653) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
+    t.string   "gender"
     t.string   "address"
     t.string   "phone"
     t.float    "weight"

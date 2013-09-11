@@ -10,10 +10,10 @@
     .controls
       = f.date_select :date
 
-    = link_to_add_fields "Add activity", f, :activities
+    = link_to_add_fields "Add exercise", f, :exercises
 
-    = f.fields_for :activities do |builder|
-      = render partial: 'workouts/activity_fields', locals: { f: builder }
+    = f.fields_for :exercises do |builder|
+      = render partial: 'workouts/exercise_fields', locals: { f: builder }
 
   .actions
     = f.submit 'Save'

@@ -18,7 +18,7 @@ Things you may want to cover:
   The site can now be found at http://fortis.dev
 
 * Database creation
-  Create ROLE Fortis in PostgreSQL by
+  Create ROLE fortis in PostgreSQL by
     - psql -d template1
     - CREATE ROLE fortis WITH LOGIN PASSWORD 'uofucs';
     - ALTER ROLE fortis WITH CREATEDB;
@@ -27,6 +27,7 @@ Things you may want to cover:
 
 * Database initialization
   rake db:migrate
+  rake db:seed
 
 * How to run the test suite
   rake db:test:prepare

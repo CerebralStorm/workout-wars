@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6 }, unless: Proc.new { |u| u.password.blank? }
 
   has_many :workouts
+  has_many :competitions, through: :competition_subscriptions
+  has_many :competition_subscriptions
 
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
