@@ -11,8 +11,9 @@ Given(/^I visit the workouts pages$/) do
   find("[rel='user-workouts-link']").click
 end
 
-Then(/^I should see a success message$/) do
-  page.should have_content "Workout was successfully created."
+Given(/^there is an existing workout$/) do
+  user = User.find_by_email("ray@bustinghosts.com")
+  FactoryGirl.create(:workout, user: user)
 end
 
 When(/^I select a date and activity$/) do
@@ -20,4 +21,17 @@ When(/^I select a date and activity$/) do
   step 'I select "September" from "workout_date_2i"'
   step 'I select "11" from "workout_date_3i"' 
   step 'I select "Pushups" from "workout_exercises_attributes_0_activity_id"'  
+end
+
+Then(/^I should see a success message$/) do
+  page.should have_content "Workout was successfully created."
+end
+
+Then(/^I should see an update message$/) do
+  page.should have_content "Workout was successfully updated."
+end
+
+Then(/^the workout totals should be changed$/) do
+  page.should have_content 25
+  page.should have_content 4
 end
