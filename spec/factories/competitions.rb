@@ -3,7 +3,7 @@ FactoryGirl.define do
     name "Billy Bo Bob Battle Royal"
     start_date Date.today
     end_date Date.today + 14.days
-    difficulty "Hard"
+    difficulty
     creator_id 1
 
     factory :private_competition do

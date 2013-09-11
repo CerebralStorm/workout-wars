@@ -17,6 +17,23 @@ describe User do
     # end
   end
 
+  context "associations" do
+    it 'should have many workouts' do
+      User.reflect_on_association(:workouts).should_not be_nil
+      User.reflect_on_association(:workouts).macro.should eql(:has_many)
+    end
+
+    it 'should have many competitions' do
+      User.reflect_on_association(:competitions).should_not be_nil
+      User.reflect_on_association(:competitions).macro.should eql(:has_many)
+    end
+
+    it 'should belong to a user' do
+      User.reflect_on_association(:competition_subscriptions).should_not be_nil
+      User.reflect_on_association(:competition_subscriptions).macro.should eql(:has_many)
+    end
+  end
+
   context "validations" do
     it "should require an email address" do
       FactoryGirl.build(:user, email: "").should_not be_valid
