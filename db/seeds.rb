@@ -18,5 +18,5 @@ end
 
 Difficulty.delete_all
 ["Very Easy", "Easy", "Average", "Hard", "Insane"].each do |level|
-  Difficulty.find_or_create_by_level(level)
+  Difficulty.find_or_create_by(level: level)
 end

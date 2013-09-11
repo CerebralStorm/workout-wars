@@ -89,5 +89,5 @@ Then(/^I log out$/) do
 end
 
 Then(/^I should be logged out/) do
-  page.should have_content "You need to sign in or sign up before continuing."
+  page.should have_content "Signed out successfully"
 end
