@@ -14,10 +14,16 @@
   = @competition.max_participants
 %p
   %b Difficulty:
-  = @competition.difficulty
+  = @competition.level
 %p
   %b Private:
-  = @competition.private
+  = @competition.is_private
+
+%p
+  %b Currently Registered
+- @competition.users.each do |user|
+  %p  
+    = user.email
 
 = form_for CompetitionSubscription.new do |f|
   = f.hidden_field :user_id, value: current_user.id
