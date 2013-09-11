@@ -6,8 +6,7 @@ class CompetitionSubscriptionsController < ApplicationController
         format.html { redirect_to @subscription.competition, notice: 'Registration successful' }
         format.json { render action: 'show', status: :created, location: @subscription.competition }
       else
-        format.html { render action: 'new' }
-        format.json { render json: @subscription.errors, status: :unprocessable_entity }
+        redirect_to :back
       end
     end
   end

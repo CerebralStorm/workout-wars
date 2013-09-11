@@ -4,14 +4,14 @@ FactoryGirl.define do
         
     factory :pushups do
       name "Pushups"
-      sets 3
-      reps 20      
+      use_sets true
+      use_reps true     
     end
 
     factory :running do
       name "Running"
-      duration 45
-      distance 5.4     
+      use_duration true
+      use_distance true     
     end
   end
 end

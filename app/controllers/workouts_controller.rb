@@ -33,7 +33,7 @@ class WorkoutsController < ApplicationController
 
   def update
     respond_to do |format|
-      if @workout.update_attributes(workout_params)
+      if @workout.update(workout_params)
         format.html { redirect_to user_workout_path(@user, @workout), notice: 'Workout was successfully updated.' }
         format.json { head :no_content }
       else
@@ -46,7 +46,7 @@ class WorkoutsController < ApplicationController
   def destroy
     @workout.destroy
     respond_to do |format|
-      format.html { redirect_to user_workouts_path(@user) }
+      format.html { redirect_to user_workouts_path(@user), notice: 'Workout was successfully deleted.' }
       format.json { head :no_content }
     end
   end

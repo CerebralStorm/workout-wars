@@ -18,8 +18,8 @@
       %td= competition.start_date
       %td= competition.end_date
       %td= competition.max_participants
-      %td= competition.difficulty
-      %td= competition.private
+      %td= competition.level
+      %td= competition.is_private
       %td= link_to 'Show', competition
       %td= link_to 'Edit', edit_competition_path(competition)
       %td= link_to 'Destroy', competition, :method => :delete, :data => { :confirm => 'Are you sure?' }

@@ -9,7 +9,7 @@ Fortis::Application.routes.draw do
   resources :excercises, only: [:create, :update, :destroy]
   resources :competitions
   resources :competition_subscriptions, only: [:create, :destroy]
-  resources :activities, only: [:create, :update, :destroy]  
+  resources :activities 
 
   devise_for :users, controllers: { :omniauth_callbacks => "users/omniauth_callbacks" }
   resources :users, only: [:index, :show, :edit, :update, :destroy] do

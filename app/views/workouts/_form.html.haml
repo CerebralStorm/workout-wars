@@ -16,4 +16,4 @@
       = render partial: 'workouts/exercise_fields', locals: { f: builder }
 
   .actions
-    = f.submit 'Save'
+    = f.submit 'Save', class: "btn btn-primary", rel: 'save-workout-link'

@@ -1,4 +1,5 @@
 class Activity < ActiveRecord::Base
+  has_many :exercises
   validates_presence_of :name
 
   def fields

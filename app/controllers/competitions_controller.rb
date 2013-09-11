@@ -17,7 +17,7 @@ class CompetitionsController < ApplicationController
 
   def create
     @competition = Competition.new(competition_params)
-    @competition.owner_id = current_user.id
+    @competition.creator_id = current_user.id
 
     respond_to do |format|
       if @competition.save
@@ -57,6 +57,6 @@ class CompetitionsController < ApplicationController
     end
 
     def competition_params
-      params.require(:competition).permit(:name, :start_date, :end_date, :max_participants, :difficulty, :private)
+      params.require(:competition).permit(:name, :start_date, :end_date, :max_participants, :difficulty_id, :private)
     end
 end
