@@ -15,7 +15,7 @@ describe Competition do
     end
 
     it "should require a difficulty" do
-      FactoryGirl.build(:competition, difficulty: "").should_not be_valid
+      FactoryGirl.build(:competition, difficulty_id: "").should_not be_valid
     end
 
     it "should be valid with valid data" do
