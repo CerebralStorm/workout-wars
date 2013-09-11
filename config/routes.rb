@@ -1,4 +1,4 @@
-Fortis::Application.routes.draw do
+Workoutwars::Application.routes.draw do
   resources :exercises
 
   root :to => "static#index"

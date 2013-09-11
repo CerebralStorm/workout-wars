@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Fortis::Application.load_tasks
+Workoutwars::Application.load_tasks
