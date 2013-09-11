@@ -33,7 +33,7 @@ class WorkoutsController < ApplicationController
 
   def update
     respond_to do |format|
-      if @workout.update_attributes(workout_params)
+      if @workout.update(workout_params)
         format.html { redirect_to user_workout_path(@user, @workout), notice: 'Workout was successfully updated.' }
         format.json { head :no_content }
       else

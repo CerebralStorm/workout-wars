@@ -1,53 +1,59 @@
 class ActivitiesController < ApplicationController
-#   before_action :set_activity, only: [:update, :destroy]
-#   before_action :set_workout
-#   before_action :set_user
+  before_action :set_activity, only: [:show, :edit, :update, :destroy]
 
-#   def create
-#     @activity = @workout.activity.build(activity_params)
+  def index
+    Activity.all
+  end
 
-#     respond_to do |format|
-#       if @activity.save
-#         format.html { redirect_to user_workout_path(@user, @workout), notice: 'Workout was successfully created.' }
-#         format.json { render action: 'show', status: :created, location: user_workout_path(@user, @workout) }
-#       else
-#         format.html { render action: 'new' }
-#         format.json { render json: @activity.errors, status: :unprocessable_entity }
-#       end
-#     end
-#   end
+  def show
+    Activity.find(params[:id])
+  end
 
-#   def update
-#     respond_to do |format|
-#       if @activity.update(activity_params)
-#         format.html { redirect_to user_workout_path(@user, @workout), notice: 'Workout was successfully updated.' }
-#         format.json { head :no_content }
-#       else
-#         format.html { render action: 'edit' }
-#         format.json { render json: @workout.errors, status: :unprocessable_entity }
-#       end
-#     end
-#   end
+  def edit
+  end
 
-#   def destroy
-#   end
+  def create
+    @activity = Activity.create(activity_params)
 
-# private
+    respond_to do |format|
+      if @activity.save
+        format.html { redirect_to activity_path(@activity), notice: 'Activity was successfully created.' }
+        format.json { render action: 'show', status: :created, location: activity_path(@activity) }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @activity.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
-#   def set_user
-#     @user = Workout.find(params[:user_id])
-#   end
+  def update
+    respond_to do |format|
+      if @activity.update(activity_params)
+        format.html { redirect_to activity_path(@activity), notice: 'Activity was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @activity.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def destroy
+    @activity.destroy
+    respond_to do |format|
+      format.html { redirect_to activities_path }
+      format.json { head :no_content }
+    end
+  end
+
+private
   
-#   def set_activity
-#     @activity = Workout.find(params[:id])
-#   end
+  def set_activity
+    @activity = Workout.find(params[:id])
+  end
 
-#   def set_workout
-#     @workout = Workout.find(params[:workout_id])
-#   end
-
-#   def activity_params
-#     params.require(:activity).permit(:name, :reps, :sets, :duration, :distance)
-#   end
+  def activity_params
+    params.require(:activity).permit(:name, :use_reps, :use_sets, :use_duration, :use_distance, :suse_weight)
+  end
 
 end
