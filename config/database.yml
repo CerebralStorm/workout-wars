@@ -17,9 +17,9 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: Fortis_development
+  database: workoutwars_development
   pool: 5
-  username: fortis
+  username: workoutwars
   password: uofucs
 
   # Connect on a TCP socket. Omitted by default since the client uses a
@@ -46,17 +46,17 @@ development:
 test: &test
   adapter: postgresql
   encoding: unicode
-  database: Fortis_test
+  database: workoutwars_test
   pool: 5
-  username: fortis
+  username: workoutwars
   password: uofucs
 
 production:
   adapter: postgresql
   encoding: unicode
-  database: Fortis_production
+  database: workoutwars_production
   pool: 5
-  username: fortis
+  username: workoutwars
   password: uofucs
 
 cucumber:

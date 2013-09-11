@@ -15,13 +15,13 @@ Things you may want to cover:
     - curl get.pow.cx | sh
     - cd ~/.pow
     - ln -s ~/Projects/myapp
-  The site can now be found at http://fortis.dev
+  The site can now be found at http://workoutswars.dev
 
 * Database creation
-  Create ROLE fortis in PostgreSQL by
+  Create ROLE workoutwars in PostgreSQL by
     - psql -d template1
-    - CREATE ROLE fortis WITH LOGIN PASSWORD 'uofucs';
-    - ALTER ROLE fortis WITH CREATEDB;
+    - CREATE ROLE workoutwars WITH LOGIN PASSWORD 'uofucs';
+    - ALTER ROLE workoutwars WITH CREATEDB;
     - \q to exit
   rake db:create:all  
 
@@ -38,12 +38,10 @@ Things you may want to cover:
 
 * Deployment instructions
   Add heroku remote to git
-    git remote add heroku git@heroku.com:fortis.git 
+    git remote add heroku git@heroku.com:workoutwars.git 
   before pushing run
     rake assets:precompile
   commit changes to github then run 
     git push heroku
 
-
-Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
