@@ -11,7 +11,7 @@ class WorkoutsController < ApplicationController
 
   def new
     @workout = Workout.new
-    @workout.exercises.build
+    @workout.exercises.new
   end
 
   def edit
