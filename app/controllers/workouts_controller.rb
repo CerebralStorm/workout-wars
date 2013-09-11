@@ -33,7 +33,7 @@ class WorkoutsController < ApplicationController
 
   def update
     respond_to do |format|
-      if @workout.update(workout_params)
+      if @workout.update_attributes(workout_params)
         format.html { redirect_to user_workout_path(@user, @workout), notice: 'Workout was successfully updated.' }
         format.json { head :no_content }
       else
@@ -61,6 +61,6 @@ class WorkoutsController < ApplicationController
     end
 
     def workout_params
-      params.require(:workout).permit(:date, exercises_attributes: [:activity_id, :workout_id, :name, :reps, :sets, :duration, :distance])
+      params.require(:workout).permit(:date, exercises_attributes: [:activity_id, :workout_id, :name, :reps, :sets, :duration, :distance, :_destroy, :weight, :id])
     end
 end
