@@ -33,6 +33,10 @@ Then(/^I should see a "(.*?)" update message$/) do |name|
   page.should have_content "#{name} was successfully updated."
 end
 
+Then(/^I should see a "(.*?)" delete message$/) do |name|
+  page.should have_content "#{name} was successfully deleted."
+end
+
 Then /^show me the page$/ do
   save_and_open_page
 end

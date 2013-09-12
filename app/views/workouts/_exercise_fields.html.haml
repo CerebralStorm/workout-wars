@@ -8,28 +8,28 @@
         .control-group
           = f.label :activity_id, class: "control-label"
           .controls
-            = f.collection_select(:activity_id, Activity.all, :id, :name) 
-      %td
+            = f.collection_select(:activity_id, Activity.all, :id, :name, {}, {:class => 'activity-select'})
+      %td.reps
         .control-group
           = f.label :reps, class: "control-label"
           .controls
             = f.text_field :reps
-      %td
+      %td.sets
         .control-group
           = f.label :sets, class: "control-label"
           .controls
             = f.text_field :sets
-      %td
+      %td.duration
         .control-group
           = f.label :duration, class: "control-label"
           .controls
             = f.text_field :duration
-      %td
+      %td.distance
         .control-group
           = f.label :distance, class: "control-label"
           .controls
             = f.text_field :distance
-      %td
+      %td.weight
         .control-group
           = f.label :weight, class: "control-label"
           .controls
