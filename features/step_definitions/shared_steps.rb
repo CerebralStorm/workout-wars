@@ -25,6 +25,14 @@ When(/^I confirm$/) do
   page.driver.browser.switch_to.alert.accept
 end
 
+Then(/^I should see a "(.*?)" success message$/) do |name|
+  page.should have_content "#{name} was successfully created."
+end
+
+Then(/^I should see a "(.*?)" update message$/) do |name|
+  page.should have_content "#{name} was successfully updated."
+end
+
 Then /^show me the page$/ do
   save_and_open_page
 end
