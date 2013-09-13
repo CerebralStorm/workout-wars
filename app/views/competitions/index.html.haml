@@ -20,9 +20,9 @@
       %td= competition.max_participants
       %td= competition.level
       %td= competition.is_private
-      %td= link_to 'Show', competition, rel: 'show-competiton-link'
-      %td= link_to 'Edit', edit_competition_path(competition), rel: 'edit-competiton-link'
-      %td= link_to 'Destroy', competition, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %td= link_to 'Show', competition, rel: 'show-competition-link'
+      %td= link_to 'Edit', edit_competition_path(competition), rel: 'edit-competition-link'
+      %td= link_to 'Destroy', competition, :method => :delete, :data => { :confirm => 'Are you sure?' }, rel: "delete-competition-link"
 
 %br
 

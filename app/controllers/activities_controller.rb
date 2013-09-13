@@ -1,11 +1,16 @@
 class ActivitiesController < ApplicationController
   before_action :set_activity, only: [:show, :edit, :update, :destroy]
+  skip_before_filter :authenticate, only: [:index, :show] 
 
   def index
     @activities = Activity.all
   end
 
   def show
+    respond_to do |format|
+      format.html
+      format.json { render json: @activity }
+    end
   end
 
   def new
