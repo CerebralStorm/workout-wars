@@ -1,6 +1,24 @@
-= table_header(e)
-%tr
-  -e.fields.each do |field|  
-    %td 
-      = e.send(field)
+%table
+  %tr 
+    %th 
+      Reps
+    %th 
+      Sets
+    %th
+      Weight
+    %th
+      Distance
+    %th
+      Duration
+  %tr
+    %td
+      =e.reps
+    %td
+      =e.sets
+    %td
+      =e.weight
+    %td
+      =e.distance
+    %td
+      =e.duration
  

@@ -8,7 +8,7 @@
         .control-group
           = f.label :activity_id, class: "control-label"
           .controls
-            = f.collection_select(:activity_id, Activity.all, :id, :name, {}, {:class => 'activity-select'})
+            = f.collection_select(:name, Exercise.all, :name, :name, {}, {:class => 'exercise-select'})
       %td.reps
         .control-group
           = f.label :reps, class: "control-label"

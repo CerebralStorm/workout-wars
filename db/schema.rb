@@ -17,18 +17,6 @@ ActiveRecord::Schema.define(version: 20130909063223) do
   enable_extension "plpgsql"
   enable_extension "hstore"
 
-  create_table "activities", force: true do |t|
-    t.string   "name"
-    t.string   "activity_type"
-    t.boolean  "use_reps",      default: false
-    t.boolean  "use_sets",      default: false
-    t.boolean  "use_duration",  default: false
-    t.boolean  "use_distance",  default: false
-    t.boolean  "use_weight",    default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "competition_subscriptions", force: true do |t|
     t.integer  "user_id"
     t.integer  "competition_id"
@@ -55,6 +43,8 @@ ActiveRecord::Schema.define(version: 20130909063223) do
   end
 
   create_table "exercises", force: true do |t|
+    t.string   "name"
+    t.string   "exercise_type"
     t.integer  "workout_id"
     t.integer  "activity_id"
     t.integer  "reps"
