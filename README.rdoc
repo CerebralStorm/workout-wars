@@ -11,28 +11,24 @@ Things you may want to cover:
 * System dependencies
 
 * Configuration
-  For local login with facebook, first install pow and create a link to the site.
-    - curl get.pow.cx | sh
-    - cd ~/.pow
-    - ln -s ~/Projects/myapp
-  The site can now be found at http://workoutswars.dev
+  Sign in with Facebook cannot be used locally
 
 * Database creation
   Create ROLE workoutwars in PostgreSQL by
-    - psql -d template1
-    - CREATE ROLE workoutwars WITH LOGIN PASSWORD 'uofucs';
-    - ALTER ROLE workoutwars WITH CREATEDB;
-    - \q to exit
+    psql -d template1
+    CREATE ROLE workoutwars WITH LOGIN PASSWORD 'uofucs';
+    ALTER ROLE workoutwars WITH CREATEDB;
+    \q to exit
   rake db:create:all  
 
 * Database initialization
-  rake db:migrate
-  rake db:seed
+    rake db:migrate
+    rake db:seed
 
 * How to run the test suite
-  rake db:test:prepare
-  bundle exec rspec spec/
-  cucumber features/
+    rake db:test:prepare
+    bundle exec rspec spec/
+    cucumber features/
 
 * Services (job queues, cache servers, search engines, etc.)
 
