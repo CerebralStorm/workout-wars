@@ -16,7 +16,7 @@ Feature: Competitions
       | competition_name              | Billy Bo Bob's Thunder Arena |
       | competition_max_participants  | 30                           |
     And I select "Very Hard" from "competition_difficulty_id"
-    And I click on "save-competiton-link"
+    And I click on "save-competition-link"
     Then I should see a "Competition" success message
 
   @javascript
@@ -27,10 +27,10 @@ Feature: Competitions
       | competition_max_participants  | 45                           |
     And I click on "save-competition-link"
     Then I should see a "Competition" update message
-    And the workout totals should be changed
+    And the competition details should be changed
 
   @javascript
   Scenario: Delete an exisiting workout
-    When I click on "delete-workout-link nofollow"
+    When I click on "delete-competition-link nofollow"
     And I confirm
-    Then I should see a delete message
+    Then I should see a "Competition" delete message

@@ -26,10 +26,9 @@ Feature: Workouts
       | workout[exercises_attributes][0][sets]  | 4   |
     And I click on "save-workout-link"
     Then I should see a "Workout" update message
-    And the workout totals should be changed
 
   @javascript
   Scenario: Delete an exisiting workout
     When I click on "delete-workout-link nofollow"
     And I confirm
-    Then I should see a delete message
+    Then I should see a "Workout" delete message

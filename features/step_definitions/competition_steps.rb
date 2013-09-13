@@ -15,3 +15,8 @@ When(/^I select a startdate and enddate$/) do
   step 'I select "October" from "competition_end_date_2i"'
   step 'I select "11" from "competition_end_date_3i"' 
 end
+
+Then(/^the competition details should be changed$/) do
+  page.should have_content "Billy Bo Bob's Thunder Dance"
+  page.should have_content "45"
+end

@@ -45,7 +45,7 @@ class CompetitionsController < ApplicationController
   def destroy
     @competition.destroy
     respond_to do |format|
-      format.html { redirect_to competitions_url }
+      format.html { redirect_to competitions_url, notice: 'Competition was successfully deleted.' }
       format.json { head :no_content }
     end
   end
