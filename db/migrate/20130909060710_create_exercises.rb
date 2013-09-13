@@ -4,7 +4,7 @@ class CreateExercises < ActiveRecord::Migration
       t.string :name
       t.string :exercise_type
       t.integer :workout_id
-      t.integer :activity_id
+      t.integer :exercise_type_id
       t.integer :reps
       t.integer :sets
       t.float :distance

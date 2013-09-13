@@ -6,9 +6,9 @@
         = link_to "remove", '#', class: "remove_fields"
       %td
         .control-group
-          = f.label :activity_id, class: "control-label"
+          = f.label :exercise_type_id, class: "control-label"
           .controls
-            = f.collection_select(:name, Exercise.all, :name, :name, {}, {:class => 'exercise-select'})
+            = f.collection_select(:exercise_type_id, ExerciseType.all, :id, :name, {}, {:class => 'exercise-select'})
       %td.reps
         .control-group
           = f.label :reps, class: "control-label"

@@ -1,18 +1,18 @@
 [
-  {name: 'Pushups', exercise_type: 'strength'}, 
-  {name: 'Pullups', exercise_type: 'strength'},
-  {name: 'Situps', exercise_type: 'strength'},
-  {name: 'Squats', exercise_type: 'strength'},
-  {name: 'Lunges', exercise_type: 'strength'},
-  {name: 'Burpees', exercise_type: 'strength'},
-  {name: 'Running', exercise_type: 'endurance'},
-  {name: 'Biking', exercise_type: 'endurance'},
-  {name: 'Swimming', exercise_type: 'endurance'},
-  {name: 'Hiking', exercise_type: 'endurance'}, 
-  {name: 'Aerobics', exercise_type: 'endurance'}, 
-  {name: 'Yoga', exercise_type: 'balance'}, 
+  {name: 'Pushups', category: 'strength'}, 
+  {name: 'Pullups', category: 'strength'},
+  {name: 'Situps', category: 'strength'},
+  {name: 'Squats', category: 'strength'},
+  {name: 'Lunges', category: 'strength'},
+  {name: 'Burpees', category: 'strength'},
+  {name: 'Running', category: 'endurance'},
+  {name: 'Biking', category: 'endurance'},
+  {name: 'Swimming', category: 'endurance'},
+  {name: 'Hiking', category: 'endurance'}, 
+  {name: 'Aerobics', category: 'endurance'}, 
+  {name: 'Yoga', category: 'balance'}, 
 ].each do |exercise|
-  Exercise.create!(exercise)
+  ExerciseType.create!(exercise)
 end
 
 Difficulty.delete_all

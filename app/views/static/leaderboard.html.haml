@@ -1,3 +1,19 @@
 .jumbotron
   %h1 Leaderboard
   %p Come to size yourself up
+  .panel.panel-default
+  .panel-heading Exercises
+  .panel-body
+    %p
+    %table.table
+      %tr
+        -@exercise_types.each do |exercise_type|
+          %td
+            =exercise_type.name
+            %table
+              %tr
+                %td
+
+
+
+
