@@ -11,7 +11,7 @@ Things you may want to cover:
 * System dependencies
 
 * Configuration
-  Sign in with Facebook cannot be used locally
+    Sign in with Facebook cannot be used locally
 
 * Database creation
   Create ROLE workoutwars in PostgreSQL by
@@ -19,7 +19,8 @@ Things you may want to cover:
     CREATE ROLE workoutwars WITH LOGIN PASSWORD 'uofucs';
     ALTER ROLE workoutwars WITH CREATEDB;
     \q to exit
-  rake db:create:all  
+  then run:  
+    rake db:create:all  
 
 * Database initialization
     rake db:migrate
