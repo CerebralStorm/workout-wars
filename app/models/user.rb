@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6 }, unless: Proc.new { |u| u.password.blank? }
 
   has_many :workouts
+  has_many :exercises, through: :workouts
   has_many :competitions, through: :competition_subscriptions
   has_many :competition_subscriptions
 
