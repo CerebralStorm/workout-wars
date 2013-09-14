@@ -27,4 +27,34 @@ class User < ActiveRecord::Base
   def xp
     self.workouts.map {|w| w.xp }.sum
   end
+
+  def next_level_xp
+    self.xp_level * self.xp_multiplier
+  end
+
+  def previous_level_xp
+    (self.xp_level-1) * (self.xp_multiplier-100)
+  end
+
+  def xp_for_levelup
+    next_level_xp - xp
+  end
+
+  def check_levelup
+    while xp >= next_level_xp
+      self.level += 1
+      self.xp_level += 1
+      self.xp_multiplier += 100
+    end 
+    self.save
+  end
+
+  def check_leveldown
+    while xp <= previous_level_xp
+      self.level -= 1
+      self.xp_level -= 1
+      self.xp_multiplier -= 100
+    end 
+    self.save
+  end
 end

@@ -10,6 +10,7 @@ class AddFieldsToUsers < ActiveRecord::Migration
     add_column :users, :provider, :string
     add_column :users, :uid, :string
     add_column :users, :level, :integer, default: 1
-    add_column :users, :xp_to_level, :integer, default: 500
+    add_column :users, :xp_level, :integer, default: 1
+    add_column :users, :xp_multiplier, :integer, default: 500
   end
 end
