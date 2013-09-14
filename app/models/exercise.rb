@@ -2,7 +2,6 @@ class Exercise < ActiveRecord::Base
   belongs_to :workout
   belongs_to :exercise_type
   before_save :update_xp
-  after_save :check_user_levelup
 
   validates_presence_of :exercise_type_id
 
@@ -27,9 +26,5 @@ class Exercise < ActiveRecord::Base
 
   def update_xp
     self.xp = total_xp
-  end
-
-  def check_user_levelup
-    self.workout.user.check_levelup
   end
 end

@@ -1,4 +1,4 @@
-ExerciseType.delete_all
+ExerciseType.destroy_all
 [
   {name: 'Pushups',   category: 'strength',   xp_multiplier: 1}, 
   {name: 'Pullups',   category: 'strength',   xp_multiplier: 4},
@@ -16,7 +16,7 @@ ExerciseType.delete_all
   ExerciseType.create!(exercise)
 end
 
-Difficulty.delete_all
+Difficulty.destroy_all
 ["Very Easy", "Easy", "Average", "Hard", "Insane"].each do |level|
   Difficulty.find_or_create_by(level: level)
 end

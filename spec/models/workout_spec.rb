@@ -2,10 +2,6 @@ require 'spec_helper'
 
 describe Workout do
   let(:workout) { FactoryGirl.create(:workout) }
-
-  it "should create a new instance given valid attributes" do
-    Workout.create!(valid_attributes)
-  end
   
   context "associations" do
     it 'should have many exercises' do
@@ -38,6 +34,5 @@ describe Workout do
       workout.xp.should > 0
       workout.exercises.count.should == 2 # 2 from factory
     end
-
   end
 end

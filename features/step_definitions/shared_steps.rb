@@ -21,6 +21,10 @@ When /^I select "(.*)" from "(.*)"$/ do |value, field|
   select(value, :from => field) 
 end
 
+When(/^I select the first "(.*?)" from "(.*?)"$/) do |value, field|
+  page.find(field, value, match: :first).click
+end
+
 When(/^I confirm$/) do
   page.driver.browser.switch_to.alert.accept
 end
