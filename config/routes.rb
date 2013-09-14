@@ -3,7 +3,8 @@ Workoutwars::Application.routes.draw do
   get '/leaderboard', to: "static#leaderboard"
   get '/suggestions', to: "static#suggestions"
   get '/help', to: "static#help"
-
+  
+  resources :challenges
   resources :excercises
   resources :competitions
   resources :competition_subscriptions, only: [:create, :destroy]

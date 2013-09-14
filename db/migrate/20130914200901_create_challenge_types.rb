@@ -1,6 +1,6 @@
-class CreateExerciseTypes < ActiveRecord::Migration
+class CreateChallengeTypes < ActiveRecord::Migration
   def change
-    create_table :exercise_types do |t|
+    create_table :challenge_types do |t|
       t.string :name
       t.string :category
       t.integer :xp_multiplier

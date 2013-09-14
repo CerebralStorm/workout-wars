@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @challenge.name
+%p
+  %b Reward:
+  = @challenge.reward
+%p
+  %b Difficulty:
+  = @challenge.difficulty_id
+%p
+  %b Challenge type:
+  = @challenge.challenge_type_id
+
+= link_to 'Edit', edit_challenge_path(@challenge)
+\|
+= link_to 'Back', challenges_path

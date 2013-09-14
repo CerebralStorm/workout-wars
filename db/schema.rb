@@ -11,11 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130914181747) do
+ActiveRecord::Schema.define(version: 20130914200901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
+
+  create_table "challenge_types", force: true do |t|
+    t.string   "name"
+    t.string   "category"
+    t.integer  "xp_multiplier"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "challenges", force: true do |t|
+    t.string   "name"
+    t.integer  "reward"
+    t.integer  "difficulty_id"
+    t.integer  "challenge_type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "competition_subscriptions", force: true do |t|
     t.integer  "user_id"
