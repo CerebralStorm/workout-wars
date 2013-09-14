@@ -20,7 +20,7 @@ When(/^I select a date and activity$/) do
   step 'I select "2013" from "workout_date_1i"' 
   step 'I select "September" from "workout_date_2i"'
   step 'I select "11" from "workout_date_3i"' 
-  step 'I select "Pushups" from "workout_exercises_attributes_0_activity_id"'  
+  step 'I select the first "Pushups" from ".exercise-select"'  
 end
 
 Then(/^I should see a success message$/) do

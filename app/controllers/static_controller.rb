@@ -5,6 +5,7 @@ class StaticController < ApplicationController
   end
 
   def leaderboard
+    @exercise_types = ExerciseType.all
   end
 
   def suggestions

@@ -1,14 +1,30 @@
 class Exercise < ActiveRecord::Base
   belongs_to :workout
-  belongs_to :activity
+  belongs_to :exercise_type
+  before_save :update_xp
 
-  delegate :name, to: :activity
-  delegate :use_reps, to: :activity
-  delegate :use_sets, to: :activity
-  delegate :use_duration, to: :activity
-  delegate :use_distance, to: :activity
-  delegate :use_weight, to: :activity
-  delegate :fields, to: :activity
-  validates_presence_of :activity_id
+  validates_presence_of :exercise_type_id
 
+  def total_reps
+    return 0 if reps.nil?
+    return reps if sets.nil?
+    reps * sets
+  end
+
+  def xp_from(metric)
+    return 0 if metric.nil?
+    (metric * exercise_type.xp_multiplier).floor
+  end
+
+  def total_xp
+    result = 0
+    result += xp_from(total_reps)
+    result += xp_from(duration)
+    result += xp_from(distance)
+    result += xp_from(weight)    
+  end
+
+  def update_xp
+    self.xp = total_xp
+  end
 end

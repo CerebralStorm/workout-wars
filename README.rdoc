@@ -16,7 +16,7 @@ Application Setup:
   Create ROLE workoutwars in PostgreSQL by
     psql -d template1
     CREATE ROLE workoutwars WITH LOGIN PASSWORD 'uofucs';
-    ALTER ROLE workoutwars WITH CREATEDB;
+    ALTER ROLE workoutwars WITH SUPERUSER;
     \q to exit
   then run:  
     rake db:create:all  

@@ -1,3 +1,29 @@
 %h1
   Profile for #{@user.email}
 %p Guns don't kill people pushups do.
+
+%h2 
+  Level
+  = @user.level
+%h3 
+  Total XP
+  = @user.xp
+%h4
+  To Next Level
+  = @user.xp_for_levelup
+%h4
+  Exercises Logged
+%table
+  -@user.workouts.each do |workout|
+    %tr
+      %td
+        %p
+          Gained 
+          =workout.xp
+          XP
+      %td
+        %p
+          Date
+          =workout.date
+
+
