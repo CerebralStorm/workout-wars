@@ -8,7 +8,7 @@ ExerciseType.delete_all
   {name: 'Burpees',   category: 'strength',   xp_multiplier: 3},
   {name: 'Running',   category: 'endurance',  xp_multiplier: 40},
   {name: 'Biking',    category: 'endurance',  xp_multiplier: 15},
-  {name: 'Swimming',  category: 'endurance',  xp_multiplier: 400},
+  {name: 'Swimming',  category: 'endurance',  xp_multiplier: 300},
   {name: 'Hiking',    category: 'endurance',  xp_multiplier: 20}, 
   {name: 'Aerobics',  category: 'endurance',  xp_multiplier: 1}, 
   {name: 'Yoga',      category: 'balance',    xp_multiplier: 1.2} 

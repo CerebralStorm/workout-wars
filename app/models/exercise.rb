@@ -3,7 +3,6 @@ class Exercise < ActiveRecord::Base
   belongs_to :exercise_type
   before_save :update_xp
   after_save :check_user_levelup
-  before_destroy :check_user_leveldown
 
   validates_presence_of :exercise_type_id
 
@@ -32,9 +31,5 @@ class Exercise < ActiveRecord::Base
 
   def check_user_levelup
     self.workout.user.check_levelup
-  end
-
-  def check_user_leveldown
-    self.workout.user.check_leveldown
   end
 end

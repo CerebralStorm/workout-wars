@@ -51,6 +51,7 @@ class User < ActiveRecord::Base
 
   def check_leveldown
     while xp <= previous_level_xp
+      break if self.xp_level == 1
       self.level -= 1
       self.xp_level -= 1
       self.xp_multiplier -= 100
