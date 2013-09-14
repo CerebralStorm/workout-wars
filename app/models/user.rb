@@ -41,16 +41,12 @@ class User < ActiveRecord::Base
     next_level_xp - xp
   end
 
-  def check_levelup
+  def set_level
     while xp >= next_level_xp
       self.level += 1
       self.xp_level += 1
       self.xp_multiplier += 100
     end 
-    self.save
-  end
-
-  def check_leveldown
     while xp < previous_level_xp
       break if self.xp_level == 1
       self.level -= 1
