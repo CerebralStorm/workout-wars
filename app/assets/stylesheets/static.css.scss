@@ -8,14 +8,19 @@ html, body {
 footer {
     color: #666;
     background: #222;
-    padding: 17px 0 18px 0;
+    padding: 120px 0 18px 0;
     border-top: 1px solid #000;
+    height: 300px;
 }
 footer a {
     color: #999;
 }
 footer a:hover {
     color: #efefef;
+}
+
+footer p {
+    font-size: 24px;
 }
 .wrapper {
     min-height: 100%;
@@ -28,7 +33,7 @@ footer a:hover {
 }
 /* not required for sticky footer; just pushes hero down a bit */
 .wrapper > .container {
-    padding-top: 60px;
+    padding-top: 80px;
 }
 
 .clear {
