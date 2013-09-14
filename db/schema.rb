@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130913123120) do
+ActiveRecord::Schema.define(version: 20130914181747) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,7 +63,6 @@ ActiveRecord::Schema.define(version: 20130913123120) do
     t.integer  "duration"
     t.integer  "weight"
     t.integer  "calories"
-    t.integer  "xp",               default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -104,5 +103,16 @@ ActiveRecord::Schema.define(version: 20130913123120) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "xp_transactions", force: true do |t|
+    t.integer  "amount"
+    t.integer  "user_id"
+    t.integer  "xp_source_id"
+    t.string   "xp_source_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "xp_transactions", ["xp_source_id", "xp_source_type"], name: "index_xp_transactions_on_xp_source_id_and_xp_source_type", using: :btree
 
 end
