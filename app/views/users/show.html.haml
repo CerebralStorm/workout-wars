@@ -1,24 +1,32 @@
-%h1
-  Profile for #{@user.email}
-%p Guns don't kill people pushups do.
-
-%h2 
-  Level
-  = @user.level
-%h3 
-  Total XP
-  = @user.xp
-%h4
-  To Next Level
-  = @user.xp_for_levelup
-%h4
-  Exercises Logged
-%table
-  -@user.workouts.each do |workout|
-    %tr
-      %td
-        %p
-          Date
-          =workout.date
-
-
+%ul.navigation
+  %li{"data-slide" => "1"} Profile
+  %li{"data-slide" => "2"} Workouts
+  %li{"data-slide" => "3"} Challenges
+  %li{"data-slide" => "4"} Competition
+  %li{"data-slide" => "5"} Settings
+  %li= link_to "SignOut", destroy_user_session_path, method: :delete
+#slide1.slide{"data-slide" => "1", "data-stellar-background-ratio" => "0.5"}
+  %span.slideno Profile
+  %a.button{"data-slide" => "2", :title => ""}
+#slide2.slide{"data-slide" => "2", "data-stellar-background-ratio" => "0.5"}
+  .wrapper
+    = image_tag("blur-ball.png", "data-stellar-ratio" => "3", "data-stellar-vertical-offset" => "-55", "alt" => "")
+    = image_tag("blur-ball-big.png", "data-stellar-ratio" => "1", "data-stellar-vertical-offset" => "-102", "alt" => "")
+    = image_tag("focus-ball.png", "data-stellar-ratio" => "1.5", "data-stellar-vertical-offset" => "-53", "alt" => "")
+    = image_tag("small-ball.png", "data-stellar-ratio" => "2.7", "data-stellar-vertical-offset" => "-25", "alt" => "")
+    = image_tag("blur-ball.png", "data-stellar-ratio" => "3", "data-stellar-vertical-offset" => "-55", "alt" => "")
+    = image_tag("blur-ball-big.png", "data-stellar-ratio" => "1", "data-stellar-vertical-offset" => "-102", "alt" => "")
+    = image_tag("focus-ball.png", "data-stellar-ratio" => "1.5", "data-stellar-vertical-offset" => "-53", "alt" => "")
+    = image_tag("small-ball.png", "data-stellar-ratio" => "2.7", "data-stellar-vertical-offset" => "-25", "alt" => "")
+  %span.slideno Workouts
+  %a.button{"data-slide" => "3", :title => ""}
+#slide3.slide{"data-slide" => "3", "data-stellar-background-ratio" => "0.5"}
+  .wrapper
+  %span.slideno Challenges
+  %a.button{"data-slide" => "4", :title => ""}
+#slide4.slide{"data-slide" => "4", "data-stellar-background-ratio" => "0"}
+  %span.slideno Competitions
+  %span.parallaxbg Use the parallax effects on background assets/images too!
+  %a.button{"data-slide" => "5", :title => ""}
+#slide5.slide{"data-slide" => "5", "data-stellar-background-ratio" => "0"}
+  %span.slideno Settings

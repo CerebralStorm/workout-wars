@@ -6,10 +6,6 @@
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
   %body
-    = render 'shared/navbar'
-    .wrapper
-      .container
-        = render 'shared/flash'
-
-        = yield
+    =# render 'shared/navbar'
+    = yield
     = render 'shared/footer'

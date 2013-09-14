@@ -304,7 +304,7 @@ body {
   font-size: 14px;
   line-height: 1.428571429;
   color: #E7E7E7;
-  background-color: #730e1b;
+  background-color: #000;
 }
 
 input,
@@ -324,7 +324,7 @@ textarea {
 }
 
 a {
-  color: #E3D6CF;
+  color: #EAEAEA;
   text-decoration: none;
 }
 
@@ -4803,18 +4803,18 @@ a.list-group-item.active > .badge,
   font-size: 21px;
   font-weight: 200;
   line-height: 2.1428571435;
-  color: #333;
-  background-color: #eeeeee;
+  color: #EAEAEA;
+  background-color:rgba(0, 0, 0, 0.5);
 }
 
 .jumbotron h1 {
   line-height: 1;
-  color: #333;
+  color: #EAEAEA;
 }
 
 .jumbotron p {
   line-height: 1.4;
-  color: #333;
+  color: #EAEAEA;
 }
 
 .container .jumbotron {

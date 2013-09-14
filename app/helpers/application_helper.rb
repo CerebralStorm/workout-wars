@@ -1,5 +1,21 @@
 module ApplicationHelper
 
+  def resource_name
+    :user
+  end
+
+  def resource_class
+    User
+  end
+
+  def resource
+    @resource ||= User.new
+  end
+
+  def devise_mapping
+    @devise_mapping ||= Devise.mappings[:user]
+  end
+
   def link_to_add_fields(name, f, association)
     new_object = f.object.send(association).klass.new
     id = new_object.object_id
