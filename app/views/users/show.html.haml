@@ -3,35 +3,18 @@
 %p Guns don't kill people pushups do.
 
 %h4
-  Activitied Logged
-%ul
-  -@user.activities.each do |activity|
-    %li= activity.name
-
-%h4
   Exercises Logged
 %table
-  -@user.exercises.each do |exercise|
+  -@user.workouts.each do |workout|
     %tr
-      %td= exercise.activity.name
-      -if exercise.use_reps
-        %td
-          %span Reps
-          = exercise.reps
-      -if exercise.use_sets
-        %td
-          %span Reps
-          = exercise.sets
-      -if exercise.use_duration
-        %td
-          %span Duration
-          = exercise.duration
-      -if exercise.use_distance
-        %td
-          %span Distance
-          = exercise.distance
-      -if exercise.use_weight
-        %td
-          %span Weight
-          = exercise.weight
+      %td
+        %p
+          Gained 
+          =workout.xp
+          XP
+      %td
+        %p
+          Date
+          =workout.date
+
 

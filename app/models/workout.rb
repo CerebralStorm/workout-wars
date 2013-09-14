@@ -6,4 +6,8 @@ class Workout < ActiveRecord::Base
   validates_presence_of :date
 
   accepts_nested_attributes_for :exercises, allow_destroy: true
+
+  def xp
+    self.exercises.sum(:xp)
+  end
 end

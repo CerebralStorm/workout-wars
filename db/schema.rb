@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20130913123120) do
   create_table "competition_subscriptions", force: true do |t|
     t.integer  "user_id"
     t.integer  "competition_id"
+    t.integer  "entry_fee"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -38,6 +39,7 @@ ActiveRecord::Schema.define(version: 20130913123120) do
 
   create_table "difficulties", force: true do |t|
     t.string   "level"
+    t.float    "xp_multiplier"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -45,6 +47,7 @@ ActiveRecord::Schema.define(version: 20130913123120) do
   create_table "exercise_types", force: true do |t|
     t.string   "name"
     t.string   "category"
+    t.float    "xp_multiplier"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -59,6 +62,8 @@ ActiveRecord::Schema.define(version: 20130913123120) do
     t.float    "distance"
     t.integer  "duration"
     t.integer  "weight"
+    t.integer  "calories"
+    t.integer  "xp",               default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -85,6 +90,8 @@ ActiveRecord::Schema.define(version: 20130913123120) do
     t.boolean  "admin",                  default: false
     t.string   "provider"
     t.string   "uid"
+    t.integer  "level",                  default: 1
+    t.integer  "xp_to_level",            default: 500
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

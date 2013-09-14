@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
     user
   end
 
-  def get_total_by_exercise_type(exercise_type_id, metric)
-    exercises.where(exercise_type_id: exercise_type_id).map{|e| e.send(metric)}.sum
+  def xp
+    self.workouts.map {|w| w.xp }.sum
   end
 end

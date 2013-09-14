@@ -1,12 +1,7 @@
 require 'spec_helper'
 
 describe Workout do
-  let(:user) { FactoryGirl.create(:user) }
-  let(:valid_attributes){ {
-      date: Date.today,
-      user_id: user.id
-    }
-  }
+  let(:workout) { FactoryGirl.create(:workout) }
 
   it "should create a new instance given valid attributes" do
     Workout.create!(valid_attributes)
@@ -16,11 +11,6 @@ describe Workout do
     it 'should have many exercises' do
       Workout.reflect_on_association(:exercises).should_not be_nil
       Workout.reflect_on_association(:exercises).macro.should eql(:has_many)
-    end
-
-    it 'should have many activities' do
-      Workout.reflect_on_association(:activities).should_not be_nil
-      Workout.reflect_on_association(:activities).macro.should eql(:has_many)
     end
 
     it 'should belong to a user' do
@@ -41,5 +31,13 @@ describe Workout do
     it "should be valid with a date, user, and exercises" do
       FactoryGirl.build(:workout).should be_valid
     end
+  end
+
+  context "experience" do 
+    it "should get the xp from all exercises" do 
+      workout.xp.should > 0
+      workout.exercises.count.should == 2 # 2 from factory
+    end
+
   end
 end

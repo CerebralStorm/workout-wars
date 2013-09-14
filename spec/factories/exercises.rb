@@ -1,10 +1,10 @@
 FactoryGirl.define do
   factory :exercise do
-    activity  
+    exercise_type  
     reps 20
-    sets 20
-    distance 20
-    duration 20
+    sets 5
+    distance 5
+    duration 50
     weight 20
   end
 end
