@@ -6,6 +6,9 @@ class UsersController < ApplicationController
   end
 
   def show
+    @workouts = @user.workouts.where("DATE(created_at) = DATE(?)", Time.now)
+    @workout = Workout.new
+    @workout.exercises.new
   end
 
   def edit

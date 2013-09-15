@@ -7,9 +7,10 @@ jQuery(document).ready ($) ->
   $(window).stellar()
   links = $(".navigation").find("li")
   slide = $(".slide")
-  button = $(".button")
+  slide_button = $(".button")
+  form_button = $("input.btn")
   mywindow = $(window)
-  htmlbody = $("html,body")
+  htmlbody = $("html,body")  
 
   slide.waypoint (event, direction) ->
     dataslide = $(this).attr("data-slide")
@@ -22,13 +23,16 @@ jQuery(document).ready ($) ->
     if mywindow.scrollTop() is 0
       $(".navigation li[data-slide=\"1\"]").addClass "active"
       $(".navigation li[data-slide=\"2\"]").removeClass "active"
+  
+  form_button.click (e) ->
+    $(this).closest("form").submit()
 
   links.click (e) ->
     e.preventDefault()
     dataslide = $(this).attr("data-slide")
     goToByScroll dataslide
 
-  button.click (e) ->
+  slide_button.click (e) ->
     e.preventDefault()
     dataslide = $(this).attr("data-slide")
     goToByScroll dataslide

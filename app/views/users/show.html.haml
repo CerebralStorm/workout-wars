@@ -6,27 +6,54 @@
   %li{"data-slide" => "5"} Settings
   %li= link_to "SignOut", destroy_user_session_path, method: :delete
 #slide1.slide{"data-slide" => "1", "data-stellar-background-ratio" => "0.5"}
+  .container
+    .row
+      .col-md-2
+      .col-md-8 
+        .t-background
+          %h1 
+            Profile for 
+            = @user.email
+          %p 
+            Level:     
+            = @user.level
+          %p 
+            Total Experience:     
+            = @user.xp
+          %p 
+            Experience Needed for Levelup:     
+            = @user.xp_for_levelup
+
+      .col-md-2 
   %span.slideno Profile
   %a.button{"data-slide" => "2", :title => ""}
 #slide2.slide{"data-slide" => "2", "data-stellar-background-ratio" => "0.5"}
-  .wrapper
-    = image_tag("blur-ball.png", "data-stellar-ratio" => "3", "data-stellar-vertical-offset" => "-55", "alt" => "")
-    = image_tag("blur-ball-big.png", "data-stellar-ratio" => "1", "data-stellar-vertical-offset" => "-102", "alt" => "")
-    = image_tag("focus-ball.png", "data-stellar-ratio" => "1.5", "data-stellar-vertical-offset" => "-53", "alt" => "")
-    = image_tag("small-ball.png", "data-stellar-ratio" => "2.7", "data-stellar-vertical-offset" => "-25", "alt" => "")
-    = image_tag("blur-ball.png", "data-stellar-ratio" => "3", "data-stellar-vertical-offset" => "-55", "alt" => "")
-    = image_tag("blur-ball-big.png", "data-stellar-ratio" => "1", "data-stellar-vertical-offset" => "-102", "alt" => "")
-    = image_tag("focus-ball.png", "data-stellar-ratio" => "1.5", "data-stellar-vertical-offset" => "-53", "alt" => "")
-    = image_tag("small-ball.png", "data-stellar-ratio" => "2.7", "data-stellar-vertical-offset" => "-25", "alt" => "")
+  .container
+    .row
+      .col-md-6 
+        .t-background
+          %h1 Workouts Logged Today
+          %ul
+            - @workouts.each do |w|
+              %li
+                = w.id
+            -if @workouts.empty?
+              %li Go Log Some!
+      .col-md-6
+        .t-background
+          = render partial: 'workouts/form', locals: {user: @user, workout: @workout}
+    = render 'static/blue_images'
   %span.slideno Workouts
   %a.button{"data-slide" => "3", :title => ""}
 #slide3.slide{"data-slide" => "3", "data-stellar-background-ratio" => "0.5"}
-  .wrapper
+  .container
   %span.slideno Challenges
   %a.button{"data-slide" => "4", :title => ""}
 #slide4.slide{"data-slide" => "4", "data-stellar-background-ratio" => "0.5"}
+  .container
   %span.slideno Competitions
   %span.parallaxbg Use the parallax effects on background assets/images too!
   %a.button{"data-slide" => "5", :title => ""}
 #slide5.slide{"data-slide" => "5", "data-stellar-background-ratio" => "0.5"}
   %span.slideno Settings
+  .container

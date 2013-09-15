@@ -14,6 +14,6 @@
 //= require jquery_ujs
 //= require jquery.easing.1.3
 //= require jquery.stellar
-//= require waypoints.min
-//= require bootstrap.min
+//= require waypoints
+//= require bootstrap
 //= require_tree .
