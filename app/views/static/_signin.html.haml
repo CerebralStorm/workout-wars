@@ -1,0 +1,27 @@
+.t-background  
+  %h1 Sign in
+  = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+    .control-group
+      = f.label :email, class: "control-label"
+      .controls
+        = f.email_field :email, :autofocus => true, class: "input-lg"
+
+    .control-group
+      = f.label :password, class: "control-label"
+      .controls
+        = f.password_field :password, class: "input-lg"
+
+    - if devise_mapping.rememberable?
+      .control-group
+        .controls
+          = f.check_box :remember_me, class: "input-lg"
+          = f.label :remember_me, class: "control-label input-lg"
+          
+    .actions
+      = f.submit "Sign in", rel: "login-button", class: "btn btn-lg btn-primary"
+      - if devise_mapping.omniauthable?
+        - resource_class.omniauth_providers.each do |provider|
+          = link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider), class: 'btn btn-lg btn-success'
+  %br
+  = link_to "Forgot your password?", new_password_path(resource_name), class: 'btn btn-danger'
+  =# render "devise/shared/links"

@@ -1,17 +1,17 @@
 @charset "utf-8";
 /* CSS Document */
 
-@font-face {
-    font-family: 'BebasRegular';
-    src: url('BEBAS___-webfont.eot');
-    src: url('BEBAS___-webfont.eot?#iefix') format('embedded-opentype'),
-         url('BEBAS___-webfont.woff') format('woff'),
-         url('BEBAS___-webfont.ttf') format('truetype'),
-         url('BEBAS___-webfont.svg#BebasRegular') format('svg');
-    font-weight: normal;
-    font-style: normal;
+// @font-face {
+//     font-family: 'BebasRegular';
+//     src: url('BEBAS___-webfont.eot');
+//     src: url('BEBAS___-webfont.eot?#iefix') format('embedded-opentype'),
+//          url('BEBAS___-webfont.woff') format('woff'),
+//          url('BEBAS___-webfont.ttf') format('truetype'),
+//          url('BEBAS___-webfont.svg#BebasRegular') format('svg');
+//     font-weight: normal;
+//     font-style: normal;
 
-}
+// }
 
 html,body{
  font-family: 'BebasRegular';
@@ -19,6 +19,13 @@ html,body{
   height:100%;
 }
 
+.t-background{
+  background-color:rgba(55,55,55,0.3);
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  padding: 20px;
+}
 .navigation{
   position:fixed;
   z-index:1;
