@@ -13,7 +13,7 @@
         .jumbotron
           %h1 Workout Wars (BETA)
           %p 
-            Welcome to Workout Wars. Why are you here? To get ripped and show everyone that you can do more than play videogames in your friends basement     
+            Welcome to Workout Wars. Why are you here? To get ripped and show everyone that you can do more than play videogames in your friends basement. You can play workout games on the internet!     
       .col-md-2    
   %a.button{"data-slide" => "2", :title => ""}
 #slide2.slide{"data-slide" => "2", "data-stellar-background-ratio" => "0.5"}
@@ -23,9 +23,9 @@
     .row
       .col-md-4
       .col-md-4 
-        =render 'static/signup' 
+        =render partial: 'static/signup' 
       .col-md-4    
-  = render 'static/blue_images' 
+  = render partial: 'static/blue_images' 
   %span.slideno Sign Up
   %a.button{"data-slide" => "3", :title => ""}
 #slide3.slide{"data-slide" => "3", "data-stellar-background-ratio" => "0.5"}
@@ -33,11 +33,11 @@
     .row
       .col-md-4
       .col-md-4 
-        =render 'static/signin' 
+        =render partial: 'static/signin' 
       .col-md-4    
   %span.slideno Sign In
   %a.button{"data-slide" => "4", :title => ""}
-#slide4.slide{"data-slide" => "4", "data-stellar-background-ratio" => "0"}
+#slide4.slide{"data-slide" => "4", "data-stellar-background-ratio" => "0.5s"}
   .container
     .row
       .col-md-2
@@ -48,5 +48,5 @@
       .col-md-2  
   %span.slideno Suggestions
   %a.button{"data-slide" => "5", :title => ""}
-#slide5.slide{"data-slide" => "5", "data-stellar-background-ratio" => "0"}
+#slide5.slide{"data-slide" => "5", "data-stellar-background-ratio" => "0.5"}
   %span.slideno Contact
