@@ -9,6 +9,8 @@ class UsersController < ApplicationController
     @workouts = @user.workouts.where("DATE(created_at) = DATE(?)", Time.now)
     @workout = Workout.new
     @workout.exercises.new
+    @challenges = Challenge.all
+    @competitions = Competition.all
   end
 
   def edit
