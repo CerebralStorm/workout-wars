@@ -61,10 +61,3 @@
 
 #   setHTMLElement: (prefix, id, suffix) ->
 #     prefix + 'workout_exercises_attributes_' + id + suffix
-
-
-$(document).ready ->
-  #new ExerciseForm() if $(".workout-form").length > 0
-  # form_button.click (e) ->
-  #   console.log "clicked"
-  #   $(this).closest("form").submit()

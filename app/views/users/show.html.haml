@@ -49,7 +49,7 @@
                   %h4.modal-title Log a Workout
                 .modal-body
                   %table.table.table-condensed
-                    = form_for [@user, @workout] do |builder|
+                    = form_for [@user, @workout], remote: true do |builder|
                       = builder.fields_for :exercises do |f|
                         %tr    
                           %td
@@ -90,8 +90,8 @@
                         %tr
                           %td
                             .modal-footer
-                              %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
-                              %button.btn.btn-primary{:type => "button"} Save changes
+                              =f.button "Close", "data-dismiss" => "modal", class: 'btn btn-default'
+                              =f.submit "Save",  class: 'btn btn-default'
       .col-md-2
         %a.btn.btn-warning.btn-lg{"data-toggle" => "modal", :href => "#workoutNewModal"} Log Workout    
   = render 'static/blue_images'
@@ -208,7 +208,6 @@
       .col-md-2 
         %a.btn.btn-warning.btn-lg{"data-toggle" => "modal", :href => "#competitionNewModal"} New competiton
   %span.slideno Competitions
-  %span.parallaxbg Battle your friends for a supreme victory
   %a.button{"data-slide" => "5", :title => ""}
 #slide5.slide{"data-slide" => "5", "data-stellar-background-ratio" => "0.5"}
   %span.slideno Settings
