@@ -1,4 +1,11 @@
-%li
-  = @exercise.total_xp
-  XP
-THIS IS A TEST
+%div{id: "delete_exercise_#{exercise.id}"}
+  %li  
+    %span
+      =exercise.total_xp
+      XP
+    %span
+      =exercise.name
+    %span
+      =exercise.category
+    %span
+      = link_to "X", exercise_path(exercise), method: :delete, remote: true

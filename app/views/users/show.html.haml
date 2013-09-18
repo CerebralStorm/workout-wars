@@ -11,9 +11,7 @@
   Experience Needed for Level up:     
   = @user.xp_for_levelup
 
-%ul{id: "#user_exercises"}
-  - @user.exercises.each do |e|
-    %li 
-      = e.total_xp
-      XP
+%ul.user_exercises
+  - @user.exercises.each do |exercise|
+    = render exercise
 = link_to "Add Exercise", new_exercise_path, id: "new_exercise_link", remote: true

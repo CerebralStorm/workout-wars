@@ -5,6 +5,8 @@ class Exercise < ActiveRecord::Base
   after_save :create_xp
   after_destroy :remove_xp
 
+  delegate :category, to: :exercise_type
+  delegate :name, to: :exercise_type
   validates_presence_of :exercise_type_id
 
   def xp_from(metric)
