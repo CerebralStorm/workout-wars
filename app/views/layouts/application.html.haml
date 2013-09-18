@@ -6,6 +6,14 @@
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
   %body
-    =# render 'shared/navbar'
-    = yield
-    = render 'shared/footer'
+    -if controller_name == "static"
+      = yield
+      = render 'shared/footer'
+    -else
+      = render 'shared/navbar'
+      .wrapper
+        .container
+          = render 'shared/flash'
+
+          = yield
+      = render 'shared/footer'
