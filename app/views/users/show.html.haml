@@ -1,12 +1,17 @@
 %h1 
   Profile for 
   = @user.email
-%p 
+%p{id: "user_level"} 
   Level:     
   = @user.level
-%p 
+%p{id: "user_xp"} 
   Total Experience:     
   = @user.xp
-%p 
-  Experience Needed for Levelup:     
+%p{id: "user_levelup"} 
+  Experience Needed for Level up:     
   = @user.xp_for_levelup
+
+%ul{id: "user_exercises"}
+  - @user.exercises.each do |exercise|
+    = render exercise
+= link_to "Add Exercise", new_exercise_path, id: "new_exercise_link", remote: true

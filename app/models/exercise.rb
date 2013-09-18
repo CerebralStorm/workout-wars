@@ -1,17 +1,13 @@
 class Exercise < ActiveRecord::Base
-  belongs_to :workout
+  belongs_to :user
   belongs_to :exercise_type
   has_many :xp_transactions
   after_save :create_xp
   after_destroy :remove_xp
 
+  delegate :category, to: :exercise_type
+  delegate :name, to: :exercise_type
   validates_presence_of :exercise_type_id
-
-  def total_reps
-    return 0 if reps.nil?
-    return reps if sets.nil?
-    reps * sets
-  end
 
   def xp_from(metric)
     return 0 if metric.nil?
@@ -20,14 +16,13 @@ class Exercise < ActiveRecord::Base
 
   def total_xp
     result = 0
-    result += xp_from(total_reps)
+    result += xp_from(reps)
     result += xp_from(duration)
     result += xp_from(distance)
     result += xp_from(weight)    
   end
 
   def create_xp
-    user = self.workout.user
     transaction = XpTransaction.find_by user_id: user.id , xp_source_type: "exercise", xp_source_id: self.id
     if transaction
       transaction.amount = total_xp
@@ -35,10 +30,11 @@ class Exercise < ActiveRecord::Base
     else
       XpTransaction.create(amount: total_xp, user_id: user.id, xp_source_type: "exercise", xp_source_id: self.id)
     end
+    user.set_level
   end
 
    def remove_xp
-    user = self.workout.user
     XpTransaction.find_by(user_id: user.id , xp_source_type: "exercise", xp_source_id: self.id).destroy
+    user.set_level
   end
 end

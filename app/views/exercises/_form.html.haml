@@ -1,37 +1,32 @@
 %fieldset
-  %table.table.table-condensed
-    %tr
-      %td{:colspan => "5"}
-        = f.hidden_field :_destroy
-        = link_to "remove", '#', class: "remove_fields"
-      %td
+  = form_for Exercise.new, remote: true do |f|
+    %ul
+      %li
         .control-group
           = f.label :exercise_type_id, class: "control-label"
           .controls
             = f.collection_select(:exercise_type_id, ExerciseType.all, :id, :name, {}, {:class => 'exercise-select'})
-      %td.reps
+      %li
         .control-group
           = f.label :reps, class: "control-label"
           .controls
             = f.text_field :reps
-      %td.sets
-        .control-group
-          = f.label :sets, class: "control-label"
-          .controls
-            = f.text_field :sets
-      %td.duration
+      %li        
         .control-group
           = f.label :duration, class: "control-label"
           .controls
             = f.text_field :duration
-      %td.distance
+      %li        
         .control-group
           = f.label :distance, class: "control-label"
           .controls
             = f.text_field :distance
-      %td.weight
+      %li        
         .control-group
           = f.label :weight, class: "control-label"
           .controls
             = f.text_field :weight
-      
+      %li
+        .control-group
+          .controls
+            = f.submit :submit

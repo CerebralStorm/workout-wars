@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20130914200901) do
   create_table "exercise_types", force: true do |t|
     t.string   "name"
     t.string   "category"
-    t.float    "xp_multiplier"
+    t.integer  "xp_multiplier"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 20130914200901) do
   create_table "exercises", force: true do |t|
     t.string   "name"
     t.string   "exercise_type"
-    t.integer  "workout_id"
+    t.integer  "user_id"
     t.integer  "exercise_type_id"
     t.integer  "reps"
     t.integer  "sets"

@@ -1,0 +1,4 @@
+$('#delete_exercise_<%= @exercise.id %>').remove();
+$('#user_level').html("Level: <%= @exercise.user.level %>");
+$('#user_xp').html("Total Experience: <%= @exercise.user.xp %>");
+$('#user_levelup').html("Experience Needed for Level up: <%= @exercise.user.xp_for_levelup %>");
