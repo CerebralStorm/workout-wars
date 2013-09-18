@@ -10,11 +10,3 @@
 %p 
   Experience Needed for Levelup:     
   = @user.xp_for_levelup
-
-%h1 Workouts Logged Today
-%ul
-  - @workouts.each do |w|
-    %li
-      = w.id
-  -if @workouts.empty?
-    %li Go Log Some!

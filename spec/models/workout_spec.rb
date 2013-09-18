@@ -28,11 +28,4 @@ describe Workout do
       FactoryGirl.build(:workout).should be_valid
     end
   end
-
-  context "experience" do 
-    it "should get the xp from all exercises" do 
-      workout.xp.should > 0
-      workout.exercises.count.should == 2 # 2 from factory
-    end
-  end
 end

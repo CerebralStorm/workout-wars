@@ -49,16 +49,18 @@ describe User do
 
   context "experience" do
     it "should return my experience" do
-      FactoryGirl.create(:workout, user: user) 
-      user.xp.should == 436
+      workout = FactoryGirl.create(:workout, user: user) 
+      FactoryGirl.create(:exercise, workout: workout)
+      user.xp.should == 218
     end
   end
 
   context "leveling up" do
     it "should increase my level when I earn enough experience" do
       workout = FactoryGirl.create(:workout, user: user) 
-      exercise1 = FactoryGirl.create(:exercise, workout: workout)
-      workout.save
+      3.times { FactoryGirl.create(:exercise, workout: workout) }
+      user.xp.should == 654
+      user.set_level
       user.xp_level.should == 2
       user.level.should == 2
     end

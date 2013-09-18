@@ -12,6 +12,9 @@ footer {
     padding: 17px 0 18px 0;
     border-top: 1px solid #000;
 }
+li {
+    font-size: 13px;
+}
 footer a {
     color: #999;
 }
@@ -29,7 +32,7 @@ footer a:hover {
 }
 /* not required for sticky footer; just pushes hero down a bit */
 .wrapper > .container {
-    padding-top: 60px;
+    padding-top: 80px;
 }
 
 .clear {

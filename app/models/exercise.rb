@@ -1,7 +1,7 @@
 class Exercise < ActiveRecord::Base
   belongs_to :workout
   belongs_to :exercise_type
-  has_many :xp_transactions, as: :xp_source
+  has_many :xp_transactions
   after_save :create_xp
   after_destroy :remove_xp
 

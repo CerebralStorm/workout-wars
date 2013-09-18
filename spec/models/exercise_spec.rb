@@ -22,8 +22,8 @@ describe Exercise do
   end
 
   context "experience" do
-    it "should calculate experience" do
-      exercise.xp.should == 218
+    it "should have an xp transaction" do
+      exercise.should respond_to(:xp_transactions)
     end
 
     it "should get 0 xp from a nil metric" do

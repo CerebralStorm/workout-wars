@@ -5,8 +5,8 @@ describe "users/show.html.haml" do
     @user = FactoryGirl.create(:user)
   end
 
-  it "displays editing and the users name" do
+  it "displays the users email" do
     render
-    expect(rendered).to match /Profile for #{@user.email}/ 
+    expect(rendered).to match /#{@user.email}/ 
   end
 end
