@@ -4,14 +4,4 @@ class StaticController < ApplicationController
   def index
     redirect_to current_user if user_signed_in?
   end
-
-  def leaderboard
-    @exercise_types = ExerciseType.all
-  end
-
-  def suggestions
-  end
-
-  def help
-  end
 end

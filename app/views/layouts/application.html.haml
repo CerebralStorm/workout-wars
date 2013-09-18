@@ -9,11 +9,11 @@
     -if controller_name == "static"
       = yield
       = render 'shared/footer'
-    -else
-      = render 'shared/navbar'
-      .wrapper
-        .container
+    -else       
+      .row
+        .col-md-2 
+          = render 'shared/navbar'
+        .col-md-10 
           = render 'shared/flash'
-
           = yield
       = render 'shared/footer'
