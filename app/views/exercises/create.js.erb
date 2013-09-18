@@ -1,0 +1,7 @@
+$('#new_exercise').remove();
+$('#new_exercise_link').show();
+$('#user_exercises ul').append(
+  $('<li/>', {
+      html: '<%= j render(@exercise) %>'
+  })
+);

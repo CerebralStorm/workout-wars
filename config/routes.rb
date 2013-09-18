@@ -2,7 +2,7 @@ Workoutwars::Application.routes.draw do
   root :to => "static#index"
  
   resources :challenges
-  resources :exercises, only: [:create, :edit, :update, :destroy]
+  resources :exercises, only: [:new, :create, :destroy]
   resources :competitions
   resources :competition_subscriptions, only: [:create, :destroy]
 
