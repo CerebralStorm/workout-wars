@@ -5,10 +5,10 @@
   = @competition.name
 %p
   %b Start date:
-  = @competition.start_date
+  = show_date(@competition.start_date)
 %p
   %b End date:
-  = @competition.end_date
+  = show_date(@competition.end_date)
 %p
   %b Max participants:
   = @competition.max_participants
@@ -20,18 +20,21 @@
   = @competition.is_private
 
 %p
-  %b Currently Registered
-- @competition.users.each do |user|
-  %p  
-    = user.email
+  %b Participants Registered
+  - @competition.users.each do |user|
+    %p  
+      = user.email
 
-= form_for CompetitionSubscription.new do |f|
-  = f.hidden_field :user_id, value: current_user.id
-  = f.hidden_field :competition_id, value: @competition.id
-  .actions
-    = f.submit "Register", class: "btn btn-lg btn-primary"
+- if @competition.registered?(current_user)
+  = link_to "Unregister", @subscription, method: :delete, class: "btn btn-lg btn-primary"
+-else
+  = form_for @subscription do |f|
+    = f.hidden_field :user_id, value: current_user.id
+    = f.hidden_field :competition_id, value: @competition.id
+    .actions
+      = f.submit "Register", class: "btn btn-lg btn-primary"
 
-
-= link_to 'Edit', edit_competition_path(@competition), rel: 'show-competiton-link'
-\|
+- if @competition.creator == current_user
+  = link_to 'Edit', edit_competition_path(@competition), rel: 'show-competiton-link'
+  = link_to 'Delete', competition_path(@competition), method: :delete, confirm: "You Sure?", rel: 'delete-competiton-link'
 = link_to 'Back', competitions_path

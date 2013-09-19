@@ -6,6 +6,8 @@ class CompetitionsController < ApplicationController
   end
 
   def show
+    @subscription = CompetitionSubscription.find_by user_id: current_user.id, competition_id: @competition.id
+    @subscription = CompetitionSubscription.new if @subscription.nil?
   end
 
   def new
@@ -21,6 +23,7 @@ class CompetitionsController < ApplicationController
 
     respond_to do |format|
       if @competition.save
+        CompetitionSubscription.create(user: current_user, competition: @competition)
         format.html { redirect_to @competition, notice: 'Competition was successfully created.' }
         format.json { render action: 'show', status: :created, location: @competition }
       else
@@ -45,7 +48,7 @@ class CompetitionsController < ApplicationController
   def destroy
     @competition.destroy
     respond_to do |format|
-      format.html { redirect_to competitions_url, notice: 'Competition was successfully deleted.' }
+      format.html { redirect_to :back, notice: 'Competition was successfully deleted.' }
       format.json { head :no_content }
     end
   end
@@ -57,6 +60,6 @@ class CompetitionsController < ApplicationController
     end
 
     def competition_params
-      params.require(:competition).permit(:name, :start_date, :end_date, :max_participants, :difficulty_id, :private)
+      params.require(:competition).permit(:name, :start_date, :end_date, :max_participants, :difficulty_id, :is_private)
     end
 end

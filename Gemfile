@@ -12,7 +12,7 @@ gem 'jbuilder', '~> 1.2'
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
-
+gem 'jquery-ui-rails'
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

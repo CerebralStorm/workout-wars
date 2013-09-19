@@ -6,23 +6,35 @@
         - @competition.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :start_date
-    = f.datetime_select :start_date
-  .field
-    = f.label :end_date
-    = f.datetime_select :end_date
-  .field
-    = f.label :max_participants
-    = f.number_field :max_participants
-  .field
-    = f.label :difficulty_id
-    = f.collection_select(:difficulty_id, Difficulty.all, :id, :level)
-  .field
-    = f.label :is_private, "Private"
-    = f.check_box :is_private
+  .control-group
+    = f.label :name, class: "control-label"
+    .controls
+      = f.text_field :name
+
+  .control-group
+    = f.label :start_date, class: "control-label"
+    .controls
+      = f.text_field :start_date, class: "datepicker"
+
+  .control-group
+    = f.label :end_date, class: "control-label"
+    .controls
+      = f.text_field :end_date, class: "datepicker"
+
+  .control-group
+    = f.label :max_participants, class: "control-label"
+    .controls
+      = f.number_field :max_participants
+
+  .control-group
+    = f.label :difficulty_id, class: "control-label"
+    .controls
+      = f.collection_select(:difficulty_id, Difficulty.all, :id, :level)
+
+  .control-group
+    = f.label :is_private, "Private", class: "control-label"
+    .controls
+      = f.check_box :is_private
+    
   .actions
     = f.submit 'Save', class: 'btn btn-success', rel: 'save-competition-link'
