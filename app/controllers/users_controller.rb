@@ -6,6 +6,8 @@ class UsersController < ApplicationController
   end
 
   def show
+    @exercises = @user.exercises
+    @date = params[:date] ? Date.parse(params[:date]) : Date.today
   end
 
   def edit

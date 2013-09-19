@@ -11,7 +11,7 @@ ExerciseType.destroy_all
   {name: 'Swimming',  category: 'endurance',  xp_multiplier: 300},
   {name: 'Hiking',    category: 'endurance',  xp_multiplier: 20}, 
   {name: 'Aerobics',  category: 'endurance',  xp_multiplier: 1}, 
-  {name: 'Yoga',      category: 'balance',    xp_multiplier: 1.2} 
+  {name: 'Yoga',      category: 'balance',    xp_multiplier: 5} 
 ].each do |exercise|
   ExerciseType.create!(exercise)
 end

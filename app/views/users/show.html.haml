@@ -10,8 +10,10 @@
 %p{id: "user_levelup"} 
   Experience Needed for Level up:     
   = @user.xp_for_levelup
-
+= link_to "<", date: @date.prev_day
+= @date.strftime("%B %d %Y")
+= link_to ">", date: @date.next_day
 %ul{id: "user_exercises"}
-  - @user.exercises.each do |exercise|
+  - @user.exercises_by_date(@date).each do |exercise|
     = render exercise
 = link_to "Add Exercise", new_exercise_path, id: "new_exercise_link", remote: true

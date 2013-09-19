@@ -24,6 +24,10 @@ class User < ActiveRecord::Base
     user
   end
 
+  def exercises_by_date(date)
+    exercises.where("date(created_at) = (?)", date)
+  end
+
   def xp
     self.xp_transactions.sum(:amount)
   end
