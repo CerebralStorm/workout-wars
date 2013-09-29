@@ -5,6 +5,6 @@ FactoryGirl.define do
     distance 5
     duration 50
     weight 20
-    calories_burned 300
+    calories_burned 0
   end
 end
