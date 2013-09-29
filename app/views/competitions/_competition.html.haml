@@ -17,3 +17,15 @@
       = competition.end_date
     %td
       = competition.level
+  %tr
+    %td 
+      Exercise
+    %td 
+      Total XP
+  -competition.competition_exercises.each do |comp_exercise|
+    %tr
+      %td
+        = comp_exercise.exercise_type.name  
+      %td
+        = current_user.get_competition_total(competition, comp_exercise.exercise_type)
+= link_to "Withdraw", @subscription, method: :delete, class: "btn btn-lg btn-primary"

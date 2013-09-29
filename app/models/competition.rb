@@ -5,13 +5,7 @@ class Competition < ActiveRecord::Base
   has_many :exercise_types, through: :competition_exercises
   belongs_to :difficulty
 
-  delegate :level, to: :difficulty
-
   validates_presence_of :name
-  validates_presence_of :start_date
-  validates_presence_of :end_date
-  validates_presence_of :difficulty_id
-  validates_presence_of :creator_id
 
   def creator
     User.find(creator_id)
@@ -19,6 +13,10 @@ class Competition < ActiveRecord::Base
 
   def registered?(user)
     competition_subscriptions.find_by user_id: user.id, competition_id: self.id
+  end
+
+  def level
+    difficulty.level if difficulty
   end
   
 end

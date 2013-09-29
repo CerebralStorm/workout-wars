@@ -10,10 +10,13 @@ class User < ActiveRecord::Base
   validates :password, presence: true, on: :create
   validates :password, length: { minimum: 6 }, unless: Proc.new { |u| u.password.blank? }
 
+  after_create :setup_global_competition 
+
   has_many :xp_transactions
   has_many :exercises
   has_many :competitions, through: :competition_subscriptions
-  has_many :competition_subscriptions
+  has_many :competition_transactions, dependent: :destroy
+  has_many :competition_subscriptions, dependent: :destroy
 
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
@@ -57,5 +60,31 @@ class User < ActiveRecord::Base
       self.xp_multiplier -= 100
     end 
     self.save
+  end
+
+  def get_competition_total(competition, exercise_type)
+    total = 0
+    comp_transactions = competition_transactions.where(competition_id: competition.id)
+    comp_transactions.each do |transaction|
+      if transaction.exercise.exercise_type == exercise_type
+        total = transaction.exercise.total_xp
+      end
+    end
+    total
+  end
+
+  def create_competition_transactions(exercise)
+    competitions.each do |comp|
+      comp.competition_exercises.each do |comp_exercise|
+        if exercise.exercise_type == comp_exercise.exercise_type
+          CompetitionTransaction.create(user_id: self.id, exercise_id: exercise.id, competition_id: comp.id)
+        end
+      end
+    end
+  end
+
+  def setup_global_competition
+    global_comp = Competition.find_by(name: "Global")
+    CompetitionSubscription.create(user: self, competition: global_comp)
   end
 end

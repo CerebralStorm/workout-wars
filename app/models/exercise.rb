@@ -1,17 +1,11 @@
 class Exercise < ActiveRecord::Base
   belongs_to :user
   belongs_to :exercise_type
-  has_many :xp_transactions
-  after_save :create_xp
-  after_destroy :remove_xp
+  has_many :xp_transactions, dependent: :destroy
+  after_save :update_user
 
   delegate :category, to: :exercise_type
   delegate :name, to: :exercise_type
-  delegate :use_reps, to: :exercise_type
-  delegate :use_distance, to: :exercise_type
-  delegate :use_duration, to: :exercise_type
-  delegate :use_weight, to: :exercise_type
-  delegate :use_calories_burned, to: :exercise_type
   validates_presence_of :exercise_type_id
 
   def xp_from(metric)
@@ -28,6 +22,11 @@ class Exercise < ActiveRecord::Base
     result += xp_from(calories_burned)   
   end
 
+  def update_user
+    create_xp  
+    user.create_competition_transactions(self)
+  end
+
   def create_xp
     transaction = XpTransaction.find_by user_id: user.id , xp_source_type: "exercise", xp_source_id: self.id
     if transaction
@@ -36,11 +35,6 @@ class Exercise < ActiveRecord::Base
     else
       XpTransaction.create(amount: total_xp, user_id: user.id, xp_source_type: "exercise", xp_source_id: self.id)
     end
-    user.set_level
-  end
-
-   def remove_xp
-    XpTransaction.find_by(user_id: user.id , xp_source_type: "exercise", xp_source_id: self.id).destroy
     user.set_level
   end
 end
