@@ -1,6 +1,8 @@
 class Competition < ActiveRecord::Base
   has_many :users, through: :competition_subscriptions
   has_many :competition_subscriptions, dependent: :destroy
+  has_many :competition_exercises
+  has_many :exercise_types, through: :competition_exercises
   belongs_to :difficulty
 
   delegate :level, to: :difficulty

@@ -1,4 +1,8 @@
 Workoutwars::Application.routes.draw do
+  resources :competition_exercises
+
+  resources :teams
+
   root :to => "static#index"
  
   resources :challenges
