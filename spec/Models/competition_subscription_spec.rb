@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe CompetitionSubscription do
   context "associations" do
-    it 'should have many workouts' do
+    it 'should belongs to a competition' do
       CompetitionSubscription.reflect_on_association(:competition).should_not be_nil
       CompetitionSubscription.reflect_on_association(:competition).macro.should eql(:belongs_to)
     end
 
-    it 'should have many competitions' do
+    it 'should belong to a user' do
       CompetitionSubscription.reflect_on_association(:user).should_not be_nil
       CompetitionSubscription.reflect_on_association(:user).macro.should eql(:belongs_to)
     end
