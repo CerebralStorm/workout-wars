@@ -46,5 +46,9 @@ describe Exercise do
     it "should get xp from weight experience" do
       exercise.xp_from(exercise.weight).should == 20
     end
+
+    it "should get total_xp from an exercise" do
+      exercise.total_xp.should == 95
+    end
   end
 end

@@ -7,6 +7,11 @@ class Exercise < ActiveRecord::Base
 
   delegate :category, to: :exercise_type
   delegate :name, to: :exercise_type
+  delegate :use_reps, to: :exercise_type
+  delegate :use_distance, to: :exercise_type
+  delegate :use_duration, to: :exercise_type
+  delegate :use_weight, to: :exercise_type
+  delegate :use_calories_burned, to: :exercise_type
   validates_presence_of :exercise_type_id
 
   def xp_from(metric)
@@ -19,7 +24,8 @@ class Exercise < ActiveRecord::Base
     result += xp_from(reps)
     result += xp_from(duration)
     result += xp_from(distance)
-    result += xp_from(weight)    
+    result += xp_from(weight) 
+    result += xp_from(calories_burned)   
   end
 
   def create_xp

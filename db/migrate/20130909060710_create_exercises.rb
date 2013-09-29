@@ -7,7 +7,7 @@ class CreateExercises < ActiveRecord::Migration
       t.float :distance
       t.integer :duration
       t.integer :weight
-      t.integer :calories
+      t.integer :calories_burned
 
       t.timestamps
     end

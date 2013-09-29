@@ -52,6 +52,20 @@ describe User do
       FactoryGirl.create(:exercise, user: user)
       user.xp.should == 95
     end
+
+    it "should tell me how much xp I need for the next level" do 
+      FactoryGirl.create(:exercise, user: user)
+      user.xp_for_levelup.should == 405
+    end
+
+    it "should tell me how much xp I needed for the previous level" do 
+      6.times { FactoryGirl.create(:exercise, user: user) }
+      user.previous_level_xp.should == 500
+    end
+
+    it "should tell me the total xp needed for the next level" do 
+      user.next_level_xp.should == 500
+    end
   end
 
   context "leveling up" do
@@ -61,6 +75,23 @@ describe User do
       user.set_level
       user.xp_level.should == 2
       user.level.should == 2
+    end
+
+    it "should reduce my level if delete enough exercises" do
+      6.times { FactoryGirl.create(:exercise, user: user) }
+      user.set_level
+      user.xp_level.should == 2
+      2.times { user.exercises.last.destroy }
+      user.set_level
+      user.level.should == 1
+    end
+  end
+
+  context "exercises" do
+    it "should return my exercises by date" do
+      exercise1 = FactoryGirl.create(:exercise, user: user, created_at: 2.days.ago)
+      exercise2 = FactoryGirl.create(:exercise, user: user, created_at: Date.today)
+      user.exercises_by_date(Date.today).should == [exercise2]
     end
   end
 
