@@ -1,5 +1,4 @@
 class ExercisesController < ApplicationController
-  respond_to :json
 
   def new
   end
@@ -7,11 +6,19 @@ class ExercisesController < ApplicationController
   def create
     @exercise = current_user.exercises.build(exercise_params)
     @exercise.save
+    respond_to do |format|
+      format.html { redirect_to current_user }
+      format.json { head :no_content }
+    end
   end
 
   def destroy
     @exercise = Exercise.find(params[:id])
     @exercise.destroy
+    respond_to do |format|
+      format.html { redirect_to current_user }
+      format.json { head :no_content }
+    end
   end
 
 private
