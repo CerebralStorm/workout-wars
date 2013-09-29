@@ -1,2 +1,19 @@
-%p
-  Comp details TODO
+%table{class: "table table-hover"}
+  %tr
+    %th
+      Name
+    %th
+      Start Date
+    %th 
+      End Date
+    %th
+      Difficulty Level
+  %tr
+    %td
+      = competition.name
+    %td
+      = competition.start_date
+    %td
+      = competition.end_date
+    %td
+      = competition.level
