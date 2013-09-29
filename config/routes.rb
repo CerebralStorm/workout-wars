@@ -1,4 +1,6 @@
 Workoutwars::Application.routes.draw do
+  resources :team_subscriptions
+
   resources :competition_exercises
 
   resources :teams

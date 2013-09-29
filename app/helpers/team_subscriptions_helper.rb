@@ -1,0 +1,2 @@
+module TeamSubscriptionsHelper
+end

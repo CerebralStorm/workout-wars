@@ -7,3 +7,12 @@
 = link_to 'Edit', edit_team_path(@team)
 \|
 = link_to 'Back', teams_path
+
+- if @team.registered?(current_user)
+  = link_to "Leave Team", @subscription, method: :delete, class: "btn btn-lg btn-primary"
+-else
+  = form_for @subscription do |f|
+    = f.hidden_field :user_id, value: current_user.id
+    = f.hidden_field :team_id, value: @team.id
+    .actions
+      = f.submit "Join Team", class: "btn btn-lg btn-primary"

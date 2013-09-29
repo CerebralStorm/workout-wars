@@ -10,6 +10,8 @@ class TeamsController < ApplicationController
   # GET /teams/1
   # GET /teams/1.json
   def show
+    @subscription = TeamSubscription.find_by user_id: current_user.id, team_id: @team.id
+    @subscription = TeamSubscription.new if @subscription.nil?
   end
 
   # GET /teams/new
