@@ -93,6 +93,15 @@ describe User do
       exercise2 = FactoryGirl.create(:exercise, user: user, created_at: Date.today)
       user.exercises_by_date(Date.today).should == [exercise2]
     end
+
+    it "should count my exercises toward my competitions" do
+      competition = FactoryGirl.create(:competition)
+      exercise_type = FactoryGirl.create(:exercise_type)
+      FactoryGirl.create(:competition_exercise, competition: competition, exercise_type: exercise_type)
+      FactoryGirl.create(:competition_subscription, user: user, competition: competition)      
+      exercise = FactoryGirl.create(:exercise, exercise_type: exercise_type, user: user)
+      user.get_competition_total(competition, exercise_type).should == 95
+    end
   end
 
 end
