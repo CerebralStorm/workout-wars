@@ -1,12 +1,13 @@
 require 'spec_helper'
 
 describe Exercise do
-  let(:exercise) {FactoryGirl.create(:exercise)}
+  let(:user) {FactoryGirl.create(:user)}
+  let(:exercise) {FactoryGirl.create(:exercise, user: user)}
   
   context "associations" do
-    it 'should belong to a workout' do
-      Exercise.reflect_on_association(:workout).should_not be_nil
-      Exercise.reflect_on_association(:workout).macro.should eql(:belongs_to)
+    it 'should belong to a user' do
+      Exercise.reflect_on_association(:user).should_not be_nil
+      Exercise.reflect_on_association(:user).macro.should eql(:belongs_to)
     end
 
     it 'should belong to a exercise type' do
@@ -31,19 +32,19 @@ describe Exercise do
     end
 
     it "should get xp from reps experience" do
-      exercise.xp_from(exercise.total_reps).should == 125
+      exercise.xp_from(exercise.reps).should == 20
     end
 
     it "should get xp from distance experience" do
-      exercise.xp_from(exercise.distance).should == 6
+      exercise.xp_from(exercise.distance).should == 5
     end
 
     it "should get xp from duration experience" do
-      exercise.xp_from(exercise.duration).should == 62
+      exercise.xp_from(exercise.duration).should == 50
     end
 
     it "should get xp from weight experience" do
-      exercise.xp_from(exercise.weight).should == 25
+      exercise.xp_from(exercise.weight).should == 20
     end
   end
 end

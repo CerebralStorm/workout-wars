@@ -4,6 +4,9 @@
     = link_to "My Profile", user_path(current_user)
   %li
     = image_tag "placeholder.png", height: 80, width: 80
+    = link_to "Teams", teams_path, rel: 'teams-link'
+  %li
+    = image_tag "placeholder.png", height: 80, width: 80
     = link_to "Competitions", competitions_path, rel: 'competitions-link'
   %li
     = image_tag "placeholder.png", height: 80, width: 80

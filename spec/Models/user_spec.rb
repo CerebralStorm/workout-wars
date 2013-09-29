@@ -18,9 +18,9 @@ describe User do
   end
 
   context "associations" do
-    it 'should have many workouts' do
-      User.reflect_on_association(:workouts).should_not be_nil
-      User.reflect_on_association(:workouts).macro.should eql(:has_many)
+    it 'should have many exercises' do
+      User.reflect_on_association(:exercises).should_not be_nil
+      User.reflect_on_association(:exercises).macro.should eql(:has_many)
     end
 
     it 'should have many competitions' do
@@ -49,17 +49,15 @@ describe User do
 
   context "experience" do
     it "should return my experience" do
-      workout = FactoryGirl.create(:workout, user: user) 
-      FactoryGirl.create(:exercise, workout: workout)
-      user.xp.should == 218
+      FactoryGirl.create(:exercise, user: user)
+      user.xp.should == 95
     end
   end
 
   context "leveling up" do
     it "should increase my level when I earn enough experience" do
-      workout = FactoryGirl.create(:workout, user: user) 
-      3.times { FactoryGirl.create(:exercise, workout: workout) }
-      user.xp.should == 654
+      6.times { FactoryGirl.create(:exercise, user: user) }
+      user.xp.should == 570
       user.set_level
       user.xp_level.should == 2
       user.level.should == 2

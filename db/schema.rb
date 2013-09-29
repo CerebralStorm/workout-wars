@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130914200901) do
+ActiveRecord::Schema.define(version: 20130929004037) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
 
   create_table "challenge_types", force: true do |t|
     t.string   "name"
@@ -70,16 +69,19 @@ ActiveRecord::Schema.define(version: 20130914200901) do
   end
 
   create_table "exercises", force: true do |t|
-    t.string   "name"
-    t.string   "exercise_type"
     t.integer  "user_id"
     t.integer  "exercise_type_id"
     t.integer  "reps"
-    t.integer  "sets"
     t.float    "distance"
     t.integer  "duration"
     t.integer  "weight"
     t.integer  "calories"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "teams", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
