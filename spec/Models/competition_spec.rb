@@ -22,4 +22,20 @@ describe Competition do
       FactoryGirl.build(:competition).should be_valid
     end
   end
+
+  context "registration" do
+    it "should have a creator" do
+      user = FactoryGirl.create(:user)
+      competition = FactoryGirl.build(:competition, creator_id: user.id)
+      competition.creator.should == user
+    end 
+
+    it "should have registered users" do
+      user = FactoryGirl.create(:user)
+      competition = FactoryGirl.create(:competition)
+      FactoryGirl.create(:competition_subscription, user: user, competition: competition)
+      competition.users.should == [user]
+      competition.registered?(user).should be_true
+    end 
+  end
 end
