@@ -41,6 +41,6 @@ class Exercise < ActiveRecord::Base
   end
 
   def remove_xp
-    XpTransaction.find_by user_id: user.id , xp_source_type: "exercise", xp_source_id: self.id
+    XpTransaction.find_by(user_id: user.id , xp_source_type: "exercise", xp_source_id: self.id).destroy
   end
 end
