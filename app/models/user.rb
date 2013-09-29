@@ -67,7 +67,7 @@ class User < ActiveRecord::Base
     comp_transactions = competition_transactions.where(competition_id: competition.id)
     comp_transactions.each do |transaction|
       if transaction.exercise.exercise_type == exercise_type
-        total = transaction.exercise.total_xp
+        total += transaction.exercise.total_xp
       end
     end
     total
