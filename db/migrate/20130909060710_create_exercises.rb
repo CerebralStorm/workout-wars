@@ -1,7 +1,6 @@
 class CreateExercises < ActiveRecord::Migration
   def change
     create_table :exercises do |t|
-      t.string :exercise_type
       t.integer :user_id
       t.integer :exercise_type_id
       t.integer :reps
