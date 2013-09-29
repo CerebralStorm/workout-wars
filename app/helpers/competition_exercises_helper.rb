@@ -1,0 +1,2 @@
+module CompetitionExercisesHelper
+end

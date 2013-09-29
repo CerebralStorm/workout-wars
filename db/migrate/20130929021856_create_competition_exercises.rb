@@ -1,6 +1,6 @@
-class CreateCompetitonExercises < ActiveRecord::Migration
+class CreateCompetitionExercises < ActiveRecord::Migration
   def change
-    create_table :competiton_exercises do |t|
+    create_table :competition_exercises do |t|
       t.integer :exercise_type_id
       t.integer :competition_id
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130929004037) do
+ActiveRecord::Schema.define(version: 20130929021856) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,13 @@ ActiveRecord::Schema.define(version: 20130929004037) do
     t.integer  "reward"
     t.integer  "difficulty_id"
     t.integer  "challenge_type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "competition_exercises", force: true do |t|
+    t.integer  "exercise_type_id"
+    t.integer  "competition_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -64,6 +71,11 @@ ActiveRecord::Schema.define(version: 20130929004037) do
     t.string   "name"
     t.string   "category"
     t.integer  "xp_multiplier"
+    t.boolean  "use_reps",            default: false
+    t.boolean  "use_distance",        default: false
+    t.boolean  "use_duration",        default: false
+    t.boolean  "use_weight",          default: false
+    t.boolean  "use_calories_burned", default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -75,7 +87,7 @@ ActiveRecord::Schema.define(version: 20130929004037) do
     t.float    "distance"
     t.integer  "duration"
     t.integer  "weight"
-    t.integer  "calories"
+    t.integer  "calories_burned"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -115,13 +127,6 @@ ActiveRecord::Schema.define(version: 20130929004037) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-
-  create_table "workouts", force: true do |t|
-    t.datetime "date"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "xp_transactions", force: true do |t|
     t.integer  "amount"
