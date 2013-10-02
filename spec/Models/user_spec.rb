@@ -100,7 +100,7 @@ describe User do
       FactoryGirl.create(:competition_exercise, competition: competition, exercise_type: exercise_type)
       FactoryGirl.create(:competition_subscription, user: user, competition: competition)      
       exercise = FactoryGirl.create(:exercise, exercise_type: exercise_type, user: user)
-      user.get_competition_total(competition, exercise_type).should == 95
+      user.get_competition_total_for(competition, exercise_type, :total_xp).should == 95
     end
   end
 
