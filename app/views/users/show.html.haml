@@ -29,6 +29,5 @@
 = render partial: "exercises/form"
 
 %h2 Current Competitions
-%ul{id: "user_competitions"}
 - @user.competitions.each do |comp|
   = render comp
