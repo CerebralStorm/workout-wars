@@ -79,11 +79,11 @@ ActiveRecord::Schema.define(version: 20130929160745) do
     t.string   "name"
     t.string   "category"
     t.integer  "xp_multiplier"
-    t.boolean  "use_reps",            default: false
-    t.boolean  "use_distance",        default: false
-    t.boolean  "use_duration",        default: false
-    t.boolean  "use_weight",          default: false
-    t.boolean  "use_calories_burned", default: false
+    t.boolean  "use_reps",      default: false
+    t.boolean  "use_distance",  default: false
+    t.boolean  "use_duration",  default: false
+    t.boolean  "use_weight",    default: false
+    t.boolean  "use_calories",  default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -95,7 +95,7 @@ ActiveRecord::Schema.define(version: 20130929160745) do
     t.float    "distance"
     t.integer  "duration"
     t.integer  "weight"
-    t.integer  "calories_burned"
+    t.integer  "calories"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

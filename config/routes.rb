@@ -1,12 +1,9 @@
 Workoutwars::Application.routes.draw do
-  resources :team_subscriptions
-
-  resources :competition_exercises
-
-  resources :teams
-
   root :to => "static#index"
- 
+  resources :team_subscriptions
+  resources :competition_exercises
+  resources :exercise_types
+  resources :teams 
   resources :challenges
   resources :exercises, only: [:new, :create, :destroy]
   resources :competitions

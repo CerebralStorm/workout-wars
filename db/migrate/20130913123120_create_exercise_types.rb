@@ -8,7 +8,7 @@ class CreateExerciseTypes < ActiveRecord::Migration
       t.boolean :use_distance, default: false
       t.boolean :use_duration, default: false
       t.boolean :use_weight, default: false
-      t.boolean :use_calories_burned, default: false
+      t.boolean :use_calories, default: false
 
       t.timestamps
     end

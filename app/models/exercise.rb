@@ -8,6 +8,11 @@ class Exercise < ActiveRecord::Base
 
   delegate :category, to: :exercise_type
   delegate :name, to: :exercise_type
+  delegate :use_reps, to: :exercise_type
+  delegate :use_distance, to: :exercise_type
+  delegate :use_duration, to: :exercise_type
+  delegate :use_weight, to: :exercise_type
+  delegate :use_calories, to: :exercise_type
   validates_presence_of :exercise_type_id
 
   def xp_from(metric)
