@@ -6,8 +6,13 @@ class CompetitionsController < ApplicationController
   end
 
   def show
-    @subscription = CompetitionSubscription.find_by user_id: current_user.id, competition_id: @competition.id
-    @subscription = CompetitionSubscription.new if @subscription.nil?
+    if @competition.individual?
+      @subscription = CompetitionSubscription.find_by user_id: current_user.id, competition_id: @competition.id
+      @subscription = CompetitionSubscription.new if @subscription.nil?
+    else
+      @subscription = TeamCompetitionSubscription.find_by team_id: current_user.teams.first.id, competition_id: @competition.id
+      @subscription = TeamCompetitionSubscription.new if @subscription.nil?
+    end
   end
 
   def new

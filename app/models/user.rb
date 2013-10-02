@@ -17,7 +17,9 @@ class User < ActiveRecord::Base
   has_many :competitions, through: :competition_subscriptions
   has_many :competition_transactions, dependent: :destroy
   has_many :competition_subscriptions, dependent: :destroy
+  has_many :team_competition_subscriptions, dependent: :destroy
   has_many :team_subscriptions, dependent: :destroy
+  has_many :teams, through: :team_subscriptions
 
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
