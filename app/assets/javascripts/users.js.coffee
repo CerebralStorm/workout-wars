@@ -37,7 +37,8 @@ class @ExerciseForm
 
   setHTMLElement: (suffix) ->
     'exercise' + suffix
-
+jQuery ->
+  new ExerciseForm()
 # jQuery ->
 #   $.getScript "https://www.google.com/jsapi", (data, textStatus) ->
 #     google.load "visualization", "1.0",

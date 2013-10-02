@@ -17,7 +17,9 @@
 %ul{id: "user_exercises"}
   - @user.exercises_by_date(@date).each do |exercise|
     = render exercise
-= link_to "Add Exercise", new_exercise_path, id: "new_exercise_link", remote: true
+
+%a.btn.btn-primary.btn-lg{"data-toggle" => "modal", href: "#exerciseModal"} Add Exercise
+= render partial: "exercises/form"
 
 %h2 Current Competitions
 %ul{id: "user_competitions"}

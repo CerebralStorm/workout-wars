@@ -1,37 +1,47 @@
-%fieldset
-  = form_for Exercise.new do |f|
-    %ul
-      %li
-        .control-group
-          = f.label :exercise_type_id, class: "control-label"
-          .controls
-            = f.collection_select(:exercise_type_id, ExerciseType.all, :id, :name, {}, {:class => 'exercise-select'})
-      %li.use_reps
-        .control-group
-          = f.label :reps, class: "control-label"
-          .controls
-            = f.text_field :reps
-      %li.use_duration        
-        .control-group
-          = f.label :duration, class: "control-label"
-          .controls
-            = f.text_field :duration
-      %li.use_distance        
-        .control-group
-          = f.label :distance, class: "control-label"
-          .controls
-            = f.text_field :distance
-      %li.use_weight        
-        .control-group
-          = f.label :weight, class: "control-label"
-          .controls
-            = f.text_field :weight
-      %li.use_calories        
-        .control-group
-          = f.label :calories, class: "control-label"
-          .controls
-            = f.text_field :calories
-      %li
-        .control-group
-          .controls
-            = f.submit :submit
+#exerciseModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exerciseModalLabel", role: "dialog", tabindex: "-1"}
+  .modal-dialog
+    .modal-content
+      = form_for Exercise.new do |f|
+        .modal-header
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
+          %h4.modal-title Modal title
+        .modal-body
+          %fieldset
+            %ul
+              %li
+                .control-group
+                  = f.label :exercise_type_id, class: "control-label"
+                  .controls
+                    = f.collection_select(:exercise_type_id, ExerciseType.all, :id, :name, {}, {:class => 'exercise-select'})
+              %li.use_reps
+                .control-group
+                  = f.label :reps, class: "control-label"
+                  .controls
+                    = f.text_field :reps
+              %li.use_duration        
+                .control-group
+                  = f.label :duration, class: "control-label"
+                  .controls
+                    = f.text_field :duration
+              %li.use_distance        
+                .control-group
+                  = f.label :distance, class: "control-label"
+                  .controls
+                    = f.text_field :distance
+              %li.use_weight        
+                .control-group
+                  = f.label :weight, class: "control-label"
+                  .controls
+                    = f.text_field :weight
+              %li.use_calories        
+                .control-group
+                  = f.label :calories, class: "control-label"
+                  .controls
+                    = f.text_field :calories
+              %li
+                .control-group
+                  .controls
+                    
+        .modal-footer
+          %button.btn.btn-default{"data-dismiss" => "modal", type: "button"} Close
+          = f.submit :submit, class: "btn btn-primary"
