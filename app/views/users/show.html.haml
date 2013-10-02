@@ -29,5 +29,6 @@
 = render partial: "exercises/form"
 
 %h2 Current Competitions
-- @user.competitions.each do |comp|
-  = render comp
+%div.col-md-8
+  - @user.competitions.each do |comp|
+    = render comp
