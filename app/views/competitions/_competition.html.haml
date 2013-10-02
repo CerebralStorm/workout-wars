@@ -1,31 +1,25 @@
-%table{class: "table table-hover"}
-  %tr
-    %th
+%ul
+  %li
+    %span 
       Name
-    %th
-      Start Date
-    %th 
-      End Date
-    %th
-      Difficulty Level
-  %tr
-    %td
-      = competition.name
-    %td
-      = competition.start_date
-    %td
-      = competition.end_date
-    %td
-      = competition.level
-  %tr
-    %td 
-      Exercise
-    %td 
-      Total XP
-  -competition.competition_exercises.each do |comp_exercise|
-    %tr
-      %td
-        = comp_exercise.exercise_type.name  
-      %td
-        = current_user.get_competition_total(competition, comp_exercise.exercise_type)
+      %h4
+        = competition.name
+  %li
+    %table{class: "table table-hover", style: "width: 600px;"}
+      -competition.competition_exercises.each do |comp_exercise|
+        %tr
+          %th
+            = comp_exercise.exercise_type.name
+            - comp_exercise.metrics.each do |metric|              
+              %th
+                = metric 
+          %th
+            XP
+        %tr
+          %td
+          - comp_exercise.metrics.each do |metric|
+            %td
+              = current_user.get_competition_total_for(competition, comp_exercise.exercise_type, metric)
+          %td
+            = current_user.get_competition_total_for(competition, comp_exercise.exercise_type, :total_xp)
 = link_to "Withdraw", @subscription, method: :delete, class: "btn btn-lg btn-primary"

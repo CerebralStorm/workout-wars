@@ -63,12 +63,12 @@ class User < ActiveRecord::Base
     self.save
   end
 
-  def get_competition_total(competition, exercise_type)
+  def get_competition_total_for(competition, exercise_type, category)
     total = 0
     comp_transactions = competition_transactions.where(competition_id: competition.id)
     comp_transactions.each do |transaction|
       if transaction.exercise.exercise_type == exercise_type
-        total += transaction.exercise.total_xp
+        total += transaction.exercise.send(category)
       end
     end
     total
