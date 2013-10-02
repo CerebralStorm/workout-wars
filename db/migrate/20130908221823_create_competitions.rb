@@ -7,6 +7,7 @@ class CreateCompetitions < ActiveRecord::Migration
       t.integer :max_participants
       t.integer :difficulty_id
       t.boolean :is_private, default: false
+      t.boolean :individual, default: true
       t.integer :creator_id
 
       t.timestamps

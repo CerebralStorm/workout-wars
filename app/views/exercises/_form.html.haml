@@ -12,7 +12,7 @@
                 .control-group
                   = f.label :exercise_type_id, class: "control-label"
                   .controls
-                    = f.collection_select(:exercise_type_id, ExerciseType.order('name asc'), :id, :name, {}, {:class => 'exercise-select'})
+                    = f.collection_select(:exercise_type_id, ExerciseType.all, :id, :name, {}, {:class => 'exercise-select'})
               %li.use_reps
                 .control-group
                   = f.label :reps, class: "control-label"

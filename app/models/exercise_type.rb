@@ -1,6 +1,10 @@
 class ExerciseType < ActiveRecord::Base
   has_many :exercises
 
+  def self.default_scope
+    order('name ASC')
+  end
+
   def metrics
     results = []
     results << :reps if use_reps?
