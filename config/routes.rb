@@ -11,7 +11,13 @@ Workoutwars::Application.routes.draw do
   resources :competitions
   resources :competition_subscriptions, only: [:create, :destroy]
 
-  devise_for :users, controllers: { :omniauth_callbacks => "users/omniauth_callbacks" }
+  namespace :api do
+    namespace :v1 do
+      devise_for :users, :controllers => {sessions: 'sessions'}
+    end
+  end 
+
+  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
   resources :users, only: [:index, :show, :edit, :update, :destroy]
 
   # The priority is based upon order of creation: first created -> highest priority.
