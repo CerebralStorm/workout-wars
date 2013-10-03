@@ -13,7 +13,7 @@ Workoutwars::Application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      devise_for :users, :controllers => {sessions: 'sessions'}
+      devise_for :users
     end
   end 
 
