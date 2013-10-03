@@ -12,6 +12,5 @@ class AddFieldsToUsers < ActiveRecord::Migration
     add_column :users, :level, :integer, default: 1
     add_column :users, :xp_level, :integer, default: 1
     add_column :users, :xp_multiplier, :integer, default: 500
-    add_column :users, :authentication_token, :string
   end
 end

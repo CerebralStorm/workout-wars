@@ -29,6 +29,11 @@ Application Setup:
     rake db:test:prepare
     bundle exec rspec spec/
     cucumber features/
+* API
+  The session API can be found at /api/v1/sign_in etc..
+  To test with curl 
+    curl -X POST http://localhost:3000/api/v1/users/sign_in.json --data "email=email@example&password=password"
+    curl GET -X DELETE http://localhost:3000/api/v1/users/sign_out.json --data "auth_token=GfRXCyV6BG8iiDUAuNzk"
 
 * Services (job queues, cache servers, search engines, etc.)
 
