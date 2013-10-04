@@ -34,8 +34,8 @@ describe UsersController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested user" do
-        User.any_instance.should_receive(:update).with({ "name" => "Incredible Hulk" })
-        put :update, {:id => @user.to_param, :user => { :name => "Incredible Hulk" }}, valid_session
+        User.any_instance.should_receive(:update).with({ "nickname" => "Incredible Hulk" })
+        put :update, {:id => @user.to_param, :user => { :nickname => "Incredible Hulk" }}, valid_session
       end
 
       it "assigns the requested user as @user" do

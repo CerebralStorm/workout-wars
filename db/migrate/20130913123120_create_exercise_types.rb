@@ -2,7 +2,7 @@ class CreateExerciseTypes < ActiveRecord::Migration
   def change
     create_table :exercise_types do |t|
       t.string :name
-      t.string :category
+      t.integer :category_id
       t.integer :xp_multiplier
       t.boolean :use_reps, default: false
       t.boolean :use_distance, default: false

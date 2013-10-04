@@ -1,4 +1,5 @@
 class ExerciseType < ActiveRecord::Base
+  belongs_to :category
   has_many :exercises
 
   def self.default_scope
