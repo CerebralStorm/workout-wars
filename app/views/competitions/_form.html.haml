@@ -39,9 +39,9 @@
   .control-group
     .controls
       = label :individual, "Individual"
-      = f.radio_button :individual, "individual", :checked => true 
+      = f.radio_button :individual, true, :checked => true 
       = label :team, "Team"
-      = f.radio_button :individual, "team"
+      = f.radio_button :individual, false
       
   .actions
     = f.submit 'Save', class: 'btn btn-success', rel: 'save-competition-link'
