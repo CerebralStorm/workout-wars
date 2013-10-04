@@ -1,6 +1,13 @@
 %h1 
   Profile for 
   = @user.email
+  = link_to "Edit Profile", edit_user_path(@user)
+%p
+  Nickname
+  = @user.nickname
+%p 
+  Name
+  = @user.name
 %p{id: "user_level"} 
   Level:     
   = @user.level

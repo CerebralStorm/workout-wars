@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   validates :password, presence: true, on: :create
   validates :password, length: { minimum: 6 }, unless: Proc.new { |u| u.password.blank? }
 
+  before_create :generate_nickname
   after_create :setup_global_competition 
 
   has_many :xp_transactions
@@ -88,5 +89,9 @@ class User < ActiveRecord::Base
   def setup_global_competition
     global_comp = Competition.find_by(name: "Global")
     CompetitionSubscription.create(user: self, competition: global_comp)
+  end
+
+  def generate_nickname
+    self.nickname = [RandomWord.adjs.next, RandomWord.adjs.next, RandomWord.nouns.next].join(" ")
   end
 end
