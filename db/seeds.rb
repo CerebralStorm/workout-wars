@@ -46,6 +46,7 @@ EndCondition.destroy_all
   { description: 'Most reps in a single set', category_id: strength_category.id, most_reps: true },
   { description: 'Most weight in a single rep', category_id: strength_category.id, most_weight: true },
   { description: 'Most calories in a month', category_id: strength_category.id, most_calories: true, duration_limit: 1.month },
+  { description: 'No End', category_id: strength_category.id },
 ].each do |end_condition|
   EndCondition.create!(end_condition)
 end
@@ -56,7 +57,8 @@ Difficulty.destroy_all
 end
 
 Competition.destroy_all
-global_comp = Competition.create!(name: "Global")
+end_condition = EndCondition.find_by(description: 'No End')
+global_comp = Competition.create!(name: "Global", end_condition_id: end_condition.id)
 ExerciseType.all.each do |e_type|
   CompetitionExercise.create!(competition_id: global_comp.id, exercise_type_id: e_type.id)
 end

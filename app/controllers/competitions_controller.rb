@@ -65,6 +65,9 @@ class CompetitionsController < ApplicationController
     end
 
     def competition_params
-      params.require(:competition).permit(:name, :start_date, :end_date, :max_participants, :difficulty_id, :is_private, :individual)
+      params.require(:competition).permit(
+        :name, :start_date, :end_date, :max_participants, 
+        :difficulty_id, :is_private, :individual, :end_condition_id
+      )
     end
 end

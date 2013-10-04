@@ -34,6 +34,14 @@ class User < ActiveRecord::Base
     exercises.where("date(created_at) = (?)", date)
   end
 
+  def exercises_for_competition(competition)
+    self.competition_transactions.where(competition: competition).collect(&:exercise)
+  end
+
+  def total_reps_for_competition_and_exercise(competition)
+  
+  end
+
   def xp
     self.xp_transactions.sum(:amount)
   end
