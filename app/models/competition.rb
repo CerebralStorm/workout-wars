@@ -29,11 +29,23 @@ class Competition < ActiveRecord::Base
 
   def check_win_condition(user)
     return if self.name == "Global"
-
     if end_date 
       return if Date.today < end_date
-      #TODO 
-      # Check all users and see who has the most to determine winner
+      users = competition_subscriptions.collect(&:user)
+      result = []
+      users.each do |user|      
+        competition_exercises.each do |comp_e|
+          exercises = user.exercises_for_competition_by_exercise_type(self, comp_e.exercise_type)
+          metrics = comp_e.metrics  
+          user_stats = {id: user.id}      
+          metrics.each do |metric|
+            user_stats[metric] = exercises.sum { |exercise| exercise.send(metric) } 
+          end 
+
+          result << user_stats 
+        end
+      end
+      binding.pry
     else
       result = []
       competition_exercises.each do |comp_e|
@@ -46,15 +58,17 @@ class Competition < ActiveRecord::Base
       end
        
       is_won = result.all? { |r| r } # returns true if all limits met
-        if is_won
-          subscription = CompetitionSubscription.find_by(user: user, competition: self)
-          subscription.rank = 1
-          subscription.save
-          self.active = false
-          self.winner_id = user.id
-          self.save
-        end
+      set_winner if is_won
     end
+  end
+
+  def set_winner
+    subscription = CompetitionSubscription.find_by(user: user, competition: self)
+    subscription.rank = 1
+    subscription.save
+    self.active = false
+    self.winner_id = user.id
+    self.save
   end
 end
 

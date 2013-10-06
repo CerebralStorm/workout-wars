@@ -100,6 +100,6 @@ class User < ActiveRecord::Base
   end
 
   def generate_nickname
-    self.nickname = [RandomWord.adjs.next, RandomWord.adjs.next, RandomWord.nouns.next].join(" ")
+    self.nickname = Nickname.get_nickname
   end
 end

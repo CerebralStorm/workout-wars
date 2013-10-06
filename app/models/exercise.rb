@@ -47,5 +47,6 @@ class Exercise < ActiveRecord::Base
 
   def remove_xp
     XpTransaction.find_by(user_id: user.id , xp_source_type: "exercise", xp_source_id: self.id).destroy
+    user.set_level
   end
 end
