@@ -40,7 +40,7 @@ end
 WinCondition.destroy_all
 [
   { description: 'First to 1000 reps', category_id: strength_category.id, rep_limit: 1000  },
-  { description: 'First to 10 miles', category_id: endurance_category.id, distance_limit: 1000  },
+  { description: 'First to 10 miles', category_id: endurance_category.id, distance_limit: 10 },
   { description: 'Most in an a week', category_id: endurance_category.id, duration_limit: 1.week },
   { description: 'Most in an a month', category_id: endurance_category.id, duration_limit: 1.month },
   { description: 'Most reps in a single set', category_id: strength_category.id, most_reps: true },

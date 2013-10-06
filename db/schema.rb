@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20131004041748) do
   create_table "competition_subscriptions", force: true do |t|
     t.integer  "user_id"
     t.integer  "competition_id"
-    t.integer  "entry_fee"
+    t.integer  "rank"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -73,7 +73,9 @@ ActiveRecord::Schema.define(version: 20131004041748) do
     t.integer  "win_condition_id"
     t.boolean  "is_private",       default: false
     t.boolean  "individual",       default: true
+    t.boolean  "active",           default: true
     t.integer  "creator_id"
+    t.integer  "winner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

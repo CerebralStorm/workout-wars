@@ -30,9 +30,10 @@ class Competition < ActiveRecord::Base
   end
 
   def check_win_condition(user)
+    return if win_condition.description == 'No End'
     is_won = win_condition.fields.all? { |field| check_field(user, field)}
     if is_won
-      subscription = CompetitionTransaction.find_by(user: user, competition: self)
+      subscription = CompetitionSubscription.find_by(user: user, competition: self)
       subscription.rank = 1
       subscription.save
       self.active = false
@@ -42,7 +43,9 @@ class Competition < ActiveRecord::Base
   end
 
   def check_field(user, field)
-    method = user_method_for_win_field(field)
+    method = user_method_for_win_field(field) 
+    return Date.today >= win_condition.date_limit if method == :date_limit
+    
     exercises = user.exercises_for_competition(self)  
     total = 0
     exercises.each do |exercise|       
@@ -55,6 +58,11 @@ class Competition < ActiveRecord::Base
   def user_method_for_win_field(field)
     value = case field 
       when :rep_limit then :reps
+      when :distance_limit then :distance
+      when :duration_limit then :duration
+      when :weight_limit then :weight
+      when :calorie_limit then :calories
+      when :date_limit then :date_limit
     end
     value
   end

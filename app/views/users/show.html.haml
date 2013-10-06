@@ -35,6 +35,12 @@
 %a.btn.btn-primary.btn-lg{"data-toggle" => "modal", href: "#exerciseModal"} Add Exercise
 = render partial: "exercises/form"
 
+%h3 
+  Competitions I've Won
+%p
+  - @won_competitions.each do |comp|
+    = link_to comp.name, competition_path(comp)
+
 %h2 Current Competitions
 %div.col-md-8
   - @user.competitions.each do |comp|

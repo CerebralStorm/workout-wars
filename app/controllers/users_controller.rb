@@ -7,6 +7,7 @@ class UsersController < ApplicationController
 
   def show
     @exercises = @user.exercises
+    @won_competitions = Competition.where(winner_id: @user.id)
     @date = params[:date] ? Date.parse(params[:date]) : Date.today
   end
 
