@@ -10,7 +10,9 @@ class CreateCompetitions < ActiveRecord::Migration
       t.integer :win_condition_id
       t.boolean :is_private, default: false
       t.boolean :individual, default: true
+      t.boolean :active, default: true
       t.integer :creator_id
+      t.integer :winner_id
 
       t.timestamps
     end

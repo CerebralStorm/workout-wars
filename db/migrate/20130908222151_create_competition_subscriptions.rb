@@ -3,7 +3,7 @@ class CreateCompetitionSubscriptions < ActiveRecord::Migration
     create_table :competition_subscriptions do |t|
       t.integer :user_id
       t.integer :competition_id
-      t.integer :entry_fee
+      t.integer :rank
 
       t.timestamps
     end

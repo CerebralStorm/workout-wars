@@ -30,15 +30,32 @@ class Competition < ActiveRecord::Base
   end
 
   def check_win_condition(user)
-    win_condition.fields.each do |field|
-      check_field(user, field)
+    is_won = win_condition.fields.all? { |field| check_field(user, field)}
+    if is_won
+      subscription = CompetitionTransaction.find_by(user: user, competition: self)
+      subscription.rank = 1
+      subscription.save
+      self.active = false
+      self.winner_id = user.id
+      self.save
     end
   end
 
   def check_field(user, field)
-    # TODO
-    # case field
-    #   when :reps_limit
+    method = user_method_for_win_field(field)
+    exercises = user.exercises_for_competition(self)  
+    total = 0
+    exercises.each do |exercise|       
+      total += exercise.send(method)
+    end
 
+    total >= win_condition.send(field)
+  end
+
+  def user_method_for_win_field(field)
+    value = case field 
+      when :rep_limit then :reps
+    end
+    value
   end
 end
