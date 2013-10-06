@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20131004041748) do
     t.integer  "reward"
     t.integer  "difficulty_id"
     t.integer  "challenge_type_id"
-    t.integer  "end_condition_id"
+    t.integer  "win_condition_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 20131004041748) do
     t.integer  "max_participants"
     t.integer  "number_of_teams"
     t.integer  "difficulty_id"
-    t.integer  "end_condition_id"
+    t.integer  "win_condition_id"
     t.boolean  "is_private",       default: false
     t.boolean  "individual",       default: true
     t.integer  "creator_id"
@@ -81,24 +81,6 @@ ActiveRecord::Schema.define(version: 20131004041748) do
   create_table "difficulties", force: true do |t|
     t.string   "level"
     t.float    "xp_multiplier"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "end_conditions", force: true do |t|
-    t.string   "description"
-    t.integer  "category_id"
-    t.integer  "rep_limit"
-    t.float    "distance_limit"
-    t.integer  "duration_limit"
-    t.integer  "weight_limit"
-    t.integer  "calorie_limit"
-    t.datetime "date_limit"
-    t.boolean  "most_reps"
-    t.boolean  "most_distance"
-    t.boolean  "most_duration"
-    t.boolean  "most_weight"
-    t.boolean  "most_calories"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -182,6 +164,24 @@ ActiveRecord::Schema.define(version: 20131004041748) do
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "win_conditions", force: true do |t|
+    t.string   "description"
+    t.integer  "category_id"
+    t.integer  "rep_limit"
+    t.float    "distance_limit"
+    t.integer  "duration_limit"
+    t.integer  "weight_limit"
+    t.integer  "calorie_limit"
+    t.datetime "date_limit"
+    t.boolean  "most_reps"
+    t.boolean  "most_distance"
+    t.boolean  "most_duration"
+    t.boolean  "most_weight"
+    t.boolean  "most_calories"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "xp_transactions", force: true do |t|
     t.integer  "amount"

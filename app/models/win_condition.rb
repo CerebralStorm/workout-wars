@@ -1,4 +1,4 @@
-class EndCondition < ActiveRecord::Base
+class WinCondition < ActiveRecord::Base
   belongs_to :category
   has_many :competitions
   has_many :challenges

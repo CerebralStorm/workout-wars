@@ -3,9 +3,9 @@ class CompetitionTransaction < ActiveRecord::Base
   belongs_to :competition
   belongs_to :exercise
 
-  after_save :check_competition
+  after_save :check_if_competition_is_won
 
-  def check_competition
-    competition.check_end_condition(user)
+  def check_if_competition_is_won
+    competition.check_win_condition(user)
   end
 end

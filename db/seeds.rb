@@ -37,7 +37,7 @@ ExerciseType.destroy_all
   ExerciseType.create!(exercise)
 end
 
-EndCondition.destroy_all
+WinCondition.destroy_all
 [
   { description: 'First to 1000 reps', category_id: strength_category.id, rep_limit: 1000  },
   { description: 'First to 10 miles', category_id: endurance_category.id, distance_limit: 1000  },
@@ -47,8 +47,8 @@ EndCondition.destroy_all
   { description: 'Most weight in a single rep', category_id: strength_category.id, most_weight: true },
   { description: 'Most calories in a month', category_id: strength_category.id, most_calories: true, duration_limit: 1.month },
   { description: 'No End', category_id: strength_category.id },
-].each do |end_condition|
-  EndCondition.create!(end_condition)
+].each do |win_condition|
+  WinCondition.create!(win_condition)
 end
 
 Difficulty.destroy_all
@@ -57,8 +57,8 @@ Difficulty.destroy_all
 end
 
 Competition.destroy_all
-end_condition = EndCondition.find_by(description: 'No End')
-global_comp = Competition.create!(name: "Global", end_condition_id: end_condition.id)
+win_condition = WinCondition.find_by(description: 'No End')
+global_comp = Competition.create!(name: "Global", win_condition_id: win_condition.id)
 ExerciseType.all.each do |e_type|
   CompetitionExercise.create!(competition_id: global_comp.id, exercise_type_id: e_type.id)
 end

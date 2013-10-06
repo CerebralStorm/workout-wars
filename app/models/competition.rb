@@ -1,6 +1,6 @@
 class Competition < ActiveRecord::Base
   belongs_to :difficulty
-  belongs_to :end_condition
+  belongs_to :win_condition
   belongs_to :category
   
   has_many :users, through: :competition_subscriptions
@@ -11,7 +11,7 @@ class Competition < ActiveRecord::Base
   has_many :exercise_types, through: :competition_exercises
 
   validates_presence_of :name
-  validates_presence_of :end_condition_id
+  validates_presence_of :win_condition_id
 
   def creator
     User.find_by(id: creator_id)
@@ -29,8 +29,8 @@ class Competition < ActiveRecord::Base
     individual ? 'Individual' : 'Team'
   end
 
-  def check_end_condition(user)
-    end_condition.fields.each do |field|
+  def check_win_condition(user)
+    win_condition.fields.each do |field|
       check_field(user, field)
     end
   end

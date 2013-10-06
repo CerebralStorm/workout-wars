@@ -1,6 +1,6 @@
-class CreateEndConditions < ActiveRecord::Migration
+class CreateWinConditions < ActiveRecord::Migration
   def change
-    create_table :end_conditions do |t|
+    create_table :win_conditions do |t|
       t.string :description
       t.integer :category_id
       t.integer :rep_limit
