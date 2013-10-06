@@ -35,26 +35,27 @@ class Competition < ActiveRecord::Base
       #TODO 
       # Check all users and see who has the most to determine winner
     else
-      results = {}
+      result = []
       competition_exercises.each do |comp_e|
         exercises = user.exercises_for_competition_by_exercise_type(self, comp_e.exercise_type)
         metrics = comp_e.metrics        
         metrics.each do |metric|
-          results[metric] = exercises.sum { |exercise| exercise.send(metric) }
+          exercise_total = exercises.sum { |exercise| exercise.send(metric) }
+          result << (exercise_total >= comp_e.limit)
         end  
       end
-      binding.pry
-      return results
+       
+      is_won = result.all? { |r| r } # returns true if all limits met
+        if is_won
+          subscription = CompetitionSubscription.find_by(user: user, competition: self)
+          subscription.rank = 1
+          subscription.save
+          self.active = false
+          self.winner_id = user.id
+          self.save
+        end
     end
   end
 end
 
-# is_won = false
-#         if is_won
-#           subscription = CompetitionSubscription.find_by(user: user, competition: self)
-#           subscription.rank = 1
-#           subscription.save
-#           self.active = false
-#           self.winner_id = user.id
-#           self.save
-#         end
+

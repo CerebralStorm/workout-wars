@@ -31,6 +31,8 @@
   - @competition.competition_exercises.each do |exercise|
     %p  
       = exercise.exercise_type.name
+      = exercise.limit
+      = link_to "X", competition_exercise_path(exercise), method: :delete, confirm: "You Sure?", rel: 'delete-competiton-exercise-link'
 
 - if @competition.registered?(current_user)
   = link_to "Unregister", @subscription, method: :delete, class: "btn btn-lg btn-primary"
@@ -55,6 +57,10 @@
       = f.label :exercise_type_id, class: "control-label"
       .controls
         = f.collection_select(:exercise_type_id, ExerciseType.all, :id, :name, {}, {:class => 'exercise-select'})
+    .control-group
+      = f.label :limit, class: "control-label"
+      .controls
+        = f.number_field :limit
     .actions
     = f.submit "Add Exercise", class: "btn btn-lg btn-primary"
 

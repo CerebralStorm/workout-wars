@@ -23,6 +23,6 @@ class CompetitionExercisesController < ApplicationController
 private
 
   def competition_exercise_params
-    params.require(:competition_exercise).permit(:competition_id, :exercise_type_id)
+    params.require(:competition_exercise).permit(:competition_id, :exercise_type_id, :limit)
   end
 end
