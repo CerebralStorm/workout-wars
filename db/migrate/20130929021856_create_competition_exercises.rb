@@ -3,6 +3,7 @@ class CreateCompetitionExercises < ActiveRecord::Migration
     create_table :competition_exercises do |t|
       t.integer :exercise_type_id
       t.integer :competition_id
+      t.integer :limit
 
       t.timestamps
     end

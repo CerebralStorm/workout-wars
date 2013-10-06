@@ -30,11 +30,6 @@
     = f.label :difficulty_id, class: "control-label"
     .controls
       = f.collection_select(:difficulty_id, Difficulty.all, :id, :level)
-      
-  .control-group
-    = f.label :win_condition_id, class: "control-label"
-    .controls
-      = f.collection_select(:win_condition_id, WinCondition.all, :id, :description)
 
   .control-group
     = f.label :is_private, "Private", class: "control-label"

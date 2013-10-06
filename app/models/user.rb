@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   has_many :team_subscriptions, dependent: :destroy
   has_many :teams, through: :team_subscriptions
 
-  def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
+  def self.find_for_facebook_oauth(auth, signed_in_resource = nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
     if user.nil?
       user = User.create(name:auth.extra.raw_info.name, provider:auth.provider, 
@@ -34,8 +34,12 @@ class User < ActiveRecord::Base
     exercises.where("date(created_at) = (?)", date)
   end
 
-  def exercises_for_competition(competition)
-    self.competition_transactions.where(competition: competition).collect(&:exercise)
+  def competition_transactions_for_competition(competition)
+    self.competition_transactions.where(competition: competition)
+  end
+
+  def exercises_for_competition_by_exercise_type(competition, exercise_type)
+    competition_transactions_for_competition(competition).collect{|comp_t| comp_t.exercise if comp_t.exercise.exercise_type_id == exercise_type.id}.compact
   end
 
   def xp

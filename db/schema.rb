@@ -35,7 +35,6 @@ ActiveRecord::Schema.define(version: 20131004041748) do
     t.integer  "reward"
     t.integer  "difficulty_id"
     t.integer  "challenge_type_id"
-    t.integer  "win_condition_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -43,6 +42,7 @@ ActiveRecord::Schema.define(version: 20131004041748) do
   create_table "competition_exercises", force: true do |t|
     t.integer  "exercise_type_id"
     t.integer  "competition_id"
+    t.integer  "limit"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -70,7 +70,6 @@ ActiveRecord::Schema.define(version: 20131004041748) do
     t.integer  "max_participants"
     t.integer  "number_of_teams"
     t.integer  "difficulty_id"
-    t.integer  "win_condition_id"
     t.boolean  "is_private",       default: false
     t.boolean  "individual",       default: true
     t.boolean  "active",           default: true

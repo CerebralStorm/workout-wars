@@ -1,6 +1,5 @@
 class Competition < ActiveRecord::Base
   belongs_to :difficulty
-  belongs_to :win_condition
   belongs_to :category
   
   has_many :users, through: :competition_subscriptions
@@ -11,7 +10,6 @@ class Competition < ActiveRecord::Base
   has_many :exercise_types, through: :competition_exercises
 
   validates_presence_of :name
-  validates_presence_of :win_condition_id
 
   def creator
     User.find_by(id: creator_id)
@@ -30,40 +28,33 @@ class Competition < ActiveRecord::Base
   end
 
   def check_win_condition(user)
-    return if win_condition.description == 'No End'
-    is_won = win_condition.fields.all? { |field| check_field(user, field)}
-    if is_won
-      subscription = CompetitionSubscription.find_by(user: user, competition: self)
-      subscription.rank = 1
-      subscription.save
-      self.active = false
-      self.winner_id = user.id
-      self.save
-    end
-  end
+    return if self.name == "Global"
 
-  def check_field(user, field)
-    method = user_method_for_win_field(field) 
-    return Date.today >= win_condition.date_limit if method == :date_limit
-    
-    exercises = user.exercises_for_competition(self)  
-    total = 0
-    exercises.each do |exercise|       
-      total += exercise.send(method)
+    if end_date 
+      return if Date.today < end_date
+      #TODO 
+      # Check all users and see who has the most to determine winner
+    else
+      results = {}
+      competition_exercises.each do |comp_e|
+        exercises = user.exercises_for_competition_by_exercise_type(self, comp_e.exercise_type)
+        metrics = comp_e.metrics        
+        metrics.each do |metric|
+          results[metric] = exercises.sum { |exercise| exercise.send(metric) }
+        end  
+      end
+      binding.pry
+      return results
     end
-
-    total >= win_condition.send(field)
-  end
-
-  def user_method_for_win_field(field)
-    value = case field 
-      when :rep_limit then :reps
-      when :distance_limit then :distance
-      when :duration_limit then :duration
-      when :weight_limit then :weight
-      when :calorie_limit then :calories
-      when :date_limit then :date_limit
-    end
-    value
   end
 end
+
+# is_won = false
+#         if is_won
+#           subscription = CompetitionSubscription.find_by(user: user, competition: self)
+#           subscription.rank = 1
+#           subscription.save
+#           self.active = false
+#           self.winner_id = user.id
+#           self.save
+#         end

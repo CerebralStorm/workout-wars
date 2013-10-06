@@ -5,7 +5,6 @@ class CreateChallenges < ActiveRecord::Migration
       t.integer :reward
       t.integer :difficulty_id
       t.integer :challenge_type_id
-      t.integer :win_condition_id
 
       t.timestamps
     end
