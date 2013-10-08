@@ -1,0 +1,2 @@
+module ChallengeAttemptsHelper
+end

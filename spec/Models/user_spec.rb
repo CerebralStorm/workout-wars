@@ -17,6 +17,13 @@ describe User do
     # end
   end
 
+  context "nickname" do
+    it 'should exist' do
+      user = FactoryGirl.create(:user)
+      user.nickname.should_not be_nil
+    end
+  end
+
   context "associations" do
     it 'should have many exercises' do
       User.reflect_on_association(:exercises).should_not be_nil
