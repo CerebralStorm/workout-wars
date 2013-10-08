@@ -1,5 +1,6 @@
 class Competition < ActiveRecord::Base
   belongs_to :difficulty
+  belongs_to :competition_type
   belongs_to :category
   
   has_many :users, through: :competition_subscriptions

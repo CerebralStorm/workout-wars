@@ -4,6 +4,7 @@ class CreateCompetitions < ActiveRecord::Migration
       t.string :name
       t.datetime :start_date
       t.datetime :end_date
+      t.integer :competition_type_id
       t.integer :max_participants
       t.integer :number_of_teams
       t.integer :difficulty_id

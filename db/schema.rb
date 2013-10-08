@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131004041748) do
+ActiveRecord::Schema.define(version: 20131008035514) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,16 +63,23 @@ ActiveRecord::Schema.define(version: 20131004041748) do
     t.datetime "updated_at"
   end
 
+  create_table "competition_types", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "competitions", force: true do |t|
     t.string   "name"
     t.datetime "start_date"
     t.datetime "end_date"
+    t.integer  "competition_type_id"
     t.integer  "max_participants"
     t.integer  "number_of_teams"
     t.integer  "difficulty_id"
-    t.boolean  "is_private",       default: false
-    t.boolean  "individual",       default: true
-    t.boolean  "active",           default: true
+    t.boolean  "is_private",          default: false
+    t.boolean  "individual",          default: true
+    t.boolean  "active",              default: true
     t.integer  "creator_id"
     t.integer  "winner_id"
     t.datetime "created_at"
@@ -165,24 +172,6 @@ ActiveRecord::Schema.define(version: 20131004041748) do
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-
-  create_table "win_conditions", force: true do |t|
-    t.string   "description"
-    t.integer  "category_id"
-    t.integer  "rep_limit"
-    t.float    "distance_limit"
-    t.integer  "duration_limit"
-    t.integer  "weight_limit"
-    t.integer  "calorie_limit"
-    t.datetime "date_limit"
-    t.boolean  "most_reps"
-    t.boolean  "most_distance"
-    t.boolean  "most_duration"
-    t.boolean  "most_weight"
-    t.boolean  "most_calories"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "xp_transactions", force: true do |t|
     t.integer  "amount"
