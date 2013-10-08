@@ -42,3 +42,16 @@ global_comp = Competition.create!(name: "Global")
 ExerciseType.all.each do |e_type|
   CompetitionExercise.create!(competition_id: global_comp.id, exercise_type_id: e_type.id)
 end
+
+ChallengeType.destroy_all
+["Best Time"].each do |name|
+  ChallengeType.create!(name: name)
+end
+
+best_time = ChallengeType.find_by(name: "Best Time")
+[
+  {name: 'Fastest 100 pushups', reward: 115, challenge_type_id: best_time.id}, 
+  {name: 'Fastest 100 situps', reward: 80, challenge_type_id: best_time.id} 
+].each do |challenge|
+  Challenge.create!(challenge)
+end

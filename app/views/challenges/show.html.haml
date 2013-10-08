@@ -16,3 +16,9 @@
 = link_to 'Edit', edit_challenge_path(@challenge)
 \|
 = link_to 'Back', challenges_path
+
+= form_for @attempt do |f|
+  = f.hidden_field :user_id, value: current_user.id
+  = f.hidden_field :challenge_id, value: @challenge.id
+  .actions
+    = f.submit "Attempt this challenge", class: "btn btn-lg btn-primary"

@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
-  # :lockable, :timeoutable and :omniauthable
+  # :lockable, :timeoutable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :token_authenticatable,
          :trackable, :validatable, :omniauthable, :omniauth_providers => [:facebook]
 
@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
 
   has_many :xp_transactions
   has_many :exercises
+  has_many :challenge_attempts
+  has_many :challenges, through: :challenge_attempts
   has_many :competitions, through: :competition_subscriptions
   has_many :competition_transactions, dependent: :destroy
   has_many :competition_subscriptions, dependent: :destroy

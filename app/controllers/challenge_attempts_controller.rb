@@ -1,10 +1,14 @@
 class ChallengeAttemptsController < ApplicationController
+  def show
+    @attempt = ChallengeAttempt.find(params[:id])
+  end
+
   def create
     @attempt = ChallengeAttempt.create(challenge_attempt_params)
     respond_to do |format|
       if @attempt.save
-        format.html { redirect_to @attempt.challenge, notice: 'Registration successful' }
-        format.json { render action: 'show', status: :created, location: @attempt.challenge }
+        format.html { redirect_to @attempt }
+        format.json { render action: 'show', status: :created, location: @attempt }
       else
         redirect_to :back
       end

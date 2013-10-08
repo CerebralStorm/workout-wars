@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require jquery.easing.1.3
 //= require jquery.stellar
+//= require jquery.timer
 //= require jquery.ui.datepicker
 //= require waypoints
 //= require bootstrap
