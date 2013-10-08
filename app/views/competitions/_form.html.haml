@@ -12,9 +12,9 @@
       = f.text_field :name
 
   .control-group
-    = f.label :start_date, class: "control-label"
+    = f.label :competition_type_id, class: "control-label"
     .controls
-      = f.text_field :start_date, class: "datepicker"
+      = f.collection_select(:competition_type_id, CompetitionType.all, :id, :name)
 
   .control-group
     = f.label :end_date, class: "control-label"
@@ -27,13 +27,8 @@
       = f.number_field :max_participants
 
   .control-group
-    = f.label :difficulty_id, class: "control-label"
     .controls
-      = f.collection_select(:difficulty_id, Difficulty.all, :id, :level)
-
-  .control-group
-    = f.label :is_private, "Private", class: "control-label"
-    .controls
+      = f.label :is_private, "Private", class: "control-label"  
       = f.check_box :is_private
 
   .control-group

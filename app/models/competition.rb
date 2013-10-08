@@ -59,11 +59,11 @@ class Competition < ActiveRecord::Base
       end
        
       is_won = result.all? { |r| r } # returns true if all limits met
-      set_winner if is_won
+      set_winner(user) if is_won
     end
   end
 
-  def set_winner
+  def set_winner(user)
     subscription = CompetitionSubscription.find_by(user: user, competition: self)
     subscription.rank = 1
     subscription.save

@@ -33,7 +33,7 @@ Difficulty.destroy_all
 end
 
 CompetitionType.destroy_all
-["Best Time", "Most XP", "Most Categories"].each do |name|
+["Best Time", "Most XP by Date", "Most Categories Won by Date", "First to Complete"].each do |name|
   CompetitionType.create!(name: name)
 end
 
