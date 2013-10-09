@@ -31,7 +31,8 @@ class CompetitionsController < ApplicationController
         if @competition.individual?
           CompetitionSubscription.create(user: current_user, competition: @competition)
         else
-          TeamCompetitionSubscription.create(user: current_user, competition: @competition)
+          team = current_user.teams.find_by(id: params[:team][:id])
+          TeamCompetitionSubscription.create(team: team, competition: @competition)
         end
         
         format.html { redirect_to @competition, notice: 'Competition was successfully created.' }
@@ -72,7 +73,7 @@ class CompetitionsController < ApplicationController
     def competition_params
       params.require(:competition).permit(
         :name, :start_date, :end_date, :max_participants, 
-        :difficulty_id, :is_private, :individual
+        :difficulty_id, :is_private, :individual, :number_of_teams
       )
     end
 end

@@ -6,8 +6,8 @@ class Competition < ActiveRecord::Base
   has_many :users, through: :competition_subscriptions
   has_many :competition_subscriptions, dependent: :destroy
   has_many :competition_exercises
-  has_many :team_subscriptions
-  has_many :teams, through: :team_subscriptions
+  has_many :team_competition_subscriptions
+  has_many :teams, through: :team_competition_subscriptions
   has_many :exercise_types, through: :competition_exercises
 
   validates_presence_of :name
@@ -17,7 +17,12 @@ class Competition < ActiveRecord::Base
   end
 
   def registered?(user)
-    competition_subscriptions.find_by user_id: user.id, competition_id: self.id
+    if self.individual?
+      return competition_subscriptions.find_by(user_id: user.id, competition_id: self.id).present?
+    else
+      team_ids = user.teams.collect(&:id)
+      return team_competition_subscriptions.any? { |t| team_ids.include?(t.team_id) }
+    end
   end
 
   def level
