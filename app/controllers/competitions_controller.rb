@@ -28,7 +28,12 @@ class CompetitionsController < ApplicationController
 
     respond_to do |format|
       if @competition.save
-        CompetitionSubscription.create(user: current_user, competition: @competition)
+        if @competition.individual?
+          CompetitionSubscription.create(user: current_user, competition: @competition)
+        else
+          TeamCompetitionSubscription.create(user: current_user, competition: @competition)
+        end
+        
         format.html { redirect_to @competition, notice: 'Competition was successfully created.' }
         format.json { render action: 'show', status: :created, location: @competition }
       else

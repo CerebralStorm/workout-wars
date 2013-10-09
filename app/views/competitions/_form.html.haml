@@ -5,14 +5,25 @@
       %ul
         - @competition.errors.full_messages.each do |msg|
           %li= msg
+  .control-group
+    .controls
+      = label :individual, "Individual"
+      = f.radio_button :individual, true, :checked => true 
+      = label :team, "Team"
+      = f.radio_button :individual, false
 
   .control-group
-    = f.label :name, class: "control-label"
+    = f.label :name, "Competition Name", class: "control-label"
     .controls
       = f.text_field :name
 
+  .control-group.team_show
+    = f.label :number_of_teams, "Number of Teams", class: "control-label"
+    .controls
+      = f.number_field :number_of_teams
+
   .control-group
-    = f.label :competition_type_id, class: "control-label"
+    = f.label :competition_type_id, "Victory Condition", class: "control-label"
     .controls
       = f.collection_select(:competition_type_id, CompetitionType.all, :id, :name)
 
@@ -28,15 +39,11 @@
 
   .control-group
     .controls
-      = f.label :is_private, "Private", class: "control-label"  
-      = f.check_box :is_private
-
-  .control-group
-    .controls
-      = label :individual, "Individual"
-      = f.radio_button :individual, true, :checked => true 
-      = label :team, "Team"
-      = f.radio_button :individual, false
+      = label :is_public, "Public"
+      = f.radio_button :is_private, false, checked: true
+      = label :is_private, "Private"
+      = f.radio_button :is_private, true, checked: false 
+      
       
   .actions
     = f.submit 'Save', class: 'btn btn-success', rel: 'save-competition-link'
