@@ -27,6 +27,10 @@ class Competition < ActiveRecord::Base
     end
   end
 
+  def users_by_rank
+    users.sort { |a, b| a.get_total_xp_for_competition(self) <=> b.get_total_xp_for_competition(self) }.reverse
+  end
+
   def level
     difficulty.level if difficulty
   end
@@ -40,20 +44,9 @@ class Competition < ActiveRecord::Base
     if end_date 
       return if Date.today < end_date
       users = competition_subscriptions.collect(&:user)
-      result = []
-      users.each do |user|      
-        competition_exercises.each do |comp_e|
-          exercises = user.exercises_for_competition_by_exercise_type(self, comp_e.exercise_type)
-          metrics = comp_e.metrics  
-          user_stats = {id: user.id}      
-          metrics.each do |metric|
-            user_stats[metric] = exercises.sum { |exercise| exercise.send(metric) } 
-          end 
-
-          result << user_stats 
-        end
-      end
       binding.pry
+      winner = users.max { |a, b| a.get_total_xp_for_competition(self) <=> b.get_total_xp_for_competition(self) }     
+      set_winner(winner)
     else
       result = []
       competition_exercises.each do |comp_e|

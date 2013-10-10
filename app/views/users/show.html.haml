@@ -43,5 +43,5 @@
 
 %h2 Current Competitions
 %div.col-md-8
-  - @user.competitions.each do |comp|
+  - @user.active_competitions.each do |comp|
     = render comp

@@ -26,7 +26,8 @@ class Exercise < ActiveRecord::Base
     result += xp_from(duration)
     result += xp_from(distance)
     result += xp_from(weight) 
-    result += xp_from(calories)   
+    result += xp_from(calories)
+    result   
   end
 
   def update_user

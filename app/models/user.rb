@@ -32,6 +32,10 @@ class User < ActiveRecord::Base
     user
   end
 
+  def active_competitions
+    competitions.where(active: true)
+  end
+
   def exercises_by_date(date)
     exercises.where("date(created_at) = (?)", date)
   end
@@ -86,8 +90,13 @@ class User < ActiveRecord::Base
     total
   end
 
+  def get_total_xp_for_competition(competition)
+    comp_transactions = competition_transactions.where(competition: competition)
+    comp_transactions.sum{|c_tran| c_tran.exercise.total_xp}
+  end
+
   def create_competition_transactions(exercise)
-    competitions.each do |comp|
+    active_competitions.each do |comp|
       comp.competition_exercises.each do |comp_exercise|
         if exercise.exercise_type == comp_exercise.exercise_type
           CompetitionTransaction.create(user_id: self.id, exercise_id: exercise.id, competition_id: comp.id)

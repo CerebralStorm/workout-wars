@@ -23,9 +23,12 @@
 
 %p
   %b Participants Registered
-  - @competition.users.each do |user|
-    %p  
+  - @competition.users_by_rank.each_with_index do |user, index|
+    %p 
+      Rank
+      = index+1 
       = user.email
+      = user.get_total_xp_for_competition(@competition)
 %p
   %b Exercises for this Competition
   - @competition.competition_exercises.each do |exercise|

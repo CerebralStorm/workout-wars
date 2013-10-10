@@ -35,9 +35,7 @@ end
 CompetitionType.destroy_all
 [
   {name: 'First to Complete', use_date: false},
-  {name: 'Most Categories Won by Date', use_date: true},
   {name: 'Most XP by Date', use_date: true},
-  {name: 'Best Time', use_date: false}
 ].each do |comp_type|
   CompetitionType.create!(comp_type)
 end
