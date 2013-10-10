@@ -32,7 +32,7 @@
     %p  
       = exercise.exercise_type.name
       = exercise.limit
-      = link_to "X", competition_exercise_path(exercise), method: :delete, confirm: "You Sure?", rel: 'delete-competiton-exercise-link'
+      = link_to "X", competition_competition_exercise_path(@competition, exercise), method: :delete, confirm: "You Sure?", rel: 'delete-competiton-exercise-link'
 
 - if @competition.registered?(current_user)
   = link_to "Unregister", @subscription, method: :delete, class: "btn btn-lg btn-primary"
@@ -47,20 +47,4 @@
   = link_to 'Edit', edit_competition_path(@competition), rel: 'show-competiton-link'
   = link_to 'Delete', competition_path(@competition), method: :delete, confirm: "You Sure?", rel: 'delete-competiton-link'
 = link_to 'Back', competitions_path
-
-%h2
-  Add Exercises to this competition
-.control-group
-  = form_for @competition.competition_exercises.new do |f|
-    = f.hidden_field :competition_id, value: @competition.id
-    .control-group
-      = f.label :exercise_type_id, class: "control-label"
-      .controls
-        = f.collection_select(:exercise_type_id, ExerciseType.all, :id, :name, {}, {:class => 'exercise-select'})
-    .control-group
-      = f.label :limit, class: "control-label"
-      .controls
-        = f.number_field :limit
-    .actions
-    = f.submit "Add Exercise", class: "btn btn-lg btn-primary"
 

@@ -13,9 +13,10 @@ class CompetitionExercisesController < ApplicationController
 
   def destroy
     @competition_exercise = CompetitionExercise.find(params[:id])
+    @competition = @competition_exercise.competition
     @competition_exercise.destroy
     respond_to do |format|
-      format.html { redirect_to competitions_url }
+      format.html { redirect_to @competition }
       format.json { head :no_content }
     end
   end
@@ -23,6 +24,6 @@ class CompetitionExercisesController < ApplicationController
 private
 
   def competition_exercise_params
-    params.require(:competition_exercise).permit(:competition_id, :exercise_type_id, :limit)
+    params.require(:competition_exercise).permit(:competition_id, :exercise_type_id, :limit, :_destroy)
   end
 end

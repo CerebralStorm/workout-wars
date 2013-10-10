@@ -8,8 +8,21 @@ class @CompetitionForm
     $('#competition_competition_type_id').bind "change", @competitionTypeSelected
     $('#competition_competition_type_id').trigger "change"  
     $("input[name='competition[individual]']").bind "change", @setTeamSelected
+    $('form').on 'click', '.add_fields', @addExercise      
+    $('form').on 'click', '.remove_fields', @removeExercise      
     $(".team_show").hide()
   
+  addExercise: (event) ->
+    time = new Date().getTime()
+    regexp = new RegExp($(this).data('id'), 'g')
+    $(this).after($(this).data('fields').replace(regexp, time))
+    event.preventDefault()
+
+  removeExercise: (event) ->
+    $(this).prev('input[type=hidden]').val('1')
+    $(this).closest('fieldset').hide()
+    event.preventDefault()
+
   setTeamSelected: (event) -> 
     if event.target.id == 'competition_individual_false'
       showTeam()

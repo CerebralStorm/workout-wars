@@ -7,7 +7,7 @@
           %li= msg
   .control-group
     .controls
-      = label :individual, "Individual"
+      = label :individual, "Individuals"
       = f.radio_button :individual, true, :checked => true 
       = label :team, "Team"
       = f.radio_button :individual, false
@@ -47,7 +47,14 @@
       = label :is_public, "Public"
       = f.radio_button :is_private, false, checked: true
       = label :is_private, "Private"
-      = f.radio_button :is_private, true, checked: false 
+      = f.radio_button :is_private, true, checked: false
+  
+  %h2 Exercises for this competition
+  .control-group
+    .controls
+    = link_to_add_fields "Add Exercise", f, :competition_exercises
+    = f.fields_for :competition_exercises do |builder|
+      = render 'competition_exercise_fields', f: builder
       
       
   .actions

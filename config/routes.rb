@@ -5,13 +5,14 @@ Workoutwars::Application.routes.draw do
 
   root :to => "static#index"
   resources :team_subscriptions
-  resources :competition_exercises
   resources :exercise_types
   resources :competition_types
   resources :teams 
   resources :challenges
   resources :exercises, only: [:new, :create, :destroy]
-  resources :competitions
+  resources :competitions do
+    resources :competition_exercises, only: [:new, :create, :destroy]
+  end
   resources :competition_subscriptions, only: [:create, :destroy]
 
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }

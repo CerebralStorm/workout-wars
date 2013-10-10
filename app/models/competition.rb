@@ -9,6 +9,8 @@ class Competition < ActiveRecord::Base
   has_many :team_competition_subscriptions
   has_many :teams, through: :team_competition_subscriptions
   has_many :exercise_types, through: :competition_exercises
+  
+  accepts_nested_attributes_for :competition_exercises, allow_destroy: true
 
   validates_presence_of :name
 
