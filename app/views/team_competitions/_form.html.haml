@@ -1,0 +1,40 @@
+= form_for @team_competition do |f|
+  - if @team_competition.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@team_competition.errors.count, "error")} prohibited this team_competition from being saved:"
+      %ul
+        - @team_competition.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :start_date
+    = f.datetime_select :start_date
+  .field
+    = f.label :end_date
+    = f.text_field :end_date
+  .field
+    = f.label :competition_type_id
+    = f.number_field :competition_type_id
+  .field
+    = f.label :number_of_team
+    = f.number_field :number_of_team
+  .field
+    = f.label :lower_level_restriction
+    = f.number_field :lower_level_restriction
+  .field
+    = f.label :upper_level_restriction
+    = f.number_field :upper_level_restriction
+  .field
+    = f.label :active
+    = f.check_box :active
+  .field
+    = f.label :creator_id
+    = f.number_field :creator_id
+  .field
+    = f.label :winner_id
+    = f.number_field :winner_id
+  .actions
+    = f.submit 'Save'

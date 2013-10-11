@@ -44,7 +44,6 @@ class Competition < ActiveRecord::Base
     if end_date 
       return if Date.today < end_date
       users = competition_subscriptions.collect(&:user)
-      binding.pry
       winner = users.max { |a, b| a.get_total_xp_for_competition(self) <=> b.get_total_xp_for_competition(self) }     
       set_winner(winner)
     else

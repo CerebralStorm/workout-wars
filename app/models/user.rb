@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   has_many :competitions, through: :competition_subscriptions
   has_many :competition_transactions, dependent: :destroy
   has_many :competition_subscriptions, dependent: :destroy
+  has_many :team_competitions, through: :team_competition_subscriptions
   has_many :team_competition_subscriptions, through: :teams
   has_many :team_subscriptions, dependent: :destroy
   has_many :teams, through: :team_subscriptions
@@ -34,6 +35,14 @@ class User < ActiveRecord::Base
 
   def active_competitions
     competitions.where(active: true)
+  end
+
+  def active_team_competitions
+    team_competitions.where(active: true)
+  end
+
+  def active_individual_competitions
+    competitions.where(active: true, individual: true)
   end
 
   def exercises_by_date(date)

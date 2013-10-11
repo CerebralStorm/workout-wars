@@ -1,0 +1,37 @@
+%h1 Listing team_competitions
+
+%table
+  %tr
+    %th Name
+    %th Start date
+    %th End date
+    %th Competition type
+    %th Number of team
+    %th Lower level restriction
+    %th Upper level restriction
+    %th Active
+    %th Creator
+    %th Winner
+    %th
+    %th
+    %th
+
+  - @team_competitions.each do |team_competition|
+    %tr
+      %td= team_competition.name
+      %td= team_competition.start_date
+      %td= team_competition.end_date
+      %td= team_competition.competition_type_id
+      %td= team_competition.number_of_team
+      %td= team_competition.lower_level_restriction
+      %td= team_competition.upper_level_restriction
+      %td= team_competition.active
+      %td= team_competition.creator_id
+      %td= team_competition.winner_id
+      %td= link_to 'Show', team_competition
+      %td= link_to 'Edit', edit_team_competition_path(team_competition)
+      %td= link_to 'Destroy', team_competition, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Team competition', new_team_competition_path

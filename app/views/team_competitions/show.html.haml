@@ -1,0 +1,36 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @team_competition.name
+%p
+  %b Start date:
+  = @team_competition.start_date
+%p
+  %b End date:
+  = @team_competition.end_date
+%p
+  %b Competition type:
+  = @team_competition.competition_type_id
+%p
+  %b Number of team:
+  = @team_competition.number_of_team
+%p
+  %b Lower level restriction:
+  = @team_competition.lower_level_restriction
+%p
+  %b Upper level restriction:
+  = @team_competition.upper_level_restriction
+%p
+  %b Active:
+  = @team_competition.active
+%p
+  %b Creator:
+  = @team_competition.creator_id
+%p
+  %b Winner:
+  = @team_competition.winner_id
+
+= link_to 'Edit', edit_team_competition_path(@team_competition)
+\|
+= link_to 'Back', team_competitions_path
