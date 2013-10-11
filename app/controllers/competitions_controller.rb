@@ -6,13 +6,8 @@ class CompetitionsController < ApplicationController
   end
 
   def show
-    if @competition.individual?
-      @subscription = CompetitionSubscription.find_by user_id: current_user.id, competition_id: @competition.id
-      @subscription = CompetitionSubscription.new if @subscription.nil?
-    else
-      @subscription = TeamCompetitionSubscription.find_by team_id: current_user.teams.first.id, competition_id: @competition.id
-      @subscription = TeamCompetitionSubscription.new if @subscription.nil?
-    end
+    @subscription = CompetitionSubscription.find_by user_id: current_user.id, competition_id: @competition.id
+    @subscription = CompetitionSubscription.new if @subscription.nil?
   end
 
   def new
@@ -28,12 +23,7 @@ class CompetitionsController < ApplicationController
 
     respond_to do |format|
       if @competition.save
-        if @competition.individual?
-          CompetitionSubscription.create(user: current_user, competition: @competition)
-        else
-          team = current_user.teams.find_by(id: params[:team][:id])
-          TeamCompetitionSubscription.create(team: team, competition: @competition)
-        end
+        CompetitionSubscription.create(user: current_user, competition: @competition)
         
         format.html { redirect_to @competition, notice: 'Competition was successfully created.' }
         format.json { render action: 'show', status: :created, location: @competition }
@@ -73,7 +63,7 @@ class CompetitionsController < ApplicationController
     def competition_params
       params.require(:competition).permit(
         :name, :start_date, :end_date, :max_participants, 
-        :difficulty_id, :is_private, :individual, :number_of_teams, :competition_type_id,
+        :difficulty_id, :is_private, :number_of_teams, :competition_type_id,
         :competition_exercises_attributes => [:competition_id, :exercise_type_id, :limit, :_destroy]
       )
     end

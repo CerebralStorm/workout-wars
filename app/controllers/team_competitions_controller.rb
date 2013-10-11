@@ -10,6 +10,8 @@ class TeamCompetitionsController < ApplicationController
   # GET /team_competitions/1
   # GET /team_competitions/1.json
   def show
+    @team_competition = TeamCompetitionSubscription.find_by user_id: current_user.id, competition_id: @competition.id
+    @team_competition = TeamCompetitionSubscription.new if @subscription.nil?
   end
 
   # GET /team_competitions/new
@@ -25,6 +27,7 @@ class TeamCompetitionsController < ApplicationController
   # POST /team_competitions.json
   def create
     @team_competition = TeamCompetition.new(team_competition_params)
+    @team_competition.creator_id = current_user.id
 
     respond_to do |format|
       if @team_competition.save

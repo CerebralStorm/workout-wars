@@ -19,10 +19,10 @@ class User < ActiveRecord::Base
   has_many :competitions, through: :competition_subscriptions
   has_many :competition_transactions, dependent: :destroy
   has_many :competition_subscriptions, dependent: :destroy
-  has_many :team_competitions, through: :team_competition_subscriptions
-  has_many :team_competition_subscriptions, through: :teams
   has_many :team_subscriptions, dependent: :destroy
   has_many :teams, through: :team_subscriptions
+
+  delegate :team_competitions, to: :teams
 
   def self.find_for_facebook_oauth(auth, signed_in_resource = nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
@@ -33,16 +33,12 @@ class User < ActiveRecord::Base
     user
   end
 
-  def active_competitions
-    competitions.where(active: true)
-  end
-
   def active_team_competitions
     team_competitions.where(active: true)
   end
 
   def active_individual_competitions
-    competitions.where(active: true, individual: true)
+    competitions.where(active: true)
   end
 
   def exercises_by_date(date)
