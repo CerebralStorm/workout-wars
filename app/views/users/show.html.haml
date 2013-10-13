@@ -46,7 +46,7 @@
   - @user.active_individual_competitions.each do |comp|
     = render comp
 %br
-/ %h2 Current Team Competitions
-/ %div.col-md-8
-/   - @user.active_team_competitions.each do |comp|
-/     = render comp
+%h2 Current Team Competitions
+%div.col-md-8
+  - @user.active_team_competitions.each do |team_comp|
+    = render team_comp

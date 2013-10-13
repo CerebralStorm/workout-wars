@@ -22,8 +22,6 @@ class User < ActiveRecord::Base
   has_many :team_subscriptions, dependent: :destroy
   has_many :teams, through: :team_subscriptions
 
-  delegate :team_competitions, to: :teams
-
   def self.find_for_facebook_oauth(auth, signed_in_resource = nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
     if user.nil?
@@ -38,7 +36,7 @@ class User < ActiveRecord::Base
   end
 
   def active_team_competitions
-    team_competitions.where(active: true)
+    teams.first.team_competitions.where(active: true)
   end
 
   def active_individual_competitions
