@@ -21,22 +21,13 @@
 %p
   %b Upper level restriction:
   = @team_competition.upper_level_restriction
-%p
-  %b Active:
-  = @team_competition.active
-%p
-  %b Creator:
-  = @team_competition.creator_id
-%p
-  %b Winner:
-  = @team_competition.winner_id
 
 - if @team_competition.registered?(current_user)
   = link_to "Unregister", @subscription, method: :delete, class: "btn btn-lg btn-primary"
 -else
   = form_for @subscription do |f|
     = f.hidden_field :team_id, value: current_user.team.id
-    = f.hidden_field :competition_id, value: @team_competition.id
+    = f.hidden_field :team_competition_id, value: @team_competition.id
     .actions
       = f.submit "Register", class: "btn btn-lg btn-primary"
 

@@ -3,8 +3,8 @@ class TeamCompetitionSubscriptionsController < ApplicationController
     @subscription = TeamCompetitionSubscription.create(team_competition_subscription_params)
     respond_to do |format|
       if @subscription.save
-        format.html { redirect_to @subscription.competition, notice: 'Registration successful' }
-        format.json { render action: 'show', status: :created, location: @subscription.competition }
+        format.html { redirect_to @subscription.team_competition, notice: 'Registration successful' }
+        format.json { render action: 'show', status: :created, location: @subscription.team_competition }
       else
         redirect_to :back
       end
@@ -15,7 +15,7 @@ class TeamCompetitionSubscriptionsController < ApplicationController
     @subscription = TeamCompetitionSubscription.find(params[:id])
     @subscription.destroy
     respond_to do |format|
-      format.html { redirect_to competitions_url }
+      format.html { redirect_to team_competitions_url }
       format.json { head :no_content }
     end
   end
@@ -23,6 +23,6 @@ class TeamCompetitionSubscriptionsController < ApplicationController
 private
   
   def team_competition_subscription_params
-    params.require(:competition_subscription).permit(:team_id, :competition_id)
+    params.require(:team_competition_subscription).permit(:team_id, :team_competition_id)
   end
 end

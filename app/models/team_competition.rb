@@ -11,6 +11,6 @@ class TeamCompetition < ActiveRecord::Base
 
   def registered?(user)
     all_users = teams.collect{ |t| t.users }
-    all_users.include?(user)
+    all_users.flatten.include?(user)
   end
 end
