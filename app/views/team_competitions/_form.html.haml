@@ -6,35 +6,49 @@
         - @team_competition.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :start_date
-    = f.datetime_select :start_date
-  .field
-    = f.label :end_date
-    = f.text_field :end_date
-  .field
-    = f.label :competition_type_id
-    = f.number_field :competition_type_id
-  .field
-    = f.label :number_of_team
-    = f.number_field :number_of_team
-  .field
+  .control-group
+    = f.label :name, "Team Competition Name", class: "control-label"
+    .controls
+      = f.text_field :name
+
+  .control-group.team_show
+    = f.label :number_of_teams, "Number of Teams", class: "control-label"
+    .controls
+      = f.number_field :number_of_teams
+
+  .control-group.team_show
+    = label_tag :team_id, "Which of your teams do you want to add?", class: "control-label"
+    .controls
+      = select(:team, :id, current_user.teams.collect {|t| [ t.name, t.id ] })
+
+  .control-group
+    = f.label :competition_type_id, "Victory Condition", class: "control-label"
+    .controls
+      = f.collection_select(:competition_type_id, CompetitionType.all, :id, :name)
+
+  .control-group
     = f.label :lower_level_restriction
-    = f.number_field :lower_level_restriction
-  .field
+    .controls
+      = f.text_field :lower_level_restriction
+
+  .control-group
     = f.label :upper_level_restriction
-    = f.number_field :upper_level_restriction
-  .field
-    = f.label :active
-    = f.check_box :active
-  .field
-    = f.label :creator_id
-    = f.number_field :creator_id
-  .field
-    = f.label :winner_id
-    = f.number_field :winner_id
+    .controls
+      = f.text_field :upper_level_restriction
+
+  .control-group
+    .controls
+      = label :is_public, "Public"
+      = f.radio_button :is_private, false, checked: true
+      = label :is_private, "Private"
+      = f.radio_button :is_private, true, checked: false
+  
+  %h2 Exercises for this competition
+  .control-group
+    .controls
+    = link_to_add_fields "Add Exercise", f, :team_competition_exercises
+    = f.fields_for :team_competition_exercises do |builder|
+      = render 'team_competition_exercise_fields', f: builder
+
   .actions
     = f.submit 'Save'

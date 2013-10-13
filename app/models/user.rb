@@ -33,6 +33,10 @@ class User < ActiveRecord::Base
     user
   end
 
+  def team
+    teams.first
+  end
+
   def active_team_competitions
     team_competitions.where(active: true)
   end

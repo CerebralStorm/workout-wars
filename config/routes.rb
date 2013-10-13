@@ -1,4 +1,6 @@
 Workoutwars::Application.routes.draw do
+  resources :team_competition_exercises
+
   resources :team_competitions
 
   resources :challenge_attempts

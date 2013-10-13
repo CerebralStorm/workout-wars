@@ -10,8 +10,8 @@ class TeamCompetitionsController < ApplicationController
   # GET /team_competitions/1
   # GET /team_competitions/1.json
   def show
-    @team_competition = TeamCompetitionSubscription.find_by user_id: current_user.id, competition_id: @competition.id
-    @team_competition = TeamCompetitionSubscription.new if @subscription.nil?
+    @subscription = TeamCompetitionSubscription.find_by team_id: current_user.team.id, team_competition_id: @team_competition.id
+    @subscription = TeamCompetitionSubscription.new if @subscription.nil?
   end
 
   # GET /team_competitions/new
@@ -72,6 +72,6 @@ class TeamCompetitionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def team_competition_params
-      params.require(:team_competition).permit(:name, :start_date, :end_date, :competition_type_id, :number_of_team, :lower_level_restriction, :upper_level_restriction, :active, :creator_id, :winner_id)
+      params.require(:team_competition).permit(:name, :start_date, :end_date, :competition_type_id, :number_of_teams, :lower_level_restriction, :upper_level_restriction, :active, :creator_id, :winner_id)
     end
 end

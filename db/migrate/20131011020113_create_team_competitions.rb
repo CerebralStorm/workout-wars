@@ -5,7 +5,7 @@ class CreateTeamCompetitions < ActiveRecord::Migration
       t.datetime :start_date
       t.datetime :end_date
       t.integer :competition_type_id
-      t.integer :number_of_team
+      t.integer :number_of_teams
       t.integer :lower_level_restriction
       t.integer :upper_level_restriction
       t.boolean :is_private, default: false

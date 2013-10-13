@@ -6,7 +6,7 @@ describe "team_competitions/show" do
       :name => "Name",
       :end_date => "",
       :competition_type_id => 1,
-      :number_of_team => 2,
+      :number_of_teams => 2,
       :lower_level_restriction => 3,
       :upper_level_restriction => 4,
       :active => false,

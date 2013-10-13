@@ -1,0 +1,2 @@
+module TeamCompetitionExercisesHelper
+end

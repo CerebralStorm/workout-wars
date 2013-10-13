@@ -14,7 +14,7 @@
   = @team_competition.competition_type_id
 %p
   %b Number of team:
-  = @team_competition.number_of_team
+  = @team_competition.number_of_teams
 %p
   %b Lower level restriction:
   = @team_competition.lower_level_restriction
@@ -30,6 +30,15 @@
 %p
   %b Winner:
   = @team_competition.winner_id
+
+- if @team_competition.registered?(current_user)
+  = link_to "Unregister", @subscription, method: :delete, class: "btn btn-lg btn-primary"
+-else
+  = form_for @subscription do |f|
+    = f.hidden_field :team_id, value: current_user.team.id
+    = f.hidden_field :competition_id, value: @team_competition.id
+    .actions
+      = f.submit "Register", class: "btn btn-lg btn-primary"
 
 = link_to 'Edit', edit_team_competition_path(@team_competition)
 \|

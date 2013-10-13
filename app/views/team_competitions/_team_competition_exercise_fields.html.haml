@@ -1,0 +1,12 @@
+%fieldset
+  = f.hidden_field :team_competition_id, value: @team_competition.id
+  = f.hidden_field :_destroy
+  .control-group
+    = f.label :exercise_type_id, class: "control-label"
+    .controls
+      = f.collection_select(:exercise_type_id, ExerciseType.all, :id, :name, {}, {:class => 'exercise-select'})
+  .control-group
+    = f.label :limit, class: "control-label"
+    .controls
+      = f.number_field :limit
+  = link_to "remove", '#', class: "remove_fields"
