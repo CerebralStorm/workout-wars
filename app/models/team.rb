@@ -1,7 +1,7 @@
 class Team < ActiveRecord::Base
   has_many :team_subscriptions, dependent: :destroy
   has_many :users, through: :team_subscriptions
-  has_many :team_competition_subscriptions, dependent: :destroy
+  has_many :competition_subscriptions, dependent: :destroy
   has_many :team_competitions, through: :team_competition_subscriptions
 
   def registered?(user)
