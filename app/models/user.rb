@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   end
 
   def active_individual_competitions
-    competitions.where(active: true)
+    competitions.where(active: true, team: false)
   end
 
   def exercises_by_date(date)

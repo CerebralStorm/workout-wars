@@ -23,8 +23,13 @@ class CompetitionsController < ApplicationController
 
     respond_to do |format|
       if @competition.save
-        CompetitionSubscription.create(user: current_user, competition: @competition)
-        
+        if @competition.team?
+          team = Team.find(params[:team][:id])
+          CompetitionSubscription.create(team: team, competition: @competition)
+        else
+          CompetitionSubscription.create(user: current_user, competition: @competition)
+        end
+
         format.html { redirect_to @competition, notice: 'Competition was successfully created.' }
         format.json { render action: 'show', status: :created, location: @competition }
       else
@@ -62,8 +67,8 @@ class CompetitionsController < ApplicationController
 
     def competition_params
       params.require(:competition).permit(
-        :name, :start_date, :end_date, :max_participants, 
-        :difficulty_id, :public, :number_of_teams, :competition_type_id,
+        :name, :start_date, :end_date, :max_participants, :lower_level_restriction, :upper_level_restriction,
+        :difficulty_id, :public, :number_of_teams, :competition_type_id, :team,
         :competition_exercises_attributes => [:competition_id, :exercise_type_id, :limit, :_destroy]
       )
     end

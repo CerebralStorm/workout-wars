@@ -19,11 +19,10 @@ class Competition < ActiveRecord::Base
   end
 
   def registered?(user)
-    if self.is_team?
+    if self.team?
       return competition_subscriptions.find_by(team: user.team, competition: self).present?
     else
-      team_ids = user.teams.collect(&:id)
-      return team_competition_subscriptions.any? { |t| team_ids.include?(t.team_id) }
+      return competition_subscriptions.find_by(user: user, competition: self).present?
     end
   end
 

@@ -7,7 +7,7 @@ class @CompetitionForm
       dateFormat: 'yy-mm-dd'
     $('#competition_competition_type_id').bind "change", @competitionTypeSelected
     $('#competition_competition_type_id').trigger "change"  
-    $("input[name='competition[is_team]']").bind "change", @setTeamSelected
+    $("input[name='competition[team]']").bind "change", @setTeamSelected
     $('form').on 'click', '.add_fields', @addExercise      
     $('form').on 'click', '.remove_fields', @removeExercise      
     $(".team_show").hide()
@@ -24,7 +24,7 @@ class @CompetitionForm
     event.preventDefault()
 
   setTeamSelected: (event) -> 
-    if event.target.id == 'competition_is_team_false'
+    if event.target.id == 'competition_team_true'
       showTeam()
     else
       hideTeam()
