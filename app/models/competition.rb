@@ -30,6 +30,10 @@ class Competition < ActiveRecord::Base
     users.sort { |a, b| a.get_total_xp_for_competition(self) <=> b.get_total_xp_for_competition(self) }.reverse
   end
 
+  def contains_exercise_type?(exercise_type)
+    competition_exercises.where(exercise_type: exercise_type).present?
+  end
+
   def level
     difficulty.level if difficulty
   end

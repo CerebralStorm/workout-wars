@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   end
 
   def active_competitions
-    competitions.where(active: true)
+    competitions.where(active: true) + team.competitions.where(active: true)
   end
 
   def active_team_competitions
@@ -54,6 +54,10 @@ class User < ActiveRecord::Base
 
   def competition_transactions_for_competition(competition)
     self.competition_transactions.where(competition: competition)
+  end
+
+  def exercises_for_competition(competition)
+    competition_transactions_for_competition(competition).collect {|comp_t| comp_t.exercise}.compact
   end
 
   def exercises_for_competition_by_exercise_type(competition, exercise_type)
@@ -108,12 +112,9 @@ class User < ActiveRecord::Base
   end
 
   def create_competition_transactions(exercise)
-    active_competitions.each do |comp|
-      comp.competition_exercises.each do |comp_exercise|
-        if exercise.exercise_type == comp_exercise.exercise_type
-          CompetitionTransaction.create(user_id: self.id, exercise_id: exercise.id, competition_id: comp.id)
-        end
-      end
+    comps_for_exercise = competitions.collect{|c| c if c.contains_exercise_type?(exercise.exercise_type)}
+    comps_for_exercise.each do |comp|
+      CompetitionTransaction.create(user_id: self.id, exercise_id: exercise.id, competition_id: comp.id)
     end
   end
 
