@@ -7,6 +7,6 @@ class CompetitionTransaction < ActiveRecord::Base
   after_save :check_if_competition_is_won
 
   def check_if_competition_is_won
-    competition.check_win_condition(user)
+    competition.set_win_condition(user)
   end
 end
