@@ -7,15 +7,25 @@
           %li= msg
   .control-group
     .controls
-      = label :individual, "Individuals"
-      = f.radio_button :individual, true, :checked => true 
       = label :team, "Team"
-      = f.radio_button :individual, false
+      = f.radio_button :team, true, :checked => true 
+      = label :team, "Individual"
+      = f.radio_button :team, false
 
   .control-group
     = f.label :name, "Competition Name", class: "control-label"
     .controls
       = f.text_field :name
+
+  .control-group.team_show
+    = f.label :number_of_teams, "Number of Teams", class: "control-label"
+    .controls
+      = f.number_field :number_of_teams
+
+  .control-group.team_show
+    = label_tag :team_id, "Which of your teams do you want to add?", class: "control-label"
+    .controls
+      = select(:team, :id, current_user.teams.collect {|t| [ t.name, t.id ] })
 
   .control-group
     = f.label :competition_type_id, "Victory Condition", class: "control-label"
@@ -34,10 +44,10 @@
 
   .control-group
     .controls
-      = label :is_public, "Public"
-      = f.radio_button :is_private, false, checked: true
-      = label :is_private, "Private"
-      = f.radio_button :is_private, true, checked: false
+      = label :public, "Public"
+      = f.radio_button :public, false, checked: true
+      = label :public, "Private"
+      = f.radio_button :public, true, checked: false
   
   %h2 Exercises for this competition
   .control-group

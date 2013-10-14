@@ -36,7 +36,8 @@ class User < ActiveRecord::Base
   end
 
   def active_team_competitions
-    teams.first.competitions.where(active: true)
+    return [] if team.nil?
+    team.competitions.where(active: true)
   end
 
   def active_individual_competitions

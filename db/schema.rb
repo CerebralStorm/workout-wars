@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131013212529) do
+ActiveRecord::Schema.define(version: 20131008041945) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20131013212529) do
   create_table "competition_subscriptions", force: true do |t|
     t.integer  "user_id"
     t.integer  "competition_id"
+    t.integer  "team_id"
     t.integer  "rank"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -83,10 +84,12 @@ ActiveRecord::Schema.define(version: 20131013212529) do
     t.datetime "end_date"
     t.integer  "competition_type_id"
     t.integer  "max_participants"
+    t.integer  "number_of_teams"
     t.integer  "lower_level_restriction"
     t.integer  "upper_level_restriction"
     t.integer  "difficulty_id"
-    t.boolean  "is_private",              default: false
+    t.boolean  "team",                    default: false
+    t.boolean  "public",                  default: true
     t.boolean  "active",                  default: true
     t.integer  "creator_id"
     t.integer  "winner_id"
@@ -122,37 +125,6 @@ ActiveRecord::Schema.define(version: 20131013212529) do
     t.integer  "duration"
     t.integer  "weight"
     t.integer  "calories"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "team_competition_exercises", force: true do |t|
-    t.integer  "limit"
-    t.integer  "exercise_type_id"
-    t.integer  "team_competition_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "team_competition_subscriptions", force: true do |t|
-    t.integer  "team_id"
-    t.integer  "team_competition_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "team_competitions", force: true do |t|
-    t.string   "name"
-    t.datetime "start_date"
-    t.datetime "end_date"
-    t.integer  "competition_type_id"
-    t.integer  "number_of_teams"
-    t.integer  "lower_level_restriction"
-    t.integer  "upper_level_restriction"
-    t.boolean  "is_private",              default: false
-    t.boolean  "active",                  default: true
-    t.integer  "creator_id"
-    t.integer  "winner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

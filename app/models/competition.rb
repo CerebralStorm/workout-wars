@@ -19,8 +19,8 @@ class Competition < ActiveRecord::Base
   end
 
   def registered?(user)
-    if self.individual?
-      return competition_subscriptions.find_by(user_id: user.id, competition_id: self.id).present?
+    if self.is_team?
+      return competition_subscriptions.find_by(team: user.team, competition: self).present?
     else
       team_ids = user.teams.collect(&:id)
       return team_competition_subscriptions.any? { |t| team_ids.include?(t.team_id) }
@@ -36,7 +36,7 @@ class Competition < ActiveRecord::Base
   end
   
   def type
-    individual ? 'Individual' : 'Team'
+    team ? 'Team' : 'Individual'
   end
 
   def check_win_condition(user)

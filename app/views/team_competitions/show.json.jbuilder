@@ -1,1 +1,0 @@
-json.extract! @team_competition, :name, :start_date, :end_date, :competition_type_id, :number_of_team, :lower_level_restriction, :upper_level_restriction, :active, :creator_id, :winner_id, :created_at, :updated_at
