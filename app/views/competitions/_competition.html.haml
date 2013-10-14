@@ -23,6 +23,6 @@
                   %td
                   - comp_exercise.metrics.each do |metric|
                     %td
-                      = current_user.get_competition_total_for(competition, comp_exercise.exercise_type, metric)
+                      = current_user.competition_total_for(competition, comp_exercise.exercise_type, metric)
                   %td
-                    = current_user.get_competition_total_for(competition, comp_exercise.exercise_type, :total_xp)
+                    = current_user.competition_total_for(competition, comp_exercise.exercise_type, :total_xp)

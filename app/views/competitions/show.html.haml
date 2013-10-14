@@ -28,7 +28,7 @@
       Rank
       = index+1 
       = user.email
-      = user.get_total_xp_for_competition(@competition)
+      = user.total_xp_for_competition(@competition)
 %p
   %b Exercises for this Competition
   - @competition.competition_exercises.each do |exercise|

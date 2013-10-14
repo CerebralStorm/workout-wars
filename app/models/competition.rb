@@ -27,7 +27,7 @@ class Competition < ActiveRecord::Base
   end
 
   def users_by_rank
-    users.sort { |a, b| a.get_total_xp_for_competition(self) <=> b.get_total_xp_for_competition(self) }.reverse
+    users.sort { |a, b| a.total_xp_for_competition(self) <=> b.total_xp_for_competition(self) }.reverse
   end
 
   def contains_exercise_type?(exercise_type)
@@ -48,18 +48,20 @@ class Competition < ActiveRecord::Base
       return if Date.today < end_date
       if self.team?
         teams = competition_subscriptions.collect(&:team)
-        winner = teams.max { |a, b| a.get_total_xp_for_competition(self) <=> b.get_total_xp_for_competition(self) }
+        winner = teams.max { |a, b| a.total_xp_for_competition(self) <=> b.total_xp_for_competition(self) }
         set_team_winner(winner)
       else
         users = competition_subscriptions.collect(&:user)
-        winner = users.max { |a, b| a.get_total_xp_for_competition(self) <=> b.get_total_xp_for_competition(self) }     
+        winner = users.max { |a, b| a.total_xp_for_competition(self) <=> b.total_xp_for_competition(self) }     
         set_user_winner(winner)
       end
     else
       if self.team?
         result = []
         competition_exercises.each do |comp_e|
-          exercises = user.exercises_for_competition_by_exercise_type(self, comp_e.exercise_type)
+          teams.each do |team|
+            team.total_for_competition_by_exercise_type(competition, comp_e.exercise_type)
+          end
           metrics = comp_e.metrics        
           metrics.each do |metric|
             exercise_total = exercises.sum { |exercise| exercise.send(metric) }

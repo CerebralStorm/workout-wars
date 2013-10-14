@@ -95,7 +95,7 @@ class User < ActiveRecord::Base
     self.save
   end
 
-  def get_competition_total_for(competition, exercise_type, category)
+  def competition_total_for(competition, exercise_type, category)
     total = 0
     comp_transactions = competition_transactions.where(competition_id: competition.id)
     comp_transactions.each do |transaction|
@@ -106,7 +106,7 @@ class User < ActiveRecord::Base
     total
   end
 
-  def get_total_xp_for_competition(competition)
+  def total_xp_for_competition(competition)
     comp_transactions = competition_transactions.where(competition: competition)
     comp_transactions.sum{|c_tran| c_tran.exercise.total_xp}
   end
