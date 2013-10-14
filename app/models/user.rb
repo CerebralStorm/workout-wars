@@ -41,7 +41,8 @@ class User < ActiveRecord::Base
   end
 
   def active_competitions
-    competitions.where(active: true) + team.competitions.where(active: true)
+    team_comps = teams.any? ? team.competitions.where(active: true) : []
+    competitions.where(active: true) + team_comps
   end
 
   def active_team_competitions
