@@ -36,8 +36,8 @@ class User < ActiveRecord::Base
   end
 
   def competitions_won
-    competition_subscriptions.where(rank: 1).collect{|comp_s| comp_s.competition}.flatten +
-    team.competition_subscriptions.where(rank: 1).collect{|comp_s| comp_s.competition}.flatten
+    team_comps = teams.any? ? team.competition_subscriptions.where(rank: 1).collect{|comp_s| comp_s.competition}.flatten : []
+    competition_subscriptions.where(rank: 1).collect{|comp_s| comp_s.competition}.flatten + team_comps    
   end
 
   def active_competitions
@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
   end
 
   def active_team_competitions
-    return [] if team.nil?
+    return [] if teams.nil?
     team.competitions.where(active: true)
   end
 
@@ -59,10 +59,12 @@ class User < ActiveRecord::Base
   end
 
   def competition_transactions_for_competition(competition)
+    return [] if competition.nil?
     self.competition_transactions.where(competition: competition)
   end
 
   def exercises_for_competition(competition)
+    return [] if competition.nil?
     competition_transactions_for_competition(competition).collect {|comp_t| comp_t.exercise}.compact
   end
 

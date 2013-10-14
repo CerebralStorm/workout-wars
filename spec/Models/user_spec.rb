@@ -111,4 +111,48 @@ describe User do
     end
   end
 
+  context "competitions" do
+    before do 
+      @competition1 = FactoryGirl.create(:competition)
+      @competition2 = FactoryGirl.create(:competition)
+      @subscription1 = FactoryGirl.create(:competition_subscription, user: user, competition: @competition1) 
+      @subscription2 = FactoryGirl.create(:competition_subscription, user: user, competition: @competition2) 
+    end
+
+    it "should return my active competitions" do
+      competition3 = FactoryGirl.create(:competition)
+      team = FactoryGirl.create(:team)
+      FactoryGirl.create(:team_subscription, user: user, team: team)
+      FactoryGirl.create(:competition_subscription, competition: competition3, team: team)
+      @competition2.active = false
+      @competition2.save
+      user.active_competitions.should == [@competition1, competition3]
+    end
+
+    it "should return my active team competitions" do
+      team = FactoryGirl.create(:team)
+      FactoryGirl.create(:team_subscription, user: user, team: team)
+      FactoryGirl.create(:competition_subscription, competition: @competition1, team: team)
+      @competition1.team = true
+      @competition1.save
+      user.active_team_competitions.should == [@competition1]
+    end
+
+    it "should return my active individual competitions" do
+      team = FactoryGirl.create(:team)
+      FactoryGirl.create(:team_subscription, user: user, team: team)
+      FactoryGirl.create(:competition_subscription, competition: @competition1, team: team)
+      @competition1.team = true
+      @competition1.save
+      user.active_individual_competitions.should == [@competition2]
+    end
+
+    it "should return my competitions_won" do      
+      @subscription1.rank = 1
+      @subscription1.save
+      user.competitions_won.should == [@competition1]     
+    end
+    
+  end
+
 end

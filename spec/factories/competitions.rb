@@ -5,6 +5,7 @@ FactoryGirl.define do
     end_date Date.today + 14.days
     difficulty
     creator_id 1
+    active true
 
     factory :private_competition do
       is_private true
