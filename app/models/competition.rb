@@ -2,12 +2,11 @@ class Competition < ActiveRecord::Base
   belongs_to :difficulty
   belongs_to :competition_type
   belongs_to :category
-  
-  has_many :users, through: :competition_subscriptions
+
   has_many :competition_subscriptions, dependent: :destroy
   has_many :competition_exercises
-  has_many :team_competition_subscriptions
-  has_many :teams, through: :team_competition_subscriptions
+  has_many :users, through: :competition_subscriptions
+  has_many :teams, through: :competition_subscriptions
   has_many :exercise_types, through: :competition_exercises
   
   accepts_nested_attributes_for :competition_exercises, allow_destroy: true
@@ -44,57 +43,60 @@ class Competition < ActiveRecord::Base
 
   def check_win_condition(user)
     return if self.name == "Global"
-    if end_date 
-      return if Date.today < end_date
-      if self.team?
-        teams = competition_subscriptions.collect(&:team)
-        winner = teams.max { |a, b| a.total_xp_for_competition(self) <=> b.total_xp_for_competition(self) }
-        set_winner(winner)
-      else
-        users = competition_subscriptions.collect(&:user)
-        winner = users.max { |a, b| a.total_xp_for_competition(self) <=> b.total_xp_for_competition(self) }     
-        set_winner(winner)
-      end
+
+    if self.team?
+      check_team_win_condition(user)      
     else
-      if self.team?
-        result = []
-        competition_exercises.each do |comp_e|
-          teams.each do |team|
-            binding.pry
-            team.exercises_for_competition_by_exercise_type(competition, comp_e.exercise_type)
-            metrics = comp_e.metrics        
-            metrics.each do |metric|
-              exercise_total = exercises.sum { |exercise| exercise.send(metric) }
-              result << (exercise_total >= comp_e.limit)
-            end 
-          end 
-        end
-         
-        #is_won = result.all? { |r| r } # returns true if all limits met
-        #set_team_winner(user) if is_won
-      else
-        result = []
-        competition_exercises.each do |comp_e|
-          exercises = user.exercises_for_competition_by_exercise_type(self, comp_e.exercise_type)
-          metrics = comp_e.metrics        
-          metrics.each do |metric|
-            exercise_total = exercises.sum { |exercise| exercise.send(metric) }
-            result << (exercise_total >= comp_e.limit)
-          end  
-        end
-         
-        is_won = result.all? { |r| r } # returns true if all limits met
-        set_winner(user) if is_won
-      end
+      check_user_win_condition(user)
     end
   end
 
-  def set_winner(user_or_team)
-    if user_or_team.kind_of? User
-      subscription = CompetitionSubscription.find_by(user: user_or_team, competition: self)
-    else
-      subscription = CompetitionSubscription.find_by(team: user_or_team, competition: self)
+  def check_user_win_condition(user)
+    return if users.nil? 
+    result = []
+    competition_exercises.each do |comp_e|
+      exercises = user.exercises_for_competition_by_exercise_type(self, comp_e.exercise_type)
+      metrics = comp_e.metrics        
+      metrics.each do |metric|
+        exercise_total = exercises.sum { |exercise| exercise.send(metric) }
+        result << (exercise_total >= comp_e.limit)
+      end  
     end
+     
+    is_won = result.all? { |r| r } # returns true if all limits met
+    set_winner(user) if is_won
+  end
+
+  def check_team_win_condition(user)
+    return if teams.nil?
+    team = user.team
+    result = []
+    competition_exercises.each do |comp_e|
+      exercises = team.exercises_for_competition_by_exercise_type(self, comp_e.exercise_type)
+      metrics = comp_e.metrics        
+      metrics.each do |metric|
+        exercise_total = exercises.sum { |exercise| exercise.send(metric) }
+        result << (exercise_total >= comp_e.limit)
+      end 
+    end
+
+    is_won = result.all? { |r| r } # returns true if all limits met
+    set_winner(team) if is_won
+  end
+
+  # set_winner_for_total_xp(:team) for teams
+  # set_winner_for_total_xp(:user) for individual
+  # TODO Create a background job that calls this once a day
+  def set_winner_for_total_xp(base_unit)
+    return if Date.today < end_date     
+    units = competition_subscriptions.collect{|comp_s| comp_s.send(base_unit)}
+    winner = units.max { |a, b| a.total_xp_for_competition(self) <=> b.total_xp_for_competition(self) }     
+    set_winner(winner)
+  end
+
+  def set_winner(user_or_team)
+    subscription = CompetitionSubscription.find_by(user: user_or_team, competition: self) if user_or_team.kind_of? User
+    subscription = CompetitionSubscription.find_by(team: user_or_team, competition: self) if user_or_team.kind_of? Team
     subscription.rank = 1
     subscription.save
     self.active = false

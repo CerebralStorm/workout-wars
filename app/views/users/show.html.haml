@@ -38,7 +38,7 @@
 %h3 
   Competitions I've Won
 %p
-  - @won_competitions.each do |comp|
+  - @user.competitions_won.each do |comp|
     = link_to comp.name, competition_path(comp)
 
 %h2 Current Individual Competitions

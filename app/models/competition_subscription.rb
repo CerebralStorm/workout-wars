@@ -3,7 +3,6 @@ class CompetitionSubscription < ActiveRecord::Base
   belongs_to :team
   belongs_to :competition
 
-  #validates_presence_of :user_id
   validate :user_or_team
   validates_presence_of :competition_id
 

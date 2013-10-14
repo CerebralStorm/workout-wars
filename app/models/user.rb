@@ -35,6 +35,11 @@ class User < ActiveRecord::Base
     teams.first
   end
 
+  def competitions_won
+    competition_subscriptions.where(rank: 1).collect{|comp_s| comp_s.competition}.flatten +
+    team.competition_subscriptions.where(rank: 1).collect{|comp_s| comp_s.competition}.flatten
+  end
+
   def active_competitions
     competitions.where(active: true) + team.competitions.where(active: true)
   end
