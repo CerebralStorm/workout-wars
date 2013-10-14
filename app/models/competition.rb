@@ -47,8 +47,8 @@ class Competition < ActiveRecord::Base
   end
 
   def set_win_condition_by_type(user_or_team)
-    return if users.nil? && user_or_team.kind_of? User
-    return if team.nil? && user_or_team.kind_of? Team
+    return if users.nil? && user_or_team.kind_of?(User)
+    return if team.nil? && user_or_team.kind_of?(Team)
     result = []
     competition_exercises.each do |comp_e|
       exercises = user_or_team.exercises_for_competition_by_exercise_type(self, comp_e.exercise_type)
@@ -60,7 +60,7 @@ class Competition < ActiveRecord::Base
     end
      
     is_won = result.all? { |r| r } # returns true if all limits met
-    set_winner(user) if is_won
+    set_winner(user_or_team) if is_won
   end
 
   # set_winner_for_total_xp(:team) for teams
