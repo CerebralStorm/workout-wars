@@ -42,26 +42,47 @@ class Competition < ActiveRecord::Base
     return if self.name == "Global"
     if end_date 
       return if Date.today < end_date
-      users = competition_subscriptions.collect(&:user)
-      winner = users.max { |a, b| a.get_total_xp_for_competition(self) <=> b.get_total_xp_for_competition(self) }     
-      set_winner(winner)
-    else
-      result = []
-      competition_exercises.each do |comp_e|
-        exercises = user.exercises_for_competition_by_exercise_type(self, comp_e.exercise_type)
-        metrics = comp_e.metrics        
-        metrics.each do |metric|
-          exercise_total = exercises.sum { |exercise| exercise.send(metric) }
-          result << (exercise_total >= comp_e.limit)
-        end  
+      if self.team?
+        teams = competition_subscriptions.collect(&:team)
+        winner = teams.max { |a, b| a.get_total_xp_for_competition(self) <=> b.get_total_xp_for_competition(self) }
+        set_team_winner(winner)
+      else
+        users = competition_subscriptions.collect(&:user)
+        winner = users.max { |a, b| a.get_total_xp_for_competition(self) <=> b.get_total_xp_for_competition(self) }     
+        set_user_winner(winner)
       end
-       
-      is_won = result.all? { |r| r } # returns true if all limits met
-      set_winner(user) if is_won
+    else
+      if self.team?
+        result = []
+        competition_exercises.each do |comp_e|
+          exercises = user.exercises_for_competition_by_exercise_type(self, comp_e.exercise_type)
+          metrics = comp_e.metrics        
+          metrics.each do |metric|
+            exercise_total = exercises.sum { |exercise| exercise.send(metric) }
+            result << (exercise_total >= comp_e.limit)
+          end  
+        end
+         
+        is_won = result.all? { |r| r } # returns true if all limits met
+        set_team_winner(user) if is_won
+      else
+        result = []
+        competition_exercises.each do |comp_e|
+          exercises = user.exercises_for_competition_by_exercise_type(self, comp_e.exercise_type)
+          metrics = comp_e.metrics        
+          metrics.each do |metric|
+            exercise_total = exercises.sum { |exercise| exercise.send(metric) }
+            result << (exercise_total >= comp_e.limit)
+          end  
+        end
+         
+        is_won = result.all? { |r| r } # returns true if all limits met
+        set_user_winner(user) if is_won
+      end
     end
   end
 
-  def set_winner(user)
+  def set_user_winner(user)
     subscription = CompetitionSubscription.find_by(user: user, competition: self)
     subscription.rank = 1
     subscription.save
@@ -69,6 +90,14 @@ class Competition < ActiveRecord::Base
     self.winner_id = user.id
     self.save
   end
-end
 
+  def set_team_winner(team)
+    subscription = CompetitionSubscription.find_by(team: team, competition: self)
+    subscription.rank = 1
+    subscription.save
+    self.active = false
+    self.winner_id = team.id
+    self.save
+  end
+end
 
