@@ -152,6 +152,18 @@ describe User do
       @subscription1.save
       user.competitions_won.should == [@competition1]     
     end
+
+    it "should return my competition transactions for a given competition" do
+      exercise = FactoryGirl.create(:exercise, user: user)
+      trans = FactoryGirl.create(:competition_transaction, competition: @competition1, user: user, exercise: exercise)      
+      user.competition_transactions_for_competition(@competition1).should == [trans]
+    end  
+
+    it "should return my exercises for a given competition" do  
+      exercise = FactoryGirl.create(:exercise, user: user)  
+      FactoryGirl.create(:competition_transaction, competition: @competition1, user: user, exercise: exercise)
+      user.exercises_for_competition(@competition1).should == [exercise]
+    end 
     
   end
 
