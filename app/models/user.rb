@@ -36,17 +36,17 @@ class User < ActiveRecord::Base
   end
 
   def competitions_won
-    team_comps = teams.any? ? team.competition_subscriptions.where(rank: 1).collect{|comp_s| comp_s.competition}.flatten : []
+    team_comps = teams.empty? ? [] : team.competition_subscriptions.where(rank: 1).collect{|comp_s| comp_s.competition}.flatten
     competition_subscriptions.where(rank: 1).collect{|comp_s| comp_s.competition}.flatten + team_comps    
   end
 
   def active_competitions
-    team_comps = teams.any? ? team.competitions.where(active: true) : []
+    team_comps = teams.empty? ? [] : team.competitions.where(active: true) 
     competitions.where(active: true) + team_comps
   end
 
   def active_team_competitions
-    return [] if teams.nil?
+    return [] if teams.empty?
     team.competitions.where(active: true)
   end
 

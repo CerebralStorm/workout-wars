@@ -3,6 +3,7 @@ class CreateCompetitionTypes < ActiveRecord::Migration
     create_table :competition_types do |t|
       t.string :name
       t.boolean :use_date, default: false
+      t.boolean :use_limit, default: false
 
       t.timestamps
     end
