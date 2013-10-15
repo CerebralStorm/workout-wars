@@ -4,11 +4,12 @@ FactoryGirl.define do
     start_date Date.today
     end_date Date.today + 14.days
     difficulty
+    competition_type
     creator_id 1
     active true
 
     factory :private_competition do
-      is_private true
+      public false
     end
   end
 end
