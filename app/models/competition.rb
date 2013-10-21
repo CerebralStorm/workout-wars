@@ -18,6 +18,10 @@ class Competition < ActiveRecord::Base
     User.find_by(id: creator_id)
   end
 
+  def winner
+    team? ? Team.find_by(id: winner_id) : User.find_by(id: winner_id)
+  end
+
   def registered?(user)
     if self.team?
       return competition_subscriptions.find_by(team: user.team, competition: self).present?
@@ -39,7 +43,7 @@ class Competition < ActiveRecord::Base
   end
   
   def type
-    team ? 'Team' : 'Individual'
+    team? ? 'Team' : 'Individual'
   end
 
   def set_win_condition(user)

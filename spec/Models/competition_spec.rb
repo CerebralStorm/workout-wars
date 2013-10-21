@@ -72,4 +72,28 @@ describe Competition do
       competition.type.should == "Individual"
     end
   end
+
+  context "individual winning" do
+    it "should be able to set a winner" do 
+      user1 = FactoryGirl.create(:user)
+      competition = FactoryGirl.create(:competition)
+      FactoryGirl.create(:competition_subscription, user: user1, competition: competition)
+      competition.set_winner(user1)
+      competition.active.should be_false
+      competition.winner.should == user1
+    end
+  end
+
+  context "team winning" do 
+    it "should be able to set a winning team" do 
+      user1 = FactoryGirl.create(:user)
+      team1 = FactoryGirl.create(:team)
+      FactoryGirl.create(:team_subscription, team: team1, user: user1)
+      competition = FactoryGirl.create(:competition, team: true)
+      FactoryGirl.create(:competition_subscription, team: team1, competition: competition)
+      competition.set_winner(team1)
+      competition.active.should be_false
+      competition.winner.should == team1
+    end
+  end
 end
