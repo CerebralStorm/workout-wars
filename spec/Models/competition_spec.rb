@@ -12,12 +12,6 @@ describe Competition do
   end
 
   context "individual registration" do
-    it "should have a creator" do
-      user = FactoryGirl.create(:user)
-      competition = FactoryGirl.build(:competition, creator_id: user.id)
-      competition.creator.should == user
-    end 
-
     it "should have registered users" do
       user = FactoryGirl.create(:user)
       competition = FactoryGirl.create(:competition)
@@ -35,5 +29,47 @@ describe Competition do
       competition.users.should == [user]
       competition.registered?(user).should be_true
     end 
+  end
+
+  context "creator" do 
+    it "should have a creator" do
+      user = FactoryGirl.create(:user)
+      competition = FactoryGirl.create(:competition, creator_id: user.id)
+      competition.creator.should == user
+    end
+  end
+
+  context "player rank" do 
+    it "should return users by rank" do
+      user1 = FactoryGirl.create(:user)
+      user2 = FactoryGirl.create(:user)
+      competition = FactoryGirl.create(:competition)
+      FactoryGirl.create(:competition_subscription, user: user1, competition: competition)
+      FactoryGirl.create(:competition_subscription, user: user2, competition: competition)
+      FactoryGirl.create(:exercise, reps: 30, user: user1)
+      FactoryGirl.create(:exercise, reps: 50, user: user2)
+      competition.users_by_rank.should == [user2, user1]
+    end
+  end
+
+  context "competition exercises" do 
+    it "should contain exercise types" do
+      e_type = FactoryGirl.create(:exercise_type)
+      comp_e = FactoryGirl.create(:competition_exercise, exercise_type: e_type)
+      competition = FactoryGirl.create(:competition, competition_exercises: [comp_e])
+      competition.contains_exercise_type?(e_type).should be_true
+    end
+  end
+
+  context "competition type" do 
+    it "should be a team competition" do
+      competition = FactoryGirl.create(:competition, team: true)
+      competition.type.should == "Team"
+    end
+
+    it "should be a team competition" do
+      competition = FactoryGirl.create(:competition, team: false)
+      competition.type.should == "Individual"
+    end
   end
 end
