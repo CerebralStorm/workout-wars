@@ -41,19 +41,10 @@ p{
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
-
-.navbar {
-  height: 100%;
-  padding: 30px;
-  background: #4c4c4c; /* Old browsers */
-  background: -moz-linear-gradient(-45deg,  #4c4c4c 0%, #595959 12%, #666666 25%, #474747 39%, #2c2c2c 50%, #000000 51%, #111111 60%, #2b2b2b 76%, #1c1c1c 91%, #131313 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#4c4c4c), color-stop(12%,#595959), color-stop(25%,#666666), color-stop(39%,#474747), color-stop(50%,#2c2c2c), color-stop(51%,#000000), color-stop(60%,#111111), color-stop(76%,#2b2b2b), color-stop(91%,#1c1c1c), color-stop(100%,#131313)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(-45deg,  #4c4c4c 0%,#595959 12%,#666666 25%,#474747 39%,#2c2c2c 50%,#000000 51%,#111111 60%,#2b2b2b 76%,#1c1c1c 91%,#131313 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(-45deg,  #4c4c4c 0%,#595959 12%,#666666 25%,#474747 39%,#2c2c2c 50%,#000000 51%,#111111 60%,#2b2b2b 76%,#1c1c1c 91%,#131313 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(-45deg,  #4c4c4c 0%,#595959 12%,#666666 25%,#474747 39%,#2c2c2c 50%,#000000 51%,#111111 60%,#2b2b2b 76%,#1c1c1c 91%,#131313 100%); /* IE10+ */
-  background: linear-gradient(135deg,  #4c4c4c 0%,#595959 12%,#666666 25%,#474747 39%,#2c2c2c 50%,#000000 51%,#111111 60%,#2b2b2b 76%,#1c1c1c 91%,#131313 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', endColorstr='#131313',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+.nav-area {
+  background-color:#b20000; 
 }
+
 .navigation{
   position:fixed;
   z-index:1;
@@ -83,12 +74,7 @@ p{
   position: relative;
   box-shadow:inset 0px 10px 10px rgba(0,0,0,0.3);
 }
-.wrapper{
-  width:960px;
-  height:200px;
-  margin:0 auto;
-  position:relative;
-}
+
 .slideno{
   position:absolute;
   bottom:0px;
@@ -97,6 +83,7 @@ p{
   font-weight:bold;
   color:rgba(255,255,255,0.3);
 }
+
 .button{
   display:block;
   width:50px;
@@ -113,21 +100,23 @@ p{
 }
 
 footer {
-    color: #666;
-    background: #222;
-    padding: 120px 0 18px 0;
-    border-top: 1px solid #000;
-    height: 300px;
-}
-footer a {
+  .container{
+    padding-top: 120px;
+  }
+  a {
     color: #999;
-}
-footer a:hover {
+  }
+  a:hover {
     color: #efefef;
-}
-
-footer p {
-    font-size: 18px;
+  }
+  p {
+    font-size: 24px;
+  } 
+  text-align: center;
+  color: #666;
+  background: #222;
+  border-top: 1px solid #000;
+  height: 300px;
 }
 
 /******************************
