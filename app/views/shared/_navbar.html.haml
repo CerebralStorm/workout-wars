@@ -2,20 +2,25 @@
   %li
     %div
       = link_to (image_tag "home.png", height: 80, width: 80), user_path(current_user)
+    %div
       = link_to "My Profile", user_path(current_user)
   %li
     %div
       = link_to (image_tag "Internet.png", height: 80, width: 80), teams_path, rel: 'teams-link'
+    %div
       = link_to "Teams", teams_path, rel: 'teams-link'
   %li
     %div
       = link_to (image_tag "Globe.png", height: 80, width: 80), competitions_path, rel: 'competitions-link'
+    %div
       = link_to "Competitions", competitions_path, rel: 'competitions-link'
   %li
     %div
       = link_to (image_tag "Man.png", height: 80, width: 80), challenges_path, rel: 'challenges-link'
+    %div
       = link_to "Challenges", challenges_path, rel: 'challenges-link'    
   %li
     %div
       = link_to (image_tag "arrow left.png", height: 80, width: 80), destroy_user_session_path, method: :delete, rel: 'logout-link' 
+    %div
       = link_to "Sign out", destroy_user_session_path, method: :delete, rel: 'logout-link'

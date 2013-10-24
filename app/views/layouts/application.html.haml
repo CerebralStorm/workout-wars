@@ -9,8 +9,10 @@
     -if controller_name == "static"
       = yield
       = render 'shared/footer'
-    -else       
-      .row
+    -else  
+      .container.header.rounded  
+        = render 'shared/header'   
+      .row.main
         .col-md-2.rounded.nav-area 
           = render 'shared/navbar'
         .col-md-10
