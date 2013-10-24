@@ -83,9 +83,15 @@ p{
     font-size: 14px;
   }
   img {
+    opacity: .7;
+    filter: alpha(opacity=70);
     height: 50%;
     width: 50%;
   }
+  img:hover {
+    opacity: 1;
+    filter: alpha(opacity=100);
+  }  
   background-color:#333; 
 }
 
