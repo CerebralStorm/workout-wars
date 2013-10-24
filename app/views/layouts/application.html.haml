@@ -10,12 +10,13 @@
       = yield
       = render 'shared/footer'
     -else  
-      .container.header.rounded  
-        = render 'shared/header'   
-      .row.main
-        .col-md-2.rounded.nav-area 
-          = render 'shared/navbar'
-        .col-md-10
-          = render 'shared/flash'
-          = yield
-      = render 'shared/footer'
+      .wrapper
+        .container.header.rounded  
+          = render 'shared/header'   
+        .row.main
+          .col-md-2.col-lg-2.rounded.nav-area 
+            = render 'shared/navbar'
+          .col-md-10
+            = render 'shared/flash'
+            = yield
+        = render 'shared/footer'
