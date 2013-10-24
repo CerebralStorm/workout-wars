@@ -1,33 +1,31 @@
 class AttemptTimer
   constructor: ->
-    timer = $.timer(updateTimer, @incrementTime, false)
-    $('#startTimer').bind 'click', startTimer(timer)
-    @incrementTime = 70 # Timer speed in milliseconds
-    @currentTime = 0 # Current time in hundredths of a second
+    $('#pause-timer').hide()
+    $('#submit-timer').hide()
+    window.clock = $(".clock").FlipClock({
+      autoStart: false
+    }) 
+       
+    $('#start-timer').on 'click', ->
+      window.clock.start ->
+      $('#start-timer').hide()
+      $('#pause-timer').show()
+      $('#submit-timer').show()
+    $('#pause-timer').on 'click', ->
+      value = $('#pause-timer').text()
+      if value == "Pause"
+        $('#pause-timer').text("Resume")
+        window.clock.stop ->
+      else
+        $('#pause-timer').text("Pause")
+        window.clock.start ->
 
-  startTimer = (timer)->
-    timer.play()
+    $('#submit-timer').on 'click', ->
+      time = window.clock.getTime()
+      console.log time.time 
 
-  updateTimer = ->
-    $('#stopwatch').html(formatTime(@currentTime))
-    @currentTime += @incrementTime / 10
-
-  @resetStopwatch = ->
-      @currentTime = 0
-      @Timer.stop().once()
-
-  pad = (number, length) ->
-    str = "" + number
-    str = "0" + str  while str.length < length
-    str
-
-  formatTime = (time) ->
-    min = parseInt(time / 6000)
-    sec = parseInt(time / 100) - (min * 60)
-    hundredths = pad(time - (sec * 100) - (min * 6000), 2)
-    ((if min > 0 then pad(min, 2) else "00")) + ":" + pad(sec, 2) + ":" + hundredths
 
 $ ->
-  window.AttemptTimer = new AttemptTimer()
+  window.AttemptTimer = new AttemptTimer() if $('.clock').length > 0
 
 

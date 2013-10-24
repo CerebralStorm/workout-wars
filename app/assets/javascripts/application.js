@@ -15,6 +15,9 @@
 //= require jquery.easing.1.3
 //= require jquery.stellar
 //= require jquery.timer
+//= require base
+//= require prefixfree.min
+//= require flipclock
 //= require jquery.ui.datepicker
 //= require waypoints
 //= require bootstrap
