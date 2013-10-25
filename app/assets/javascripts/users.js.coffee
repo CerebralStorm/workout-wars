@@ -39,6 +39,10 @@ class @ExerciseForm
     'exercise' + suffix
 jQuery ->
   new ExerciseForm()
+  $('.tab-button').on 'mouseup', (e) ->
+    $('.tab-button').removeClass('active')
+    $(e.target).addClass('active')
+
 # jQuery ->
 #   $.getScript "https://www.google.com/jsapi", (data, textStatus) ->
 #     google.load "visualization", "1.0",

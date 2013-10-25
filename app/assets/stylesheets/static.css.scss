@@ -95,12 +95,12 @@ p{
   background-color:#333; 
 }
 
-.navigation{
+.static-navigation{
   position:fixed;
   z-index:1;
   top:20px;
 }
-.navigation li{
+.static-navigation li{
   color: #EAEAEA;
   display:block;
   line-height:30px;
@@ -111,7 +111,7 @@ p{
   text-align:left;
   width:53px;
 }
-.navigation li:hover,.active{
+.static-navigation li:hover, .static-navigation .active{
   font-size:25px;
   cursor:pointer;
   width:100px!important;

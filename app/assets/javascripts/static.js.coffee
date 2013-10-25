@@ -5,19 +5,19 @@ class IndexView
     $(".slide").waypoint (direction) ->
       dataslide = $(this).attr("data-slide")
       if direction is "down"
-        $(".navigation li[data-slide=\"" + dataslide + "\"]").addClass("active").prev().removeClass "active"
+        $(".static-navigation li[data-slide=\"" + dataslide + "\"]").addClass("active").prev().removeClass "active"
       else
-        $(".navigation li[data-slide=\"" + dataslide + "\"]").addClass("active").next().removeClass "active"
+        $(".static-navigation li[data-slide=\"" + dataslide + "\"]").addClass("active").next().removeClass "active"
 
     $(window).scroll ->
       if $(window).scrollTop() is 0
-        $(".navigation li[data-slide=\"1\"]").addClass "active"
-        $(".navigation li[data-slide=\"2\"]").removeClass "active"
+        $(".static-navigation li[data-slide=\"1\"]").addClass "active"
+        $(".static-navigation li[data-slide=\"2\"]").removeClass "active"
     
     $("input.btn").click (e) ->
       $(this).closest("form").submit()
 
-    $(".navigation").find("li").click (e) ->
+    $(".static-navigation").find("li").click (e) ->
       e.preventDefault()
       dataslide = $(this).attr("data-slide")
       goToByScroll dataslide

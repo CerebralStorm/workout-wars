@@ -17,37 +17,8 @@
 %p{id: "user_levelup"} 
   Experience Needed for Level up:     
   = @user.xp_for_levelup
-%h2 Exercises by Date
-= link_to "<", date: @date.prev_day
-= @date.strftime("%B %d %Y")
-= link_to ">", date: @date.next_day
-%ul{id: "user_exercises"}
-  - @user.exercises_by_date(@date).each do |exercise|
-    = render exercise
 
-%h3 
-  My Teams
-%ul
-  - @user.teams.each do |team|
-    %li
-      = link_to team.name, team_path(team)
+= render 'users/menu'
+= render 'users/tabs'
 
-%a.btn.btn-primary.btn-lg{"data-toggle" => "modal", href: "#exerciseModal"} Add Exercise
-= render partial: "exercises/form"
 
-.section
-  %h3 
-    Competitions I've Won
-  %p
-    - @user.competitions_won.each do |comp|
-      = link_to comp.name, competition_path(comp)
-
-%h2 Current Individual Competitions
-%div.col-md-8
-  - @user.active_individual_competitions.each do |comp|
-    = render comp
-.clearfix
-%h2 Current Team Competitions
-%div.col-md-8
-  - @user.active_team_competitions.each do |team_comp|
-    = render team_comp
