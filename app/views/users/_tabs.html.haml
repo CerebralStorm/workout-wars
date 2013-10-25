@@ -13,13 +13,27 @@
         %li
           = link_to team.name, team_path(team)
   #exercises.tab-pane
-    %h2 Exercises by Date
-    = link_to "<", date: @date.prev_day
-    = @date.strftime("%B %d %Y")
-    = link_to ">", date: @date.next_day
+    %h2 Exercises
+    = link_to "<", {date: @date.prev_week, tab: 'exercises'}
+    = exercise_date_range(@date)
+    = link_to ">", {date: @date.next_week, tab: 'exercises'}
     %ul{id: "user_exercises"}
       - @user.exercises_by_date(@date).each do |exercise|
         = render exercise
+      %table.table.table-condensed.table-bordered
+        %tr
+          - exercise_date_days(@date).each do |day|
+            %th
+              = format_date(day)
+        %tr
+          - exercise_date_days(@date).each do |day|
+            %td
+              %ul
+                -unless @user.exercises_by_date(day).empty?
+                  - @user.exercises_by_date(day).each do |exercise|
+                    %li
+                      = exercise.name
+
     %a.btn.btn-primary.btn-lg{"data-toggle" => "modal", href: "#exerciseModal"} Add Exercise
     = render partial: "exercises/form"
   #competitions.tab-pane 

@@ -39,6 +39,11 @@ class @ExerciseForm
     'exercise' + suffix
 jQuery ->
   new ExerciseForm()
+  pattern = /\btab=[a-z]+/;
+  tab = location.search.match(pattern)
+  if tab
+    $('a[href="#exercises"]').tab('show') 
+
   $('.tab-button').on 'mouseup', (e) ->
     $('.tab-button').removeClass('active')
     $(e.target).addClass('active')
