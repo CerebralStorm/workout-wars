@@ -1,24 +1,26 @@
-%h1 
-  Profile for 
-  = @user.email
-  = link_to "Edit Profile", edit_user_path(@user)
-%p
-  Nickname
-  = @user.nickname
-%p 
-  Name
-  = @user.name
-%p{id: "user_level"} 
-  Level:     
-  = @user.level
-%p{id: "user_xp"} 
-  Total Experience:     
-  = @user.xp
-%p{id: "user_levelup"} 
-  Experience Needed for Level up:     
-  = @user.xp_for_levelup
-
-= render 'users/menu'
-= render 'users/tabs'
+.row
+  .col-md-8
+    = render 'users/menu'
+    = render 'users/tabs'
+    
+  .col-md-2
+    %h1 
+      Profile for 
+      = @user.email
+    %p
+      Nickname
+      = @user.nickname
+    %p 
+      Name
+      = @user.name
+    %p{id: "user_level"} 
+      Level:     
+      = @user.level
+    %p{id: "user_xp"} 
+      Total Experience:     
+      = @user.xp
+    %p{id: "user_levelup"} 
+      Experience Needed for Level up:     
+      = @user.xp_for_levelup
 
 
