@@ -22,3 +22,12 @@
   = f.hidden_field :challenge_id, value: @challenge.id
   .actions
     = f.submit "Attempt this challenge", class: "btn btn-lg btn-primary"
+
+- if @challenge.completed_by?(current_user) 
+  %h3
+    Completion Times
+  %ul
+    - @challenge.challenge_attempts.each do |attempt|
+      %li
+        = Time.at(attempt.completion_time).utc.strftime("%H:%M:%S")
+

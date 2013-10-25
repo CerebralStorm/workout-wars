@@ -4,4 +4,8 @@
 %button{id: 'pause-timer'}Pause
 %button{id: 'submit-timer'}Submit Timer
 
+= form_for @attempt do |f|
+  = f.hidden_field :completion_time
+
+
 

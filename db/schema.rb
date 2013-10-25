@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20131008041945) do
   create_table "challenge_attempts", force: true do |t|
     t.integer  "user_id"
     t.integer  "challenge_id"
+    t.integer  "completion_time"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -7,23 +7,32 @@ class AttemptTimer
     }) 
        
     $('#start-timer').on 'click', ->
-      window.clock.start ->
-      $('#start-timer').hide()
-      $('#pause-timer').show()
-      $('#submit-timer').show()
+      startTimer()
     $('#pause-timer').on 'click', ->
-      value = $('#pause-timer').text()
-      if value == "Pause"
-        $('#pause-timer').text("Resume")
-        window.clock.stop ->
-      else
-        $('#pause-timer').text("Pause")
-        window.clock.start ->
-
+      pauseToggle()
     $('#submit-timer').on 'click', ->
-      time = window.clock.getTime()
-      console.log time.time 
+      console.log "test"
+      submitTime()
 
+  startTimer = ->
+    window.clock.start ->
+    $('#start-timer').hide()
+    $('#pause-timer').show()
+    $('#submit-timer').show()
+
+  pauseToggle = ->
+    value = $('#pause-timer').text()
+    if value == "Pause"
+      $('#pause-timer').text("Resume")
+      window.clock.stop ->
+    else
+      $('#pause-timer').text("Pause")
+      window.clock.start ->
+
+  submitTime = ->
+    timer = window.clock.getTime()
+    $('#challenge_attempt_completion_time').val(timer.time)
+    $('.edit_challenge_attempt').submit()
 
 $ ->
   window.AttemptTimer = new AttemptTimer() if $('.clock').length > 0
