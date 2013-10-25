@@ -15,6 +15,7 @@
 //= require jquery.easing.1.3
 //= require jquery.stellar
 //= require jquery.timer
+//= require highcharts
 //= require bootstrap
 //= require base
 //= require prefixfree.min

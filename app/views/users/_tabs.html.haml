@@ -2,9 +2,9 @@
   #stats.tab-pane.active
     %h3 
       My Stats
-    %ul
-      %li
-        Coming Soon
+    = form_tag nil do
+      = select_tag :chart, options_from_collection_for_select(ExerciseType.all, 'id', 'name')  
+    #statChart{style: "min-width: 310px; height: 400px; margin: 0 auto"}
   #teams.tab-pane
     %h3 
       My Teams
