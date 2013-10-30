@@ -39,6 +39,10 @@ class User < ActiveRecord::Base
     occurances_as_friend.collect(&:user) + friendships.collect(&:friend)
   end
 
+  def challenge_attempts_by_challenge(challenge)
+    challenge_attempts.where(challenge: challenge)
+  end
+
   def team
     teams.first
   end

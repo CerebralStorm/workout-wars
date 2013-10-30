@@ -55,6 +55,12 @@
       - @user.active_team_competitions.each do |team_comp|
         = render team_comp
   #challanges.tab-pane
-    coming soon
+    -@user.challenges.each do |challenge|
+      %p
+        = challenge.name
+      %p
+        -@user.challenge_attempts_by_challenge(challenge).each do |attempt|
+          %p
+            = attempt.formatted_completition_time
   #settings.tab-pane
     = render 'users/edit'
