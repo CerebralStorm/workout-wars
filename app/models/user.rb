@@ -21,6 +21,10 @@ class User < ActiveRecord::Base
   has_many :competition_subscriptions, dependent: :destroy
   has_many :team_subscriptions, dependent: :destroy
   has_many :teams, through: :team_subscriptions
+  has_many :friendships, foreign_key: "user_id", dependent: :destroy
+  has_many :occurances_as_friend, class_name: "Friendship", foreign_key: "friend_id", dependent: :destroy
+  has_many :friends, through: :friendships
+  has_many :friends, through: :occurances_as_friend
 
   def self.find_for_facebook_oauth(auth, signed_in_resource = nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
@@ -29,6 +33,10 @@ class User < ActiveRecord::Base
                          uid:auth.uid, email:auth.info.email, password:Devise.friendly_token[0,20])
     end
     user
+  end
+
+  def friends
+    occurances_as_friend.collect(&:user) + friendships.collect(&:friend)
   end
 
   def team
