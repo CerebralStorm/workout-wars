@@ -24,8 +24,8 @@ class CompetitionsController < ApplicationController
     respond_to do |format|
       if @competition.save
         if @competition.team?
-          team = Team.find(params[:team][:id])
-          CompetitionSubscription.create(team: team, competition: @competition)
+          team = @competition.teams.first
+          TeamSubscription.create(team: team, user: current_user)
         else
           CompetitionSubscription.create(user: current_user, competition: @competition)
         end

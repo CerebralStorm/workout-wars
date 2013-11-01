@@ -1,4 +1,6 @@
 %h1 Users
+%ul
 - @users.each do |user|
-  = link_to user.name, user_path(user)
-  = link_to user.nickname, user_path(user)
+  %li
+    = link_to user.name, user_path(user)
+    = link_to user.nickname, user_path(user)

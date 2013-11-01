@@ -7,10 +7,13 @@ class Competition < ActiveRecord::Base
   has_many :competition_transactions, dependent: :destroy
   has_many :competition_exercises
   has_many :users, through: :competition_subscriptions
-  has_many :teams, through: :competition_subscriptions
+  has_many :teams
   has_many :exercise_types, through: :competition_exercises
+
+  after_save :create_teams, if: Proc.new { |c| c.team? }
   
   accepts_nested_attributes_for :competition_exercises, allow_destroy: true
+  accepts_nested_attributes_for :teams, allow_destroy: true
 
   validates_presence_of :name
 
@@ -71,7 +74,6 @@ class Competition < ActiveRecord::Base
 
   # set_winner_for_total_xp(:team) for teams
   # set_winner_for_total_xp(:user) for individual
-  # TODO Create a background job that calls this once a day
   def set_winner_for_total_xp(user_or_team)
     return if Date.today < end_date     
     units = competition_subscriptions.collect{|comp_s| comp_s.send(user_or_team)}
@@ -94,6 +96,12 @@ class Competition < ActiveRecord::Base
     comps = Competition.where(active: true, competition_type_id: comp_type.id)
     comps.each do |comp|
       comp.team? ? comp.set_winner_for_total_xp(:team) : comp.set_winner_for_total_xp(:user)
+    end
+  end
+
+  def create_teams
+    self.number_of_teams.times do 
+      self.teams.create
     end
   end
 end

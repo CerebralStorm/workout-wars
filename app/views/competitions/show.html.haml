@@ -20,6 +20,16 @@
 %p
   %b Private:
   = @competition.public
+%p
+  - if @competition.team?
+    -@competition.teams.each do |team|
+      %p
+        Team
+        = team.id
+      %ul
+        - team.users.each do |user|
+          %li
+            = user.index_name
 
 %p
   %b Participants Registered

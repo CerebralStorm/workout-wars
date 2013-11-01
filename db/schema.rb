@@ -148,7 +148,7 @@ ActiveRecord::Schema.define(version: 20131030175958) do
 
   create_table "teams", force: true do |t|
     t.string   "name"
-    t.integer  "creator_id"
+    t.integer  "competition_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -174,6 +174,7 @@ ActiveRecord::Schema.define(version: 20131030175958) do
     t.string   "phone"
     t.float    "weight"
     t.float    "height"
+    t.integer  "age"
     t.boolean  "admin",                  default: false
     t.string   "provider"
     t.string   "uid"

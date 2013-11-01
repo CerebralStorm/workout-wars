@@ -22,11 +22,6 @@
     .controls
       = f.number_field :number_of_teams
 
-  .control-group.team_show
-    = label_tag :team_id, "Which of your teams do you want to add?", class: "control-label"
-    .controls
-      = select(:team, :id, current_user.teams.collect {|t| [ t.name, t.id ] })
-
   .control-group
     = f.label :competition_type_id, "Victory Condition", class: "control-label"
     .controls

@@ -35,6 +35,11 @@ class User < ActiveRecord::Base
     user
   end
 
+  def index_name
+    secondary = name ? name : email
+    "#{self.nickname} (#{secondary})"
+  end
+
   def friends
     occurances_as_friend.collect(&:user) + friendships.collect(&:friend)
   end
