@@ -7,7 +7,7 @@ class Competition < ActiveRecord::Base
   has_many :competition_transactions, dependent: :destroy
   has_many :competition_exercises
   has_many :users, through: :competition_subscriptions
-  has_many :teams
+  has_many :teams, dependent: :destroy
   has_many :exercise_types, through: :competition_exercises
 
   after_save :create_teams, if: Proc.new { |c| c.team? }
@@ -27,10 +27,20 @@ class Competition < ActiveRecord::Base
 
   def registered?(user)
     if self.team?
-      return competition_subscriptions.find_by(team: user.team, competition: self).present?
+      return teams.any? {|t| t.users.include?(user)}
     else
       return competition_subscriptions.find_by(user: user, competition: self).present?
     end
+  end
+
+  def user_team(user)
+    teams.collect {|t| t if t.registered?(user)}.first
+  end
+
+  def user_team_subscription(user)
+    team = user_team(user)
+    return if team.nil?
+    TeamSubscription.find_by(user_id: user.id, team_id: team.id)
   end
 
   def users_by_rank

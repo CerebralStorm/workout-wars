@@ -3,8 +3,8 @@ class TeamSubscriptionsController < ApplicationController
     @subscription = TeamSubscription.create(team_subscription_params)
     respond_to do |format|
       if @subscription.save
-        format.html { redirect_to @subscription.team, notice: 'Successfully Joined' }
-        format.json { render action: 'show', status: :created, location: @subscription.team }
+        format.html { redirect_to @subscription.team.competition, notice: 'Successfully Joined' }
+        format.json { render action: 'show', status: :created, location: @subscription.team.competition }
       else
         redirect_to :back
       end
@@ -15,7 +15,7 @@ class TeamSubscriptionsController < ApplicationController
     @subscription = TeamSubscription.find(params[:id])
     @subscription.destroy
     respond_to do |format|
-      format.html { redirect_to teams_url }
+      format.html { redirect_to :back }
       format.json { head :no_content }
     end
   end

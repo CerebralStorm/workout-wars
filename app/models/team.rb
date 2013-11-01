@@ -7,6 +7,10 @@ class Team < ActiveRecord::Base
     team_subscriptions.find_by(user_id: user.id, team_id: self.id).present?
   end
 
+  def unregister(user)
+    team_subscriptions.find_by(user_id: user.id, team_id: self.id).destroy
+  end
+
   def total_xp_for_competition(competition)
     users.sum{|u| u.total_xp_for_competition(competition)}
   end
