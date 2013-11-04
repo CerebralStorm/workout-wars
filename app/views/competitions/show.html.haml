@@ -1,5 +1,8 @@
 .row
-  .col-md-8
+  .col-md-7
+    %p
+      %b Active:
+      = @competition.active
     %p
       %b Competition Type:
       = @competition.type
@@ -35,25 +38,27 @@
       = link_to 'Delete', competition_path(@competition), method: :delete, confirm: "You Sure?", rel: 'delete-competiton-link'
     = link_to 'Back', competitions_path
     
-  .col-md-2
+  .col-md-3
     - if @competition.team?
       -@competition.teams.each do |team|
         %p
           Team
           = team.id
+        %p
+          -if @competition.registered?(current_user)
+            -if @subscription.team == team
+              = link_to "Leave This Team", @subscription, method: :delete, class: "btn btn-lg btn-primary"
+          -else
+            = form_for @subscription do |f|
+              = f.hidden_field :competition_id, value: @competition.id
+              = f.hidden_field :user_id, value: current_user.id
+              = f.hidden_field :team_id, value: team.id
+              .actions
+                = f.submit "Join This Team", class: "btn btn-lg btn-primary"
         %ul
           - team.users.each do |user|
             %li
               = user.index_name
-        -if @competition.registered?(current_user)  
-          -if team.registered?(current_user)
-            = link_to "Leave This Team", @subscription, method: :delete, class: "btn btn-lg btn-primary"
-        -else
-          = form_for TeamSubscription.new do |f|
-            = f.hidden_field :user_id, value: current_user.id
-            = f.hidden_field :team_id, value: team.id
-            .actions
-              = f.submit "Join This Team", class: "btn btn-lg btn-primary"
 
     -else
       %b Participants Registered

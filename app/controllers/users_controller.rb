@@ -33,6 +33,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def user_exercises
+    @user = User.find(params[:id])
+    respond_to do |format|
+      format.json { render json: @user.exercises_by_exercise_type_id(params[:exercise_type_id]) }
+    end
+  end
+
 private
   
   def set_user

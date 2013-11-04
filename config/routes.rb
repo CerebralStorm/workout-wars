@@ -1,5 +1,8 @@
 Workoutwars::Application.routes.draw do
   root :to => "static#index"
+
+  get '/user_exercises/users/:id', to: 'users#user_exercises'
+
   resources :challenge_attempts
   resources :team_subscriptions
   resources :exercise_types

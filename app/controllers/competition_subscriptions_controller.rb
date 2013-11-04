@@ -13,9 +13,10 @@ class CompetitionSubscriptionsController < ApplicationController
 
   def destroy
     @subscription = CompetitionSubscription.find(params[:id])
+    competition = @subscription.competition
     @subscription.destroy
     respond_to do |format|
-      format.html { redirect_to competitions_url }
+      format.html { redirect_to competition }
       format.json { head :no_content }
     end
   end
@@ -23,6 +24,6 @@ class CompetitionSubscriptionsController < ApplicationController
 private
   
   def competition_subscription_params
-    params.require(:competition_subscription).permit(:user_id, :competition_id)
+    params.require(:competition_subscription).permit(:user_id, :competition_id, :team_id)
   end
 end

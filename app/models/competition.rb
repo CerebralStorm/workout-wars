@@ -6,11 +6,11 @@ class Competition < ActiveRecord::Base
   has_many :competition_subscriptions, dependent: :destroy
   has_many :competition_transactions, dependent: :destroy
   has_many :competition_exercises
-  has_many :users, through: :competition_subscriptions
+  has_many :users, through: :competition_subscriptions, source: :user
   has_many :teams, dependent: :destroy
   has_many :exercise_types, through: :competition_exercises
 
-  after_save :create_teams, if: Proc.new { |c| c.team? }
+  after_save :create_teams
   
   accepts_nested_attributes_for :competition_exercises, allow_destroy: true
   accepts_nested_attributes_for :teams, allow_destroy: true
@@ -25,16 +25,16 @@ class Competition < ActiveRecord::Base
     team? ? Team.find_by(id: winner_id) : User.find_by(id: winner_id)
   end
 
+  def team?
+    teams.count > 0
+  end
+
   def registered?(user)
-    if self.team?
-      return teams.any? {|t| t.users.include?(user)}
-    else
-      return competition_subscriptions.find_by(user: user, competition: self).present?
-    end
+    competition_subscriptions.find_by(user: user, competition: self).present?
   end
 
   def user_team(user)
-    teams.collect {|t| t if t.registered?(user)}.first
+    teams.collect {|t| t if t.users.include?(user)}.reject(&:nil?).first
   end
 
   def user_team_subscription(user)
@@ -56,30 +56,50 @@ class Competition < ActiveRecord::Base
   end
   
   def type
-    team? ? 'Team' : 'Individual'
+    self.team? ? 'Team' : 'Individual'
   end
 
   def set_win_condition(user)
     return if self.name == "Global"
     return if self.competition_type.use_limit == false
-    self.team? ? set_win_condition_by_type(user.team) : set_win_condition_by_type(user)
+    self.team? ? set_team_win_condition : set_individual_win_condition(user)
   end
 
-  def set_win_condition_by_type(user_or_team)
-    return if users.empty? && user_or_team.kind_of?(User)
-    return if teams.empty? && user_or_team.kind_of?(Team)
+  def set_individual_win_condition(user)
     result = []
-    competition_exercises.each do |comp_e|
-      exercises = user_or_team.exercises_for_competition_by_exercise_type(self, comp_e.exercise_type)
-      metrics = comp_e.metrics        
-      metrics.each do |metric|
-        exercise_total = exercises.sum { |exercise| exercise.send(metric) }
+    competition_exercises.each do |comp_e|       
+      comp_e.metrics.each do |metric|      
+        exercise_total = user_total_by_exercise_type_and_metric(user, comp_e.exercise_type, metric)
         result << (exercise_total >= comp_e.limit)
       end  
     end
      
     is_won = result.all? { |r| r } # returns true if all limits met
-    set_winner(user_or_team) if is_won
+    set_winner(user) if is_won
+  end
+
+  def set_team_win_condition
+    result = []
+    competition_exercises.each do |comp_e|       
+      comp_e.metrics.each do |metric| 
+        binding.pry
+        teams.each do |team|         
+          team_total = 0
+          team.users.each do |user|
+            binding.pry
+            team_total += user_total_by_exercise_type_and_metric(user, comp_e.exercise_type, metric)
+          end
+          result << (team_total >= comp_e.limit)  
+        end  
+      end  
+    end
+
+    is_won = result.all? { |r| r } # returns true if all limits met
+  end
+
+  def user_total_by_exercise_type_and_metric(user, exercise_type, metric)
+    exercises = user.exercises_for_competition_by_exercise_type(self, exercise_type)
+    exercises.sum { |exercise| exercise.send(metric) }
   end
 
   # set_winner_for_total_xp(:team) for teams
@@ -110,7 +130,8 @@ class Competition < ActiveRecord::Base
   end
 
   def create_teams
-    self.number_of_teams.times do 
+    count = self.number_of_teams - self.teams.count
+    count.times do 
       self.teams.create
     end
   end

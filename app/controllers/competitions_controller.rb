@@ -6,12 +6,8 @@ class CompetitionsController < ApplicationController
   end
 
   def show
-    if @competition.team
-      @subscription = @competition.user_team_subscription(current_user)
-    else 
-      @subscription = CompetitionSubscription.find_by user_id: current_user.id, competition_id: @competition.id
-      @subscription = CompetitionSubscription.new if @subscription.nil?
-    end    
+    @subscription = CompetitionSubscription.find_by user_id: current_user.id, competition_id: @competition.id
+    @subscription = CompetitionSubscription.new if @subscription.nil? 
   end
 
   def new
@@ -27,13 +23,7 @@ class CompetitionsController < ApplicationController
 
     respond_to do |format|
       if @competition.save
-        if @competition.team?
-          team = @competition.teams.first
-          TeamSubscription.create(team: team, user: current_user)
-        else
-          CompetitionSubscription.create(user: current_user, competition: @competition)
-        end
-
+        @competition.competition_subscriptions.create(user: current_user)
         format.html { redirect_to @competition, notice: 'Competition was successfully created.' }
         format.json { render action: 'show', status: :created, location: @competition }
       else
