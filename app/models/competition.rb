@@ -10,12 +10,13 @@ class Competition < ActiveRecord::Base
   has_many :teams, dependent: :destroy
   has_many :exercise_types, through: :competition_exercises
 
-  after_save :create_teams
+  after_create :create_teams, :unless => Proc.new{ self.team == false }
   
   accepts_nested_attributes_for :competition_exercises, allow_destroy: true
   accepts_nested_attributes_for :teams, allow_destroy: true
 
   validates_presence_of :name
+  validates_uniqueness_of :name, case_sensitive: false
 
   def creator
     User.find_by(id: creator_id)
@@ -82,18 +83,17 @@ class Competition < ActiveRecord::Base
     result = []
     competition_exercises.each do |comp_e|       
       comp_e.metrics.each do |metric| 
-        binding.pry
         teams.each do |team|         
-          team_total = 0
+          team_metric_total = 0
           team.users.each do |user|
             binding.pry
-            team_total += user_total_by_exercise_type_and_metric(user, comp_e.exercise_type, metric)
+            team_metric_total += user_total_by_exercise_type_and_metric(user, comp_e.exercise_type, metric)
           end
-          result << (team_total >= comp_e.limit)  
+          result << (team_metric_total >= comp_e.limit)  
         end  
       end  
     end
-
+    binding.pry
     is_won = result.all? { |r| r } # returns true if all limits met
   end
 
@@ -132,7 +132,7 @@ class Competition < ActiveRecord::Base
   def create_teams
     count = self.number_of_teams - self.teams.count
     count.times do 
-      self.teams.create
+      self.teams.create!
     end
   end
 end

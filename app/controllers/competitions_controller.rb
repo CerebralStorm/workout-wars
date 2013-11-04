@@ -23,7 +23,6 @@ class CompetitionsController < ApplicationController
 
     respond_to do |format|
       if @competition.save
-        @competition.competition_subscriptions.create(user: current_user)
         format.html { redirect_to @competition, notice: 'Competition was successfully created.' }
         format.json { render action: 'show', status: :created, location: @competition }
       else
