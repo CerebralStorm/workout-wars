@@ -86,15 +86,24 @@ class Competition < ActiveRecord::Base
         teams.each do |team|         
           team_metric_total = 0
           team.users.each do |user|
-            binding.pry
             team_metric_total += user_total_by_exercise_type_and_metric(user, comp_e.exercise_type, metric)
           end
           result << (team_metric_total >= comp_e.limit)  
         end  
       end  
     end
-    binding.pry
-    is_won = result.all? { |r| r } # returns true if all limits met
+
+    is_won = result.any? { |r| r } # returns true if all limits met
+    
+    if is_won
+      teams.each_with_index do |team, index|
+        if result[index] 
+          set_winner(team)
+          return
+        end
+      end
+    end
+    
   end
 
   def user_total_by_exercise_type_and_metric(user, exercise_type, metric)
