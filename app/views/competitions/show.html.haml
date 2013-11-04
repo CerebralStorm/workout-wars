@@ -1,53 +1,79 @@
-%p#notice= notice
-%p
-  %b Competition Type:
-  = @competition.type
-%p
-  %b Name:
-  = @competition.name
-%p
-  %b Start date:
-  = show_date(@competition.start_date)
-%p
-  %b End date:
-  = show_date(@competition.end_date)
-%p
-  %b Max participants:
-  = @competition.max_participants
-%p
-  %b Difficulty:
-  = @competition.level
-%p
-  %b Private:
-  = @competition.public
+.row
+  .col-md-7
+    %p
+      %b Active:
+      = @competition.active
+    %p
+      %b Competition Type:
+      = @competition.type
+    %p
+      %b Name:
+      = @competition.name
+    %p
+      %b Start date:
+      = show_date(@competition.start_date)
+    %p
+      %b End date:
+      = show_date(@competition.end_date)
+    %p
+      %b Max participants:
+      = @competition.max_participants
+    %p
+      %b Difficulty:
+      = @competition.level
+    %p
+      %b Private:
+      = @competition.public
 
-%p
-  %b Participants Registered
-  - @competition.users_by_rank.each_with_index do |user, index|
-    %p 
-      Rank
-      = index+1 
-      = user.email
-      = user.total_xp_for_competition(@competition)
-%p
-  %b Exercises for this Competition
-  - @competition.competition_exercises.each do |exercise|
-    %p  
-      = exercise.exercise_type.name
-      = exercise.limit
-      = link_to "X", competition_competition_exercise_path(@competition, exercise), method: :delete, confirm: "You Sure?", rel: 'delete-competiton-exercise-link'
+    %p
+      %b Exercises for this Competition
+      - @competition.competition_exercises.each do |exercise|
+        %p  
+          = exercise.exercise_type.name
+          = exercise.limit
+          = link_to "X", competition_competition_exercise_path(@competition, exercise), method: :delete, confirm: "You Sure?", rel: 'delete-competiton-exercise-link'
 
-- if @competition.registered?(current_user)
-  = link_to "Unregister", @subscription, method: :delete, class: "btn btn-lg btn-primary"
--else
-  = form_for @subscription do |f|
-    = f.hidden_field :user_id, value: current_user.id
-    = f.hidden_field :competition_id, value: @competition.id
-    .actions
-      = f.submit "Register", class: "btn btn-lg btn-primary"
+    - if @competition.creator == current_user
+      = link_to 'Edit', edit_competition_path(@competition), rel: 'show-competiton-link'
+      = link_to 'Delete', competition_path(@competition), method: :delete, confirm: "You Sure?", rel: 'delete-competiton-link'
+    = link_to 'Back', competitions_path
+    
+  .col-md-3
+    - if @competition.team?
+      -@competition.teams.each do |team|
+        %p
+          Team
+          = team.id
+        %p
+          -if @competition.registered?(current_user)
+            -if @subscription.team == team
+              = link_to "Leave This Team", @subscription, method: :delete, class: "btn btn-lg btn-primary"
+          -else
+            = form_for @subscription do |f|
+              = f.hidden_field :competition_id, value: @competition.id
+              = f.hidden_field :user_id, value: current_user.id
+              = f.hidden_field :team_id, value: team.id
+              .actions
+                = f.submit "Join This Team", class: "btn btn-lg btn-primary"
+        %ul
+          - team.users.each do |user|
+            %li
+              = user.index_name
 
-- if @competition.creator == current_user
-  = link_to 'Edit', edit_competition_path(@competition), rel: 'show-competiton-link'
-  = link_to 'Delete', competition_path(@competition), method: :delete, confirm: "You Sure?", rel: 'delete-competiton-link'
-= link_to 'Back', competitions_path
+    -else
+      %b Participants Registered
+      - @competition.users_by_rank.each_with_index do |user, index|
+        %p 
+          Rank
+          = index+1 
+          = user.email
+          = user.total_xp_for_competition(@competition)
+      - if @competition.registered?(current_user)
+        = link_to "Unregister", @subscription, method: :delete, class: "btn btn-lg btn-primary"
+      -else
+        = form_for @subscription do |f|
+          = f.hidden_field :user_id, value: current_user.id
+          = f.hidden_field :competition_id, value: @competition.id
+          .actions
+            = f.submit "Register", class: "btn btn-lg btn-primary"
 

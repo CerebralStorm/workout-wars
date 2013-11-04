@@ -23,4 +23,11 @@
       Experience Needed for Level up:     
       = @user.xp_for_levelup
 
+    %h2
+      Friends
+    -@user.friends.each do |friend|
+      %p
+        = friend.name
+
+
 

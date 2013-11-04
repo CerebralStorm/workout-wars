@@ -4,14 +4,17 @@
       My Stats
     = form_tag nil do
       = select_tag :chart, options_from_collection_for_select(ExerciseType.all, 'id', 'name')  
+      = radio_button_tag :reps, value: "reps"
+      = label_tag :reps
+      = radio_button_tag :distance, value: "distance"
+      = label_tag :distance
+      = radio_button_tag :duration, value: "duration"
+      = label_tag :duration
+      = radio_button_tag :weight, value: "weight"
+      = label_tag :weight
+      = radio_button_tag :calories, value: "calories"
+      = label_tag :calories
     #statChart{style: "min-width: 310px; height: 400px; margin: 0 auto"}
-  #teams.tab-pane
-    %h3 
-      My Teams
-    %ul
-      - @user.teams.each do |team|
-        %li
-          = link_to team.name, team_path(team)
   #exercises.tab-pane
     %h2 Exercises
     = link_to "<", {date: @date.prev_week, tab: 'exercises'}
@@ -54,7 +57,14 @@
     %p
       - @user.active_team_competitions.each do |team_comp|
         = render team_comp
+        
   #challanges.tab-pane
-    coming soon
+    -@user.challenges.each do |challenge|
+      %p
+        = challenge.name
+      %p
+        -@user.challenge_attempts_by_challenge(challenge).each do |attempt|
+          %p
+            = attempt.formatted_completition_time
   #settings.tab-pane
     = render 'users/edit'

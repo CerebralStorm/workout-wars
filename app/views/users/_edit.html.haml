@@ -29,6 +29,11 @@
       %i (This will not be publicly shared, unless you want to!)
 
   .control-group
+    = f.label "Age", class: "control-label"
+    .controls
+      = f.number_field :age, placeholder: "Age"
+
+  .control-group
     = f.label :height, class: "control-label"
     .controls
       = f.number_field :height, placeholder: "Height"

@@ -16,11 +16,12 @@ class User < ActiveRecord::Base
   has_many :exercises
   has_many :challenge_attempts
   has_many :challenges, through: :challenge_attempts
-  has_many :competitions, through: :competition_subscriptions
-  has_many :competition_transactions, dependent: :destroy
   has_many :competition_subscriptions, dependent: :destroy
-  has_many :team_subscriptions, dependent: :destroy
-  has_many :teams, through: :team_subscriptions
+  has_many :competitions, through: :competition_subscriptions, source: :competition
+  has_many :teams, through: :competition_subscriptions, source: :team
+  has_many :competition_transactions, dependent: :destroy  
+  has_many :friendships, foreign_key: "user_id", dependent: :destroy
+  has_many :occurances_as_friend, class_name: "Friendship", foreign_key: "friend_id", dependent: :destroy
 
   def self.find_for_facebook_oauth(auth, signed_in_resource = nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
@@ -31,27 +32,41 @@ class User < ActiveRecord::Base
     user
   end
 
-  def team
-    teams.first
+  def index_name
+    secondary = name ? name : email
+    "#{self.nickname} (#{secondary})"
+  end
+
+  def friends
+    occurances_as_friend.collect(&:user) + friendships.collect(&:friend)
+  end
+
+  def challenge_attempts_by_challenge(challenge)
+    challenge_attempts.where(challenge: challenge)
   end
 
   def competitions_won
-    team_comps = teams.empty? ? [] : team.competition_subscriptions.where(rank: 1).collect{|comp_s| comp_s.competition}.flatten
-    competition_subscriptions.where(rank: 1).collect{|comp_s| comp_s.competition}.flatten + team_comps    
+    competition_subscriptions.where(rank: 1).collect{|comp_s| comp_s.competition}.flatten   
   end
 
   def active_competitions
-    team_comps = teams.empty? ? [] : team.competitions.where(active: true) 
-    competitions.where(active: true) + team_comps
+    competitions.where(active: true)
   end
 
+  def competition_subscription_by_competition(competition)
+    competition_subscriptions.find_by(competition: competition)
+  end
+  
   def active_team_competitions
-    return [] if teams.empty?
-    team.competitions.where(active: true)
+    active_competitions.collect{|c| c if c.teams.count > 0}.reject(&:nil?)
   end
 
   def active_individual_competitions
     competitions.where(active: true, team: false)
+  end
+
+  def exercises_by_exercise_type_id(id)
+    exercises.where(exercise_type_id: id)
   end
 
   def exercises_by_date(date)
