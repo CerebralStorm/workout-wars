@@ -19,8 +19,8 @@ class @CompetitionForm
     event.preventDefault()
 
   removeExercise: (event) ->
-    $(this).prev('input[type=hidden]').val('1')
-    $(this).closest('fieldset').hide()
+    $(event.target).prev('input[type=hidden]').val('1')
+    $(event.target).closest('fieldset').hide()
     event.preventDefault()
 
   setTeamSelected: (event) -> 

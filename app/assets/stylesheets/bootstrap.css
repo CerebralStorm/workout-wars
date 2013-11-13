@@ -268,7 +268,7 @@ table {
   }
   .table td,
   .table th {
-    background-color: #fff !important;
+    background-color: #333 !important;
   }
   .btn > .caret,
   .dropup > .btn > .caret {
@@ -1399,6 +1399,7 @@ table {
 }
 
 th {
+  background-color: #333;
   text-align: left;
 }
 

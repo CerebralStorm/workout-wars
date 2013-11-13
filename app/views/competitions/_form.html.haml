@@ -1,56 +1,68 @@
 = form_for @competition do |f|
-  - if @competition.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@competition.errors.count, "error")} prohibited this competition from being saved:"
-      %ul
-        - @competition.errors.full_messages.each do |msg|
-          %li= msg
-  .control-group
-    .controls
-      = label :team, "Team"
-      = f.radio_button :team, true, :checked => true 
-      = label :team, "Individual"
-      = f.radio_button :team, false
+  .row
+    .col-md-4
+      %h1 New competition
+      %hr
+      - if @competition.errors.any?
+        #error_explanation
+          %h2= "#{pluralize(@competition.errors.count, "error")} prohibited this competition from being saved:"
+          %ul
+            - @competition.errors.full_messages.each do |msg|
+              %li= msg
+      .control-group
+        .controls
+          = label :team, "Team"
+          = f.radio_button :team, true, :checked => true 
+          = label :team, "Individual"
+          = f.radio_button :team, false
 
-  .control-group
-    = f.label :name, "Competition Name", class: "control-label"
-    .controls
-      = f.text_field :name
+      .control-group
+        = f.label :name, "Competition Name", class: "control-label"
+        .controls
+          = f.text_field :name
 
-  .control-group.team_show
-    = f.label :number_of_teams, "Number of Teams", class: "control-label"
-    .controls
-      = f.number_field :number_of_teams
+      .control-group.team_show
+        = f.label :number_of_teams, "Number of Teams", class: "control-label"
+        .controls
+          = f.number_field :number_of_teams
 
-  .control-group
-    = f.label :competition_type_id, "Victory Condition", class: "control-label"
-    .controls
-      = f.collection_select(:competition_type_id, CompetitionType.all, :id, :name)
+      .control-group
+        = f.label :competition_type_id, "Victory Condition", class: "control-label"
+        .controls
+          = f.collection_select(:competition_type_id, CompetitionType.all, :id, :name)
 
-  .control-group
-    = f.label :end_date, class: "control-label"
-    .controls
-      = f.text_field :end_date, class: "datepicker"
+      .control-group
+        = f.label :difficulty_id, "Difficulty Rating", class: "control-label"
+        .controls
+          = f.collection_select(:difficulty_id, Difficulty.all, :id, :level)
 
-  .control-group
-    = f.label :max_participants, class: "control-label"
-    .controls
-      = f.number_field :max_participants
+      .control-group
+        = f.label :end_date, class: "control-label"
+        .controls
+          = f.text_field :end_date, class: "datepicker"
 
-  .control-group
-    .controls
-      = label :public, "Public"
-      = f.radio_button :public, false, checked: true
-      = label :public, "Private"
-      = f.radio_button :public, true, checked: false
-  
-  %h2 Exercises for this competition
-  .control-group
-    .controls
-    = link_to_add_fields "Add Exercise", f, :competition_exercises
-    = f.fields_for :competition_exercises do |builder|
-      = render 'competition_exercise_fields', f: builder
-      
-      
-  .actions
-    = f.submit 'Save', class: 'btn btn-success', rel: 'save-competition-link'
+      .control-group
+        = f.label :max_participants, class: "control-label"
+        .controls
+          = f.number_field :max_participants
+
+      .control-group
+        .controls
+          = label :public, "Public"
+          = f.radio_button :public, false, checked: true
+          = label :public, "Private"
+          = f.radio_button :public, true, checked: false
+    
+    .col-md-8  
+      %h1 Exercises for this competition
+      %hr
+      / -if @competition.competition_exercises.empty?
+      /   - @competition.competition_exercises.build
+
+      = link_to_add_fields "Add Another Exercise", f, :competition_exercises
+      = f.fields_for :competition_exercises do |builder|
+        = render 'competition_exercise_fields', f: builder
+          
+          
+      .actions
+        = f.submit 'Save Competition', class: 'btn btn-lg btn-primary', rel: 'save-competition-link'

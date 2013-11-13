@@ -93,8 +93,7 @@
 
 
     - if @competition.creator == current_user
-      = link_to 'Edit', edit_competition_path(@competition), rel: 'show-competiton-link'
-      = link_to 'Delete', competition_path(@competition), method: :delete, confirm: "You Sure?", rel: 'delete-competiton-link'
-    = link_to 'Back', competitions_path
+      = link_to 'Edit', edit_competition_path(@competition), class: "btn btn-lg btn-primary", rel: 'show-competiton-link'
+      = link_to 'Delete', competition_path(@competition), method: :delete, confirm: "You Sure?", class: "btn btn-lg btn-primary", rel: 'delete-competiton-link'
     
 

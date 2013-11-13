@@ -1,29 +1,30 @@
 %h1 Listing competitions
+= link_to 'New Competition', new_competition_path, class: "btn btn-lg btn-primary", rel: 'new-competition-link'
+%hr
+.row
+  .col-md-10
+    %table.table.table-condensed.table-bordered
+      %tr
+        %th Name
+        %th Win Condition
+        %th Start date
+        %th End date
+        %th Registered Participants
+        %th Max participants
+        %th Difficulty
+        %th Private
 
-%table
-  %tr
-    %th Name
-    %th Start date
-    %th End date
-    %th Max participants
-    %th Difficulty
-    %th Private
-    %th
-    %th
-    %th
+      - @competitions.each do |competition|
+        %tr
+          %td= link_to competition.name, competition
+          %td= competition.competition_type.name
+          %td= competition.start_date
+          %td= competition.end_date
+          %td= competition.users.count
+          %td= competition.max_participants
+          %td= competition.level
+          %td= competition.public
+    %br
 
-  - @competitions.each do |competition|
-    %tr
-      %td= competition.name
-      %td= competition.start_date
-      %td= competition.end_date
-      %td= competition.max_participants
-      %td= competition.level
-      %td= competition.public
-      %td= link_to 'Show', competition, rel: 'show-competition-link'
-      %td= link_to 'Edit', edit_competition_path(competition), rel: 'edit-competition-link'
-      %td= link_to 'Destroy', competition, :method => :delete, :data => { :confirm => 'Are you sure?' }, rel: "delete-competition-link"
-
-%br
-
-= link_to 'New Competition', new_competition_path, class: "btn btn-success", rel: 'new-competition-link'
+  .col-md-2
+    
