@@ -7,5 +7,4 @@ before_script:
   - psql -c "CREATE USER workoutwars WITH PASSWORD 'uofucs';" -U postgres
   - rake db:create
   - rake db:migrate
-  - rake db:seed
 script: bundle exec rspec spec

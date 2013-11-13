@@ -1,25 +1,22 @@
 %h1 Listing challenges
+= link_to 'New Challenge', new_challenge_path, class: "btn btn-lg btn-primary"
+%hr
+.row
+  .col-md-10
+    %table.table.table-condensed.table-bordered
+      %tr
+        %th Name
+        %th Reward
+        %th Difficulty
+        %th Challenge type
 
-%table
-  %tr
-    %th Name
-    %th Reward
-    %th Difficulty
-    %th Challenge type
-    %th
-    %th
-    %th
+      - @challenges.each do |challenge|
+        %tr
+          %td= link_to challenge.name, challenge
+          %td= challenge.reward
+          %td= challenge.difficulty_id
+          %td= challenge.challenge_type.name
+  .col-md-2
 
-  - @challenges.each do |challenge|
-    %tr
-      %td= challenge.name
-      %td= challenge.reward
-      %td= challenge.difficulty_id
-      %td= challenge.challenge_type_id
-      %td= link_to 'Show', challenge
-      %td= link_to 'Edit', edit_challenge_path(challenge)
-      %td= link_to 'Destroy', challenge, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
-%br
 
-= link_to 'New Challenge', new_challenge_path

@@ -1,22 +1,34 @@
 = form_for @challenge do |f|
-  - if @challenge.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@challenge.errors.count, "error")} prohibited this challenge from being saved:"
-      %ul
-        - @challenge.errors.full_messages.each do |msg|
-          %li= msg
+  .row
+    .col-md-4
+      - if @challenge.errors.any?
+        #error_explanation
+          %h2= "#{pluralize(@challenge.errors.count, "error")} prohibited this challenge from being saved:"
+          %ul
+            - @challenge.errors.full_messages.each do |msg|
+              %li= msg
 
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :reward
-    = f.number_field :reward
-  .field
-    = f.label :difficulty_id
-    = f.number_field :difficulty_id
-  .field
-    = f.label :challenge_type_id
-    = f.number_field :challenge_type_id
+      .control-group
+        = f.label :name, class: "control-label"
+        .controls    
+          = f.text_field :name
+      .control-group
+        = f.label :reward, class: "control-label"
+        .controls 
+          = f.number_field :reward
+      .control-group
+        = f.label :difficulty_id, "Difficulty", class: "control-label"
+        .controls
+          = f.collection_select(:difficulty_id, Difficulty.all, :id, :level)
+      .control-group
+        = f.label :challenge_type_id, "Challenge Type", class: "control-label"
+        .controls
+          = f.collection_select(:challenge_type_id, ChallengeType.all, :id, :name)
+
+    .col-md-8
+      = link_to_add_fields "Add Another Exercise", f, :challenge_exercises
+      = f.fields_for :challenge_exercises do |builder|
+        = render 'challenge_exercise_fields', f: builder
+  %br
   .actions
-    = f.submit 'Save'
+    = f.submit 'Save Challenge', class: 'btn btn-lg btn-primary', rel: 'save-challenge-link'

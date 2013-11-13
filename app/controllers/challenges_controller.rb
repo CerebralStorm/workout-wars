@@ -1,4 +1,4 @@
-class ChallengesController < ApplicationController
+ class ChallengesController < ApplicationController
   before_action :set_challenge, only: [:show, :edit, :update, :destroy]
 
   # GET /challenges
@@ -70,6 +70,7 @@ class ChallengesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def challenge_params
-      params.require(:challenge).permit(:name, :reward, :difficulty_id, :challenge_type_id)
+      params.require(:challenge).permit(:name, :reward, :difficulty_id, :challenge_type_id,
+        :challenge_exercises_attributes => [:id, :challenge_id, :exercise_type_id, :limit, :_destroy])
     end
 end

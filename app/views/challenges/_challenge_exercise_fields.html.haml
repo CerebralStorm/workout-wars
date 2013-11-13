@@ -1,0 +1,15 @@
+%fieldset
+  %table.table.table-condensed
+    %tr
+      %td
+        = f.hidden_field :challenge_id, value: @challenge.id
+        = f.label :exercise_type_id, class: "control-label"
+      %td
+        = f.collection_select(:exercise_type_id, ExerciseType.all, :id, :name, {}, {:class => 'exercise-select'})
+      %td
+        = f.label :limit, class: "control-label"
+      %td
+        = f.number_field :limit
+      %td
+        = f.hidden_field :_destroy
+        = link_to "remove", '#', class: "btn btn-danger remove_fields"
