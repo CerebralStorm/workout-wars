@@ -40,12 +40,6 @@ CompetitionType.destroy_all
   CompetitionType.create!(comp_type)
 end
 
-Competition.destroy_all
-global_comp = Competition.create!(name: "Global")
-ExerciseType.all.each do |e_type|
-  CompetitionExercise.create!(competition_id: global_comp.id, exercise_type_id: e_type.id)
-end
-
 ChallengeType.destroy_all
 ["Best Time"].each do |name|
   ChallengeType.create!(name: name)

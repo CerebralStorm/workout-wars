@@ -10,16 +10,13 @@ class UsersController < ApplicationController
     @date = params[:date] ? Date.parse(params[:date]) : Date.today
   end
 
-  def edit
-  end
-
   def update
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to user_path(@user), notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: 'edit' }
+        format.html { redirect_to user_path(@user), notice: 'Something went wrong' }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end

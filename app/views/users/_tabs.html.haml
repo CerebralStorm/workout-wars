@@ -1,7 +1,9 @@
 .tab-content
   #stats.tab-pane.active
-    %h3 
-      My Stats
+    %h2 My Stats
+    %hr
+    %table.table.table-condensed.table-bordered
+
     = form_tag nil do
       = select_tag :chart, options_from_collection_for_select(ExerciseType.all, 'id', 'name')  
       = radio_button_tag :reps, value: "reps"
@@ -17,9 +19,15 @@
     #statChart{style: "min-width: 310px; height: 400px; margin: 0 auto"}
   #exercises.tab-pane
     %h2 Exercises
-    = link_to "<", {date: @date.prev_week, tab: 'exercises'}
-    = exercise_date_range(@date)
-    = link_to ">", {date: @date.next_week, tab: 'exercises'}
+    %hr
+    %a.btn.btn-primary.btn-lg{"data-toggle" => "modal", href: "#exerciseModal"} Add Exercise
+    = render partial: "exercises/form"
+    %br
+    %br
+    .text-center
+      = link_to "<", {date: @date.prev_week, tab: 'exercises'}
+      = exercise_date_range(@date)
+      = link_to ">", {date: @date.next_week, tab: 'exercises'}
     %ul{id: "user_exercises"}
       - @user.exercises_by_date(@date).each do |exercise|
         = render exercise
@@ -35,36 +43,57 @@
                 -unless @user.exercises_by_date(day).empty?
                   - @user.exercises_by_date(day).each do |exercise|
                     %li
-                      = exercise.name
-
-    %a.btn.btn-primary.btn-lg{"data-toggle" => "modal", href: "#exerciseModal"} Add Exercise
-    = render partial: "exercises/form"
+                      = exercise.name    
   #competitions.tab-pane 
-    %h3 
-      Competitions I've Won
-    %p
-      - @user.competitions_won.each do |comp|
-        = link_to comp.name, competition_path(comp)
+    %h2 My Competitions
+    %hr
+    %h4 Competition Wins
+    %ul
+      -if @user.competitions_won.empty?
+        %li No competitions won yet
+      -else
+        - @user.competitions_won.each do |comp|
+          %li
+            = link_to comp.name, competition_path(comp)
 
-    %h2 
-      Current Individual Competitions
-    %p
-      - @user.active_individual_competitions.each do |comp|
-        = render comp
+    %h4 My Current Individual Competitions
+    %ul
+      -if @user.active_individual_competitions.empty?
+        %li Not registered for any individual competitions
+      -else
+        - @user.active_individual_competitions.each do |comp|
+          %li
+            = render comp
     .clearfix
-    %h2 
-      Current Team Competitions
-    %p
-      - @user.active_team_competitions.each do |team_comp|
-        = render team_comp
+    %h4 My Current Team Competitions
+    %ul
+      -if @user.active_team_competitions.empty?
+        %li Not registered for any team competitions
+      -else
+        - @user.active_team_competitions.each do |team_comp|
+          %li
+            = render team_comp
         
   #challanges.tab-pane
-    -@user.challenges.each do |challenge|
-      %p
-        = challenge.name
-      %p
-        -@user.challenge_attempts_by_challenge(challenge).each do |attempt|
-          %p
-            = attempt.formatted_completition_time
+    %h2 My Challenges
+    - if @user.challenges.any?    
+      -@user.challenges.each do |challenge|
+        %p
+          = challenge.name
+        %p
+          -@user.challenge_attempts_by_challenge(challenge).each do |attempt|
+            %p
+              = attempt.formatted_completition_time
+    - else
+      %p.jumbotron
+        You have not currently attempted any challenges. If you would like to attempt one now
+        %a{href: "/challenges"}
+          %button.btn.btn-default.btn-lg{type: "button"}
+            %span.glyphicon.glyphicon-star
+            Click Here
+            %span.glyphicon.glyphicon-star
+        or select "Challenges" from the navigation menu.
+        
   #settings.tab-pane
+    %h2 Settings
     = render 'users/edit'

@@ -113,56 +113,46 @@ describe User do
 
   context "competitions" do
     before do 
-      @competition1 = FactoryGirl.create(:competition)
-      @competition2 = FactoryGirl.create(:competition)
-      @subscription1 = FactoryGirl.create(:competition_subscription, user: user, competition: @competition1) 
-      @subscription2 = FactoryGirl.create(:competition_subscription, user: user, competition: @competition2) 
+      @individual_comp = FactoryGirl.create(:competition)
+      @team_comp = FactoryGirl.create(:team_competition)
+      @subscription1 = FactoryGirl.create(:competition_subscription, user: user, competition: @individual_comp) 
+      FactoryGirl.create(:competition_subscription, user: user, competition: @team_comp, team: @team_comp.teams.first) 
     end
 
     it "should return my active competitions" do
-      competition3 = FactoryGirl.create(:competition)
-      team = FactoryGirl.create(:team)
-      FactoryGirl.create(:team_subscription, user: user, team: team)
-      FactoryGirl.create(:competition_subscription, competition: competition3, team: team)
-      @competition2.active = false
-      @competition2.save
-      user.active_competitions.should == [@competition1, competition3]
+      user.active_competitions.should =~ [@individual_comp, @team_comp]
+    end
+
+    it "should remove competitions from my active ones when they are completed" do 
+      @individual_comp.active = false
+      @individual_comp.save
+      user.active_competitions.should =~ [@team_comp]
     end
 
     it "should return my active team competitions" do
-      team = FactoryGirl.create(:team)
-      FactoryGirl.create(:team_subscription, user: user, team: team)
-      FactoryGirl.create(:competition_subscription, competition: @competition1, team: team)
-      @competition1.team = true
-      @competition1.save
-      user.active_team_competitions.should == [@competition1]
+      user.active_team_competitions.should == [@team_comp]
     end
 
     it "should return my active individual competitions" do
-      team = FactoryGirl.create(:team)
-      FactoryGirl.create(:team_subscription, user: user, team: team)
-      FactoryGirl.create(:competition_subscription, competition: @competition1, team: team)
-      @competition1.team = true
-      @competition1.save
-      user.active_individual_competitions.should == [@competition2]
+      user.active_individual_competitions.should == [@individual_comp]
     end
 
     it "should return my competitions_won" do      
       @subscription1.rank = 1
       @subscription1.save
-      user.competitions_won.should == [@competition1]     
+      user.competitions_won.should == [@individual_comp ]     
     end
 
     it "should return my competition transactions for a given competition" do
       exercise = FactoryGirl.create(:exercise, user: user)
-      trans = FactoryGirl.create(:competition_transaction, competition: @competition1, user: user, exercise: exercise)      
-      user.competition_transactions_for_competition(@competition1).should == [trans]
+      trans = FactoryGirl.create(:competition_transaction, competition: @individual_comp, user: user, exercise: exercise)      
+      user.competition_transactions_for_competition(@individual_comp).should == [trans]
     end  
 
     it "should return my exercises for a given competition" do  
       exercise = FactoryGirl.create(:exercise, user: user)  
-      FactoryGirl.create(:competition_transaction, competition: @competition1, user: user, exercise: exercise)
-      user.exercises_for_competition(@competition1).should == [exercise]
+      FactoryGirl.create(:competition_transaction, competition: @individual_comp, user: user, exercise: exercise)
+      user.exercises_for_competition(@individual_comp).should == [exercise]
     end 
     
   end

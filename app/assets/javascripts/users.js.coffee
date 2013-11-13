@@ -55,12 +55,17 @@ class @UserStats
   setChartData: ->
     path = "/user_exercises" + window.location.pathname + "?exercise_type_id=" + $('#chart').val()
     $.getJSON path, (data) ->     
-      for exercise in data 
-        console.log exercise
-
       $("#statChart").highcharts
+        chart:
+          backgroundColor:
+            linearGradient: [0, 0, 500, 500]
+            stops: [[0, "rgb(51, 51, 51)"], [1, "rgb(101, 101, 101)"]]
+          type: "line"
+
         title:
           text: window.chart.chartTitle
+          style: 
+            color: '#b20000'          
           x: -20 #center
 
         xAxis:
@@ -68,6 +73,8 @@ class @UserStats
 
         yAxis:
           title:
+            style: 
+              color: '#b20000' 
             text: "Metric"
 
           plotLines: [

@@ -10,8 +10,6 @@ class TeamsController < ApplicationController
   # GET /teams/1
   # GET /teams/1.json
   def show
-    @subscription = TeamSubscription.find_by user_id: current_user.id, team_id: @team.id
-    @subscription = TeamSubscription.new if @subscription.nil?
   end
 
   # GET /teams/new
@@ -27,11 +25,8 @@ class TeamsController < ApplicationController
   # POST /teams.json
   def create
     @team = Team.new(team_params)
-    @team.creator_id = current_user.id
-
     respond_to do |format|
       if @team.save
-        TeamSubscription.create(user: current_user, team: @team)
         format.html { redirect_to @team, notice: 'Team was successfully created.' }
         format.json { render action: 'show', status: :created, location: @team }
       else
