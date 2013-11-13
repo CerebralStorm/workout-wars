@@ -56,7 +56,7 @@ describe Competition do
     it "should contain exercise types" do
       e_type = FactoryGirl.create(:exercise_type)
       comp_e = FactoryGirl.create(:competition_exercise, exercise_type: e_type)
-      competition = FactoryGirl.create(:competition, competition_exercises: [comp_e])
+      competition = FactoryGirl.create(:competition, competable_exercises: [comp_e])
       competition.contains_exercise_type?(e_type).should be_true
     end
   end

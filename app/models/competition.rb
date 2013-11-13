@@ -5,14 +5,14 @@ class Competition < ActiveRecord::Base
 
   has_many :competition_subscriptions, dependent: :destroy
   has_many :competition_transactions, dependent: :destroy
-  has_many :competition_exercises
+  has_many :competable_exercises, as: :competable
   has_many :users, through: :competition_subscriptions, source: :user
   has_many :teams, dependent: :destroy
-  has_many :exercise_types, through: :competition_exercises
+  has_many :exercise_types, through: :competable_exercises
 
   after_create :create_teams, :unless => Proc.new{ self.team == false }
   
-  accepts_nested_attributes_for :competition_exercises, allow_destroy: true
+  accepts_nested_attributes_for :competable_exercises, allow_destroy: true
   accepts_nested_attributes_for :teams, allow_destroy: true
 
   validates_presence_of :name
@@ -49,7 +49,7 @@ class Competition < ActiveRecord::Base
   end
 
   def contains_exercise_type?(exercise_type)
-    competition_exercises.where(exercise_type: exercise_type).present?
+    competable_exercises.where(exercise_type: exercise_type).present?
   end
 
   def level
@@ -68,7 +68,7 @@ class Competition < ActiveRecord::Base
 
   def set_individual_win_condition(user)
     result = []
-    competition_exercises.each do |comp_e|       
+    competable_exercises.each do |comp_e|       
       comp_e.metrics.each do |metric|      
         exercise_total = user_total_by_exercise_type_and_metric(user, comp_e.exercise_type, metric)
         result << (exercise_total >= comp_e.limit)
@@ -81,7 +81,7 @@ class Competition < ActiveRecord::Base
 
   def set_team_win_condition
     result = []
-    competition_exercises.each do |comp_e|       
+    competable_exercises.each do |comp_e|       
       comp_e.metrics.each do |metric| 
         teams.each do |team|         
           team_metric_total = 0

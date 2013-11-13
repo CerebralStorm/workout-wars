@@ -74,11 +74,11 @@
       .row
         .col-md-3 
           %ul
-            - @competition.competition_exercises.each do |exercise|
+            - @competition.competable_exercises.each do |exercise|
               %li
                 = exercise.exercise_type.name
                 =# exercise.limit
-                =# link_to "Remove from Competition", competition_competition_exercise_path(@competition, exercise), method: :delete, confirm: "You Sure?", rel: 'delete-competiton-exercise-link'   
+                =# link_to "Remove from Competition", competition_competable_exercise_path(@competition, exercise), method: :delete, confirm: "You Sure?", rel: 'delete-competiton-exercise-link'   
       
 %hr/
 %h3 Rank

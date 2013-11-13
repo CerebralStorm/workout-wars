@@ -8,10 +8,13 @@ Workoutwars::Application.routes.draw do
   resources :exercise_types
   resources :competition_types
   
-  resources :challenges
+  resources :challenges do
+    resources :competable_exercises, only: [:new, :create, :destroy]
+    resources :teams
+  end
   resources :exercises, only: [:new, :create, :destroy]
   resources :competitions do
-    resources :competition_exercises, only: [:new, :create, :destroy]
+    resources :competable_exercises, only: [:new, :create, :destroy]
     resources :teams
   end
 

@@ -1,6 +1,6 @@
-class ChallengeExercise < ActiveRecord::Base
-  belongs_to :challenge
+class CompetableExercise < ActiveRecord::Base
   belongs_to :exercise_type
+  belongs_to :competable, polymorphic: true
 
   delegate :name, to: :exercise_type
   delegate :metrics, to: :exercise_type

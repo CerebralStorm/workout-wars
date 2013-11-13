@@ -10,7 +10,7 @@
         %ul         
           %li
             %table{class: "table table-hover", style: "width: 600px;"}
-              -competition.competition_exercises.each do |comp_exercise|
+              -competition.competable_exercises.each do |comp_exercise|
                 %tr
                   %th
                     = comp_exercise.exercise_type.name
