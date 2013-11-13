@@ -18,7 +18,7 @@ Workoutwars::Application.routes.draw do
   resources :competition_subscriptions, only: [:create, :destroy]
 
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
-  resources :users, only: [:index, :show, :edit, :update, :destroy]
+  resources :users, only: [:index, :show, :update, :destroy]
 
   namespace :api do
     namespace :v1 do

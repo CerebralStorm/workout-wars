@@ -63,7 +63,7 @@ describe Competition do
 
   context "competition type" do 
     it "should be a team competition" do
-      competition = FactoryGirl.create(:competition, team: true)
+      competition = FactoryGirl.create(:team_competition)
       competition.type.should == "Team"
     end
 
@@ -86,14 +86,13 @@ describe Competition do
 
   context "team winning" do 
     it "should be able to set a winning team" do 
-      user1 = FactoryGirl.create(:user)
-      team1 = FactoryGirl.create(:team)
-      FactoryGirl.create(:team_subscription, team: team1, user: user1)
-      competition = FactoryGirl.create(:competition, team: true)
-      FactoryGirl.create(:competition_subscription, team: team1, competition: competition)
-      competition.set_winner(team1)
+      user = FactoryGirl.create(:user)
+      competition = FactoryGirl.create(:team_competition)
+      team = competition.teams.first
+      FactoryGirl.create(:competition_subscription, team: team , competition: competition, user: user)
+      competition.set_winner(team)
       competition.active.should be_false
-      competition.winner.should == team1
+      competition.winner.should == team
     end
   end
 end

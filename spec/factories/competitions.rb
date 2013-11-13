@@ -13,7 +13,9 @@ FactoryGirl.define do
     end
 
     factory :team_competition do
+      team true
       number_of_teams 2
+      after(:create) {|instance| instance.create_teams }
     end
   end
 end
