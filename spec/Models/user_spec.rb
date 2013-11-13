@@ -122,19 +122,15 @@ describe User do
     it "should return my active competitions" do
       competition3 = FactoryGirl.create(:competition)
       team = FactoryGirl.create(:team)
-      FactoryGirl.create(:team_subscription, user: user, team: team)
       FactoryGirl.create(:competition_subscription, competition: competition3, team: team)
       @competition2.active = false
       @competition2.save
-      user.active_competitions.should == [@competition1, competition3]
+      user.active_competitions.should =~ [@competition1, competition3]
     end
 
     it "should return my active team competitions" do
-      team = FactoryGirl.create(:team)
-      FactoryGirl.create(:team_subscription, user: user, team: team)
-      FactoryGirl.create(:competition_subscription, competition: @competition1, team: team)
-      @competition1.team = true
-      @competition1.save
+      competition = FactoryGirl.create(:team_competition)
+      FactoryGirl.create(:competition_subscription, competition: competition, team: competition.teams.first , user: user)
       user.active_team_competitions.should == [@competition1]
     end
 

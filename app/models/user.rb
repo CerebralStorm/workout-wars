@@ -131,7 +131,10 @@ class User < ActiveRecord::Base
 
   def total_xp_for_competition(competition)
     comp_transactions = competition_transactions.where(competition: competition)
-    comp_transactions.sum{|c_tran| c_tran.exercise.total_xp}
+    result = 0
+    comp_transactions.each do |comp_t|
+      result += comp_t.exercise.total_xp
+    end
   end
 
   def create_competition_transactions(exercise)

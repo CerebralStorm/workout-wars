@@ -36,7 +36,7 @@ describe CompetitionSubscriptionsController do
     it "redirects to the competitions list" do
       subscription = CompetitionSubscription.create! valid_attributes
       delete :destroy, {:id => subscription.to_param}, valid_session
-      response.should redirect_to(competitions_url)
+      response.should redirect_to(@competition)
     end
   end
 

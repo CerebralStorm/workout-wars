@@ -12,7 +12,11 @@ class Team < ActiveRecord::Base
   end
 
   def total_xp_for_competition(competition)
-    users.sum{|u| u.total_xp_for_competition(competition)}
+    result = 0
+    users.each do |user|
+      result += user.total_xp_for_competition(competition)
+    end 
+    result
   end
 
   def user_exercises_for_competition(competition)

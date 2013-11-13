@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :competition do
-    name "Billy Bo Bob Battle Royal"
+    sequence(:name) {|n| "Competition #{n}" }    
     start_date Date.today
     end_date Date.today + 14.days
     difficulty
@@ -10,6 +10,10 @@ FactoryGirl.define do
 
     factory :private_competition do
       public false
+    end
+
+    factory :team_competition do
+      number_of_teams 2
     end
   end
 end
