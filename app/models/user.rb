@@ -132,10 +132,10 @@ class User < ActiveRecord::Base
     end
   end
 
-  def create_completable_transactions(exercise)
+  def create_competable_transactions(exercise)
     comps_for_exercise = active_competitions.collect{|c| c if c.contains_exercise_type?(exercise.exercise_type)}.compact
     comps_for_exercise.each do |comp|
-      CompetableTransaction.create(user_id: self.id, exercise_id: exercise.id, competition_id: comp.id)
+      competable_transactions.create(exercise: exercise, transactable: comp)
     end
   end
 

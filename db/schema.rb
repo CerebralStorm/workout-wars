@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 20131030175958) do
 
   create_table "competable_transactions", force: true do |t|
     t.integer  "transactable_id"
+    t.string   "transactable_type"
     t.integer  "user_id"
     t.integer  "exercise_id"
     t.datetime "created_at"

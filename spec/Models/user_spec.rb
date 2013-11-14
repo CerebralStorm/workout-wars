@@ -143,13 +143,13 @@ describe User do
 
     it "should return my competition transactions for a given competition" do
       exercise = FactoryGirl.create(:exercise, user: user)
-      trans = FactoryGirl.create(:completable_transaction, transactable: @individual_comp, user: user, exercise: exercise)      
-      user.completable_transactions_for_competition(@individual_comp).should == [trans]
+      trans = FactoryGirl.create(:competable_transaction, transactable: @individual_comp, user: user, exercise: exercise)      
+      user.competable_transactions_for_competition(@individual_comp).should == [trans]
     end  
 
     it "should return my exercises for a given competition" do  
       exercise = FactoryGirl.create(:exercise, user: user)  
-      FactoryGirl.create(:completable_transaction, transactable: @individual_comp, user: user, exercise: exercise)
+      FactoryGirl.create(:competable_transaction, transactable: @individual_comp, user: user, exercise: exercise)
       user.exercises_for_competition(@individual_comp).should == [exercise]
     end 
     

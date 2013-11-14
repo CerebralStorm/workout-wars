@@ -3,19 +3,34 @@ require 'spec_helper'
 describe Competition do
 
   context "associations" do
-    it 'should belongs to a competition' do
-      Competition.reflect_on_association(:registerable).should_not be_nil
-      Competition.reflect_on_association(:registerable).macro.should eql(:belongs_to)
+    it 'should have many competable_registrations' do
+      Competition.reflect_on_association(:competable_registrations).should_not be_nil
+      Competition.reflect_on_association(:competable_registrations).macro.should eql(:has_many)
     end
 
-    it 'should belongs to a team' do
-      Competition.reflect_on_association(:team).should_not be_nil
-      Competition.reflect_on_association(:team).macro.should eql(:belongs_to)
+    it 'should have many competable_transactions' do
+      Competition.reflect_on_association(:competable_transactions).should_not be_nil
+      Competition.reflect_on_association(:competable_transactions).macro.should eql(:has_many)
     end
 
-    it 'should belong to a user' do
-      Competition.reflect_on_association(:user).should_not be_nil
-      Competition.reflect_on_association(:user).macro.should eql(:belongs_to)
+    it 'should have many competable_exercises' do
+      Competition.reflect_on_association(:competable_exercises).should_not be_nil
+      Competition.reflect_on_association(:competable_exercises).macro.should eql(:has_many)
+    end
+
+    it 'should have many exercise_types' do
+      Competition.reflect_on_association(:exercise_types).should_not be_nil
+      Competition.reflect_on_association(:exercise_types).macro.should eql(:has_many)
+    end
+
+    it 'should have many teams' do
+      Competition.reflect_on_association(:teams).should_not be_nil
+      Competition.reflect_on_association(:teams).macro.should eql(:has_many)
+    end
+
+    it 'should have many users' do
+      Competition.reflect_on_association(:users).should_not be_nil
+      Competition.reflect_on_association(:users).macro.should eql(:has_many)
     end
   end
   

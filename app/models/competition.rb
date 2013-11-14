@@ -6,8 +6,8 @@ class Competition < ActiveRecord::Base
   has_many :competable_transactions, as: :transactable, dependent: :destroy
   has_many :competable_registrations, as: :registerable, dependent: :destroy
   has_many :competable_exercises, as: :competable, dependent: :destroy
-  has_many :users, through: :competable_registrations, source: :user
   has_many :teams, as: :teamable, dependent: :destroy
+  has_many :users, through: :competable_registrations, source: :user
   has_many :exercise_types, through: :competable_exercises
 
   after_create :create_teams, :unless => Proc.new{ self.team == false }
