@@ -1,5 +1,5 @@
 class Team < ActiveRecord::Base
-  has_many :competable_registrations, as: :registerable
+  has_many :competable_registrations
   has_many :users, through: :competable_registrations, source: :user
   belongs_to :teamable, polymorphic: true
 

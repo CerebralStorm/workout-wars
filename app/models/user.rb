@@ -51,10 +51,6 @@ class User < ActiveRecord::Base
   def active_competitions
     competitions.where(active: true)
   end
-
-  def competition_subscription_by_competition(competition)
-    competable_registrations.find_by(competition: competition)
-  end
   
   def active_team_competitions
     active_competitions.collect{|c| c if c.teams.count > 0}.reject(&:nil?)

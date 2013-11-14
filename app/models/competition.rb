@@ -31,10 +31,6 @@ class Competition < ActiveRecord::Base
     public? ? "Public" : "Private"
   end
 
-  def team?
-    teams.count > 0
-  end
-
   def registered?(user)
     competable_registrations.find_by(user: user).present?
   end
@@ -91,12 +87,11 @@ class Competition < ActiveRecord::Base
           team.users.each do |user|
             team_metric_total += user_total_by_exercise_type_and_metric(user, comp_e.exercise_type, metric)
           end
-          result << (team_metric_total >= comp_e.limit)  
+          result << (team_metric_total >= comp_e.limit) 
         end  
       end  
     end
-
-    is_won = result.any? { |r| r } # returns true if all limits met
+    is_won = result.any? { |r| r } # will contain a true if any team met the limit
     
     if is_won
       teams.each_with_index do |team, index|
