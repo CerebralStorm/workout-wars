@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe RegistrationsController do
+describe CompetableRegistrationsController do
   before do
     @user = FactoryGirl.create(:user) 
     @competition = FactoryGirl.create(:competition)
@@ -12,14 +12,14 @@ describe RegistrationsController do
 
   describe "POST create" do
     describe "with valid params" do
-      it "creates a new Registration" do
+      it "creates a new CompetableRegistration" do
         expect {
-          post :create, {:registration => valid_attributes}, valid_session
-        }.to change(Registration, :count).by(1)
+          post :create, {:competable_registration => valid_attributes}, valid_session
+        }.to change(CompetableRegistration, :count).by(1)
       end
 
       it "redirects to the competition" do
-        post :create, {:registration => valid_attributes}, valid_session
+        post :create, {:competable_registration => valid_attributes}, valid_session
         response.should redirect_to(Competition.last)
       end
     end
@@ -27,14 +27,14 @@ describe RegistrationsController do
 
   describe "DELETE destroy" do
     it "destroys the requested competition" do
-      subscription = Registration.create! valid_attributes
+      subscription = CompetableRegistration.create! valid_attributes
       expect {
         delete :destroy, {:id => subscription.to_param}, valid_session
-      }.to change(Registration, :count).by(-1)
+      }.to change(CompetableRegistration, :count).by(-1)
     end
 
     it "redirects to the competitions list" do
-      subscription = Registration.create! valid_attributes
+      subscription = CompetableRegistration.create! valid_attributes
       delete :destroy, {:id => subscription.to_param}, valid_session
       response.should redirect_to(@competition)
     end

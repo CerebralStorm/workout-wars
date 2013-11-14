@@ -56,6 +56,8 @@ ActiveRecord::Schema.define(version: 20131030175958) do
     t.datetime "updated_at"
   end
 
+  add_index "competable_exercises", ["competable_id", "competable_type"], name: "index_competable_exercises_on_competable_id_and_competable_type", using: :btree
+
   create_table "competition_transactions", force: true do |t|
     t.integer  "competition_id"
     t.integer  "user_id"
@@ -144,10 +146,13 @@ ActiveRecord::Schema.define(version: 20131030175958) do
 
   create_table "teams", force: true do |t|
     t.string   "name"
-    t.integer  "competition_id"
+    t.integer  "teamable_id"
+    t.string   "teamable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "teams", ["teamable_id", "teamable_type"], name: "index_teams_on_teamable_id_and_teamable_type", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false

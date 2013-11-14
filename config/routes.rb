@@ -17,7 +17,7 @@ Workoutwars::Application.routes.draw do
     resources :teams
   end
 
-  resources :registrations, only: [:create, :destroy]
+  resources :competable_registrations, only: [:create, :destroy]
 
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
   resources :users, only: [:index, :show, :update, :destroy]

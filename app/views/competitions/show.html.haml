@@ -36,6 +36,7 @@
     = form_for @registration do |f|
       = f.hidden_field :user_id, value: current_user.id
       = f.hidden_field :registerable_id, value: @competition.id
+      = f.hidden_field :registerable_type, value: "Competition"
       .actions
         = f.submit "Register", class: "btn btn-lg btn-primary"
 .row

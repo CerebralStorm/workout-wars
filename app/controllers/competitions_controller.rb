@@ -6,8 +6,8 @@ class CompetitionsController < ApplicationController
   end
 
   def show
-    @registration = @competition.registrations.find_by(user_id: current_user.id)
-    @registration = Registration.new if @registration.nil? 
+    @registration = @competition.competable_registrations.find_by(user_id: current_user.id)
+    @registration = CompetableRegistration.new if @registration.nil? 
   end
 
   def new

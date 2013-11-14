@@ -7,6 +7,7 @@ class CreateCompetableExercises < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :competable_exercises, [:competable_id, :competable_type]
   end
-  # add_index :competable_exercises, [:competable_id, :competable_type]
+ 
 end

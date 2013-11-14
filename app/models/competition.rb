@@ -4,10 +4,10 @@ class Competition < ActiveRecord::Base
   belongs_to :category
 
   has_many :competition_transactions, dependent: :destroy
-  has_many :registrations, as: :registerable, dependent: :destroy
+  has_many :competable_registrations, as: :registerable, dependent: :destroy
   has_many :competable_exercises, as: :competable, dependent: :destroy
-  has_many :users, through: :registrations, source: :registerable, source_type: 'User'
-  has_many :teams, dependent: :destroy
+  has_many :users, through: :competable_registrations, source: :registerable, source_type: 'User'
+  has_many :teams, as: :teamable, dependent: :destroy
   has_many :exercise_types, through: :competable_exercises
 
   after_create :create_teams, :unless => Proc.new{ self.team == false }
@@ -31,7 +31,7 @@ class Competition < ActiveRecord::Base
   end
 
   def registered?(user)
-    registrations.find_by(user: user).present?
+    competable_registrations.find_by(user: user).present?
   end
 
   def users_by_rank
@@ -105,7 +105,7 @@ class Competition < ActiveRecord::Base
   # set_winner_for_total_xp(:user) for individual
   def set_winner_for_total_xp(user_or_team)
     return if Date.today < end_date     
-    units = registrations.collect{|comp_s| comp_s.send(user_or_team)}
+    units = competable_registrations.collect{|comp_s| comp_s.send(user_or_team)}
     winner = units.max { |a, b| a.total_xp_for_competition(self) <=> b.total_xp_for_competition(self) }     
     set_winner(winner)
   end

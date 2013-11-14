@@ -1,4 +1,4 @@
-class RegistrationsController < ApplicationController
+class CompetableRegistrationsController < ApplicationController
   def create
     @registration = Registration.create(registration_params)
 

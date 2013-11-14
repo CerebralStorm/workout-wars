@@ -15,9 +15,9 @@ class User < ActiveRecord::Base
   has_many :exercises
   has_many :challenge_attempts
   has_many :challenges, through: :challenge_attempts
-  has_many :registrations, as: :registerable, dependent: :destroy
-  has_many :competitions, through: :registrations, source: :registerable, source_type: 'Competition'
-  has_many :teams, through: :registrations, source: :team
+  has_many :competable_competable_registrations, as: :registerable, dependent: :destroy
+  has_many :competitions, through: :competable_competable_registrations, source: :registerable, source_type: 'Competition'
+  has_many :teams, through: :competable_competable_registrations, source: :team
   has_many :competition_transactions, dependent: :destroy  
   has_many :friendships, foreign_key: "user_id", dependent: :destroy
   has_many :occurances_as_friend, class_name: "Friendship", foreign_key: "friend_id", dependent: :destroy
@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
   end
 
   def competitions_won
-    registrations.where(rank: 1).collect{|comp_s| comp_s.competition}.flatten   
+    competable_registrations.where(rank: 1).collect{|comp_s| comp_s.competition}.flatten   
   end
 
   def active_competitions
@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
   end
 
   def competition_subscription_by_competition(competition)
-    registrations.find_by(competition: competition)
+    competable_registrations.find_by(competition: competition)
   end
   
   def active_team_competitions
