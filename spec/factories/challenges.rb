@@ -6,7 +6,7 @@ FactoryGirl.define do
     difficulty
     challenge_type
 
-    factory :team_challange do
+    factory :team_challenge do
       team true
       number_of_teams 2
       after(:create) {|instance| instance.create_teams }
