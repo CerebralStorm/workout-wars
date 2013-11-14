@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 
   before_create :generate_nickname
 
-  has_many :xp_transactions
+  has_many :experience_sources
   has_many :exercises
   has_many :challenge_attempts
   has_many :challenges, through: :challenge_attempts
@@ -83,7 +83,7 @@ class User < ActiveRecord::Base
   end
 
   def xp
-    self.xp_transactions.sum(:amount)
+    self.experience_sources.sum(:amount)
   end
 
   def next_level_xp

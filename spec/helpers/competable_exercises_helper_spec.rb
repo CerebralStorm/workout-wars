@@ -1,15 +1,14 @@
 require 'spec_helper'
 
 # Specs in this file have access to a helper object that includes
-# the CompetitionSubscriptionsHelper. For example:
+# the CompetitionExercisesHelper. For example:
 #
-# describe CompetitionSubscriptionsHelper do
+# describe CompetitionExercisesHelper do
 #   describe "string concat" do
 #     it "concats two strings with spaces" do
 #       expect(helper.concat_strings("this","that")).to eq("this that")
 #     end
 #   end
 # end
-describe CompetitionSubscriptionsHelper do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe CompetableExercisesHelper do
 end

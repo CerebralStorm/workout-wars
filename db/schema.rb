@@ -147,6 +147,15 @@ ActiveRecord::Schema.define(version: 20131030175958) do
     t.datetime "updated_at"
   end
 
+  create_table "experience_sources", force: true do |t|
+    t.integer  "amount"
+    t.integer  "user_id"
+    t.integer  "experienceable_id"
+    t.string   "experienceable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "friendships", force: true do |t|
     t.integer  "user_id"
     t.integer  "friend_id"
@@ -197,16 +206,5 @@ ActiveRecord::Schema.define(version: 20131030175958) do
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-
-  create_table "xp_transactions", force: true do |t|
-    t.integer  "amount"
-    t.integer  "user_id"
-    t.integer  "xp_source_id"
-    t.string   "xp_source_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "xp_transactions", ["xp_source_id", "xp_source_type"], name: "index_xp_transactions_on_xp_source_id_and_xp_source_type", using: :btree
 
 end

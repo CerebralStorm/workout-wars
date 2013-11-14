@@ -1,5 +1,5 @@
 class CompetitionType < ActiveRecord::Base
-  has_many :compeititons
+  has_many :competitons
 
   def self.default_scope
     order('name ASC')

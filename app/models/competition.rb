@@ -3,14 +3,16 @@ class Competition < ActiveRecord::Base
   belongs_to :competition_type
   belongs_to :category
 
+  # Polymorphic Associations
   has_many :competable_transactions, as: :transactable, dependent: :destroy
   has_many :competable_registrations, as: :registerable, dependent: :destroy
   has_many :competable_exercises, as: :competable, dependent: :destroy
   has_many :teams, as: :teamable, dependent: :destroy
+  has_many :experience_sources, as: :experienceable
+
+  # Associations
   has_many :users, through: :competable_registrations, source: :user
   has_many :exercise_types, through: :competable_exercises
-
-  after_create :create_teams, :unless => Proc.new{ self.team == false }
   
   accepts_nested_attributes_for :competable_exercises, allow_destroy: true
   accepts_nested_attributes_for :teams, allow_destroy: true
@@ -18,6 +20,8 @@ class Competition < ActiveRecord::Base
   validates_presence_of :name
   validates_presence_of :public
   validates_uniqueness_of :name, case_sensitive: false
+
+  after_create :create_teams, :unless => Proc.new{ self.team == false }
 
   def creator
     User.find_by(id: creator_id)

@@ -12,4 +12,22 @@ describe CompetableExercise do
       CompetableExercise.reflect_on_association(:competable).macro.should eql(:belongs_to)
     end
   end
+
+  context "validations" do
+    it "should require a user" do
+      FactoryGirl.build(:competable_exercise, exercise_type_id: "").should_not be_valid
+    end
+
+    it "should require a competable_id" do
+      FactoryGirl.build(:competable_exercise, competable_id: "").should_not be_valid
+    end
+
+    it "should require a competable_type" do
+      FactoryGirl.build(:competable_exercise, competable_type: "").should_not be_valid
+    end
+
+    it "should be valid with a user and competition" do
+      FactoryGirl.build(:competable_exercise).should be_valid
+    end
+  end
 end

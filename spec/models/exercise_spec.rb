@@ -14,6 +14,11 @@ describe Exercise do
       Exercise.reflect_on_association(:exercise_type).should_not be_nil
       Exercise.reflect_on_association(:exercise_type).macro.should eql(:belongs_to)
     end
+
+    it 'should have one  exercise type' do
+      Exercise.reflect_on_association(:exercise_type).should_not be_nil
+      Exercise.reflect_on_association(:exercise_type).macro.should eql(:belongs_to)
+    end
   end
 
   context "validations" do
@@ -23,9 +28,6 @@ describe Exercise do
   end
 
   context "experience" do
-    it "should have an xp transaction" do
-      exercise.should respond_to(:xp_transactions)
-    end
 
     it "should get 0 xp from a nil metric" do
       exercise.xp_from(nil).should == 0

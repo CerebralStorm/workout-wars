@@ -35,9 +35,9 @@ describe Challenge do
       Challenge.reflect_on_association(:teams).macro.should eql(:has_many)
     end
 
-    it 'should have many xp_transactions' do 
-      Challenge.reflect_on_association(:xp_transactions).should_not be_nil
-      Challenge.reflect_on_association(:xp_transactions).macro.should eql(:has_many)
+    it 'should have many experience_sources' do 
+      Challenge.reflect_on_association(:experience_sources).should_not be_nil
+      Challenge.reflect_on_association(:experience_sources).macro.should eql(:has_many)
     end
   end
 
