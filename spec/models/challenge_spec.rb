@@ -6,23 +6,38 @@ describe Challenge do
 
   context "associations" do
     it 'should have many challenge_attempts' do
-      User.reflect_on_association(:challenge_attempts).should_not be_nil
-      User.reflect_on_association(:challenge_attempts).macro.should eql(:has_many)
+      Challenge.reflect_on_association(:challenge_attempts).should_not be_nil
+      Challenge.reflect_on_association(:challenge_attempts).macro.should eql(:has_many)
     end
 
     it 'should have many competable_registrations' do
-      User.reflect_on_association(:competable_registrations).should_not be_nil
-      User.reflect_on_association(:competable_registrations).macro.should eql(:has_many)
+      Challenge.reflect_on_association(:competable_registrations).should_not be_nil
+      Challenge.reflect_on_association(:competable_registrations).macro.should eql(:has_many)
+    end
+
+    it 'should have many competable_exercises' do 
+      Challenge.reflect_on_association(:competable_exercises).should_not be_nil
+      Challenge.reflect_on_association(:competable_exercises).macro.should eql(:has_many)
+    end
+
+    it 'should have many team_users' do 
+      Challenge.reflect_on_association(:team_users).should_not be_nil
+      Challenge.reflect_on_association(:team_users).macro.should eql(:has_many)
+    end
+
+    it 'should have many users' do 
+      Challenge.reflect_on_association(:users).should_not be_nil
+      Challenge.reflect_on_association(:users).macro.should eql(:has_many)
     end
 
     it 'should have many teams' do 
-      User.reflect_on_association(:teams).should_not be_nil
-      User.reflect_on_association(:teams).macro.should eql(:has_many)
+      Challenge.reflect_on_association(:teams).should_not be_nil
+      Challenge.reflect_on_association(:teams).macro.should eql(:has_many)
     end
 
     it 'should have many xp_transactions' do 
-      User.reflect_on_association(:xp_transactions).should_not be_nil
-      User.reflect_on_association(:xp_transactions).macro.should eql(:has_many)
+      Challenge.reflect_on_association(:xp_transactions).should_not be_nil
+      Challenge.reflect_on_association(:xp_transactions).macro.should eql(:has_many)
     end
   end
 

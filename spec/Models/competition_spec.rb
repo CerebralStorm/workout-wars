@@ -1,6 +1,24 @@
 require 'spec_helper'
 
 describe Competition do
+
+  context "associations" do
+    it 'should belongs to a competition' do
+      Competition.reflect_on_association(:registerable).should_not be_nil
+      Competition.reflect_on_association(:registerable).macro.should eql(:belongs_to)
+    end
+
+    it 'should belongs to a team' do
+      Competition.reflect_on_association(:team).should_not be_nil
+      Competition.reflect_on_association(:team).macro.should eql(:belongs_to)
+    end
+
+    it 'should belong to a user' do
+      Competition.reflect_on_association(:user).should_not be_nil
+      Competition.reflect_on_association(:user).macro.should eql(:belongs_to)
+    end
+  end
+  
   context "validations" do
     it "should require a name" do
       FactoryGirl.build(:competition, name: "").should_not be_valid

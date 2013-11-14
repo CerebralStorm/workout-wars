@@ -1,7 +1,7 @@
-class CompetitionTransaction < ActiveRecord::Base
+class CompetableTransaction < ActiveRecord::Base
   belongs_to :user
   belongs_to :team
-  belongs_to :competition
+  belongs_to :transactable
   belongs_to :exercise
 
   after_save :check_if_competition_is_won

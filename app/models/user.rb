@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   has_many :competable_registrations
   has_many :competitions, through: :competable_registrations, source: :registerable, source_type: 'Competition'
   has_many :teams, through: :competable_registrations, source: :team
-  has_many :competition_transactions, dependent: :destroy  
+  has_many :competable_transactions, dependent: :destroy  
   has_many :friendships, foreign_key: "user_id", dependent: :destroy
   has_many :occurances_as_friend, class_name: "Friendship", foreign_key: "friend_id", dependent: :destroy
 
@@ -68,18 +68,18 @@ class User < ActiveRecord::Base
     exercises.where("date(created_at) = (?)", date)
   end
 
-  def competition_transactions_for_competition(competition)
+  def competable_transactions_for_competition(competition)
     return [] if competition.nil?
-    self.competition_transactions.where(competition: competition)
+    self.competable_transactions.where(transactable: competition)
   end
 
   def exercises_for_competition(competition)
     return [] if competition.nil?
-    competition_transactions_for_competition(competition).collect {|comp_t| comp_t.exercise}.compact
+    competable_transactions_for_competition(competition).collect {|comp_t| comp_t.exercise}.compact
   end
 
   def exercises_for_competition_by_exercise_type(competition, exercise_type)
-    competition_transactions_for_competition(competition).collect{|comp_t| comp_t.exercise if comp_t.exercise.exercise_type_id == exercise_type.id}.compact
+    competable_transactions_for_competition(competition).collect{|comp_t| comp_t.exercise if comp_t.exercise.exercise_type_id == exercise_type.id}.compact
   end
 
   def xp
@@ -115,7 +115,7 @@ class User < ActiveRecord::Base
 
   def competition_total_for(competition, exercise_type, category)
     total = 0
-    comp_transactions = competition_transactions.where(competition_id: competition.id)
+    comp_transactions = competable_transactions.where(transactable: competition)
     comp_transactions.each do |transaction|
       if transaction.exercise.exercise_type == exercise_type
         total += transaction.exercise.send(category)
@@ -125,17 +125,17 @@ class User < ActiveRecord::Base
   end
 
   def total_xp_for_competition(competition)
-    comp_transactions = competition_transactions.where(competition: competition)
+    comp_transactions = competable_transactions.where(transactable: competition)
     result = 0
     comp_transactions.each do |comp_t|
       result += comp_t.exercise.total_xp
     end
   end
 
-  def create_competition_transactions(exercise)
+  def create_completable_transactions(exercise)
     comps_for_exercise = active_competitions.collect{|c| c if c.contains_exercise_type?(exercise.exercise_type)}.compact
     comps_for_exercise.each do |comp|
-      CompetitionTransaction.create(user_id: self.id, exercise_id: exercise.id, competition_id: comp.id)
+      CompetableTransaction.create(user_id: self.id, exercise_id: exercise.id, competition_id: comp.id)
     end
   end
 

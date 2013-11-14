@@ -27,8 +27,8 @@ describe CompetableRegistration do
       FactoryGirl.build(:competable_registration, registerable_id: "").should_not be_valid
     end
 
-    it "should be valid with a user and competition" do
-      FactoryGirl.build(:competable_registration).should be_valid
+    it "should require a registerable_type" do
+      FactoryGirl.build(:competable_registration, registerable_type: "").should_not be_valid
     end
 
     it "should be valid with a user and competition" do

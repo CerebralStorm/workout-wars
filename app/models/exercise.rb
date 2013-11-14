@@ -2,7 +2,7 @@ class Exercise < ActiveRecord::Base
   belongs_to :user
   belongs_to :exercise_type
   has_many :xp_transactions
-  has_many :competition_transactions, dependent: :destroy
+  has_many :competable_transactions, dependent: :destroy
   after_save :update_user
   after_destroy :remove_xp
 
@@ -32,7 +32,7 @@ class Exercise < ActiveRecord::Base
 
   def update_user
     create_xp  
-    user.create_competition_transactions(self)
+    user.create_competable_transactions(self)
   end
 
   def create_xp

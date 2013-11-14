@@ -3,7 +3,7 @@ class Competition < ActiveRecord::Base
   belongs_to :competition_type
   belongs_to :category
 
-  has_many :competition_transactions, dependent: :destroy
+  has_many :competable_transactions, as: :transactable, dependent: :destroy
   has_many :competable_registrations, as: :registerable, dependent: :destroy
   has_many :competable_exercises, as: :competable, dependent: :destroy
   has_many :users, through: :competable_registrations, source: :user
