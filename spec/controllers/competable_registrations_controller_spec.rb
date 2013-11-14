@@ -7,7 +7,7 @@ describe CompetableRegistrationsController do
     sign_in @user
   end
 
-  let(:valid_attributes) { { competition_id: @competition.id, user_id: @user.id } }
+  let(:valid_attributes) { { registerable_id: @competition.id, registerable_type: "Competition", user_id: @user.id } }
   let(:valid_session) { {} }  
 
   describe "POST create" do

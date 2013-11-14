@@ -20,4 +20,11 @@ class Challenge < ActiveRecord::Base
   def challenge_attempts_by_user(user)
     challenge_attempts.where(user: user)
   end
+
+  def create_teams
+    count = self.number_of_teams - self.teams.count
+    count.times do 
+      self.teams.create!
+    end
+  end
 end
