@@ -6,7 +6,7 @@ class Competition < ActiveRecord::Base
   has_many :competition_transactions, dependent: :destroy
   has_many :competable_registrations, as: :registerable, dependent: :destroy
   has_many :competable_exercises, as: :competable, dependent: :destroy
-  has_many :users, through: :competable_registrations, source: :registerable, source_type: 'User'
+  has_many :users, through: :competable_registrations, source: :user
   has_many :teams, as: :teamable, dependent: :destroy
   has_many :exercise_types, through: :competable_exercises
 
@@ -16,6 +16,7 @@ class Competition < ActiveRecord::Base
   accepts_nested_attributes_for :teams, allow_destroy: true
 
   validates_presence_of :name
+  validates_presence_of :public
   validates_uniqueness_of :name, case_sensitive: false
 
   def creator
@@ -26,12 +27,20 @@ class Competition < ActiveRecord::Base
     team? ? Team.find_by(id: winner_id) : User.find_by(id: winner_id)
   end
 
+  def visibility
+    public? ? "Public" : "Private"
+  end
+
   def team?
     teams.count > 0
   end
 
   def registered?(user)
     competable_registrations.find_by(user: user).present?
+  end
+
+  def user_registration(user)
+    competable_registrations.find_by(user: user)
   end
 
   def users_by_rank

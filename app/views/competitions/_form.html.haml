@@ -12,7 +12,7 @@
       .control-group
         .controls
           = label :team, "Team"
-          = f.radio_button :team, true, :checked => true 
+          = f.radio_button :team, true
           = label :team, "Individual"
           = f.radio_button :team, false
 
@@ -49,9 +49,9 @@
       .control-group
         .controls
           = label :public, "Public"
-          = f.radio_button :public, false, checked: true
+          = f.radio_button :public, true
           = label :public, "Private"
-          = f.radio_button :public, true, checked: false
+          = f.radio_button :public, false
     
     .col-md-8  
       %h1 Exercises for this competition

@@ -4,7 +4,7 @@
       %h4.panel-title
         %a.accordion-toggle{"data-parent" => "#accordion", "data-toggle" => "collapse", href: "#collapse#{competition.id}"}
           = competition.name
-          = link_to "Withdraw", competition_subscription_path(@subscription), method: :delete, class: "btn btn-xs btn-default pull-right"
+          = link_to "Withdraw", competable_registration_path(competition.user_registration(current_user)), method: :delete, class: "btn btn-xs btn-default pull-right"
     .panel-collapse.collapse{id: "collapse#{competition.id}"}
       .panel-body
         %ul         

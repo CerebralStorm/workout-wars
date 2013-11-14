@@ -4,7 +4,7 @@ class Challenge < ActiveRecord::Base
 
   has_many :challenge_attempts
   has_many :competable_exercises, as: :competable, dependent: :destroy
-  has_many :users, through: :competable_registrations, source: :registerable, source_type: 'User'
+  has_many :users, through: :competable_registrations
   has_many :users, through: :challenge_attempts
   has_many :teams, as: :teamable, dependent: :destroy
   has_many :xp_transactions, as: :xp_source
