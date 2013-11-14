@@ -1,23 +1,5 @@
 .tab-content
-  #stats.tab-pane.active
-    %h2 My Stats
-    %hr
-    %table.table.table-condensed.table-bordered
-
-    = form_tag nil do
-      = select_tag :chart, options_from_collection_for_select(ExerciseType.all, 'id', 'name')  
-      = radio_button_tag :reps, value: "reps"
-      = label_tag :reps
-      = radio_button_tag :distance, value: "distance"
-      = label_tag :distance
-      = radio_button_tag :duration, value: "duration"
-      = label_tag :duration
-      = radio_button_tag :weight, value: "weight"
-      = label_tag :weight
-      = radio_button_tag :calories, value: "calories"
-      = label_tag :calories
-    #statChart{style: "min-width: 310px; height: 400px; margin: 0 auto"}
-  #exercises.tab-pane
+  #exercises.tab-pane.active
     %h2 Exercises
     %hr
     %a.btn.btn-primary.btn-lg{"data-toggle" => "modal", href: "#exerciseModal"} Add Exercise
@@ -43,7 +25,25 @@
                 -unless @user.exercises_by_date(day).empty?
                   - @user.exercises_by_date(day).each do |exercise|
                     %li
-                      = exercise.name    
+                      = exercise.name  
+  #stats.tab-pane
+    %h2 My Stats
+    %hr
+    %table.table.table-condensed.table-bordered
+
+    = form_tag nil do
+      = select_tag :chart, options_from_collection_for_select(ExerciseType.all, 'id', 'name')  
+      = radio_button_tag :reps, value: "reps"
+      = label_tag :reps
+      = radio_button_tag :distance, value: "distance"
+      = label_tag :distance
+      = radio_button_tag :duration, value: "duration"
+      = label_tag :duration
+      = radio_button_tag :weight, value: "weight"
+      = label_tag :weight
+      = radio_button_tag :calories, value: "calories"
+      = label_tag :calories
+    #statChart{style: "min-width: 310px; height: 400px; margin: 0 auto"}  
   #competitions.tab-pane 
     %h2 My Competitions
     %hr

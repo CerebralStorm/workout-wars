@@ -5,9 +5,9 @@ describe Team do
   let(:user) { FactoryGirl.create(:user) }
 
   context "associations" do
-    it 'should have many competition_subscriptions' do
-      Team.reflect_on_association(:competition_subscriptions).should_not be_nil
-      Team.reflect_on_association(:competition_subscriptions).macro.should eql(:has_many)
+    it 'should have many competable_registrations' do
+      Team.reflect_on_association(:competable_registrations).should_not be_nil
+      Team.reflect_on_association(:competable_registrations).macro.should eql(:has_many)
     end
 
     it 'should have many team_subscriptions' do
@@ -15,16 +15,16 @@ describe Team do
       Team.reflect_on_association(:users).macro.should eql(:has_many)
     end
 
-    it 'should belong_to a competition' do
-      Team.reflect_on_association(:competition).should_not be_nil
-      Team.reflect_on_association(:competition).macro.should eql(:belongs_to)
+    it 'should belong_to a competition/challenge' do
+      Team.reflect_on_association(:teamable).should_not be_nil
+      Team.reflect_on_association(:teamable).macro.should eql(:belongs_to)
     end
   end
 
   context "registered?" do
     it 'should return true if a user is registered' do
       comp = FactoryGirl.create(:competition)
-      CompetitionSubscription.create!(team: team, user: user, competition: comp)
+      CompetableRegistration.create!(team: team, user: user, registerable: comp)
       team.registered?(user).should be_true
     end
 

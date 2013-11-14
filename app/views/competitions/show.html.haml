@@ -14,11 +14,12 @@
       = team.id
     %p
       -if @competition.registered?(current_user)
-        -if @subscription.team == team
-          = link_to "Leave This Team", @subscription, method: :delete, class: "btn btn-lg btn-primary"
+        -if @registration.team == team
+          = link_to "Leave This Team", @registration, method: :delete, class: "btn btn-lg btn-primary"
       -else
-        = form_for @subscription do |f|
-          = f.hidden_field :competition_id, value: @competition.id
+        = form_for @registration do |f|
+          = f.hidden_field :registerable_id, value: @competition.id
+          = f.hidden_field :registerable_type, value: "Competition"
           = f.hidden_field :user_id, value: current_user.id
           = f.hidden_field :team_id, value: team.id
           .actions
@@ -30,11 +31,12 @@
 
 -else
   - if @competition.registered?(current_user)
-    = link_to "Admit Defeat", @subscription, method: :delete, class: "btn btn-lg btn-primary"
+    = link_to "Admit Defeat", @registration, method: :delete, class: "btn btn-lg btn-primary"
   -else
-    = form_for @subscription do |f|
+    = form_for @registration do |f|
       = f.hidden_field :user_id, value: current_user.id
-      = f.hidden_field :competition_id, value: @competition.id
+      = f.hidden_field :registerable_id, value: @competition.id
+      = f.hidden_field :registerable_type, value: "Competition"
       .actions
         = f.submit "Register", class: "btn btn-lg btn-primary"
 .row
@@ -74,11 +76,11 @@
       .row
         .col-md-3 
           %ul
-            - @competition.competition_exercises.each do |exercise|
+            - @competition.competable_exercises.each do |exercise|
               %li
                 = exercise.exercise_type.name
                 =# exercise.limit
-                =# link_to "Remove from Competition", competition_competition_exercise_path(@competition, exercise), method: :delete, confirm: "You Sure?", rel: 'delete-competiton-exercise-link'   
+                =# link_to "Remove from Competition", competition_competable_exercise_path(@competition, exercise), method: :delete, confirm: "You Sure?", rel: 'delete-competiton-exercise-link'   
       
 %hr/
 %h3 Rank
@@ -90,10 +92,5 @@
           = index+1 
           = user.name
           = user.total_xp_for_competition(@competition)
-
-
-    - if @competition.creator == current_user
-      = link_to 'Edit', edit_competition_path(@competition), class: "btn btn-lg btn-primary", rel: 'show-competiton-link'
-      = link_to 'Delete', competition_path(@competition), method: :delete, confirm: "You Sure?", class: "btn btn-lg btn-primary", rel: 'delete-competiton-link'
     
 

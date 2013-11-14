@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131113185136) do
+ActiveRecord::Schema.define(version: 20131030175958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,41 +30,48 @@ ActiveRecord::Schema.define(version: 20131113185136) do
     t.datetime "updated_at"
   end
 
-  create_table "challenge_exercises", force: true do |t|
-    t.integer  "challenge_id"
-    t.integer  "exercise_type_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "challenge_types", force: true do |t|
     t.string   "name"
     t.integer  "category_id"
     t.integer  "xp_multiplier"
+    t.boolean  "use_date",      default: false
+    t.boolean  "use_limit",     default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "challenges", force: true do |t|
     t.string   "name"
-    t.integer  "reward"
-    t.integer  "difficulty_id"
+    t.datetime "start_date"
+    t.datetime "end_date"
     t.integer  "challenge_type_id"
+    t.integer  "max_participants"
+    t.integer  "number_of_teams"
+    t.integer  "lower_level_restriction"
+    t.integer  "upper_level_restriction"
+    t.integer  "difficulty_id"
+    t.boolean  "team",                    default: false
+    t.boolean  "public",                  default: true
+    t.integer  "reward"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "competition_exercises", force: true do |t|
+  create_table "competable_exercises", force: true do |t|
     t.integer  "exercise_type_id"
-    t.integer  "competition_id"
+    t.integer  "competable_id"
+    t.string   "competable_type"
     t.integer  "limit"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "competition_subscriptions", force: true do |t|
+  add_index "competable_exercises", ["competable_id", "competable_type"], name: "index_competable_exercises_on_competable_id_and_competable_type", using: :btree
+
+  create_table "competable_registrations", force: true do |t|
     t.integer  "user_id"
-    t.integer  "competition_id"
+    t.integer  "registerable_id"
+    t.string   "registerable_type"
     t.integer  "team_id"
     t.integer  "rank"
     t.datetime "created_at"
@@ -102,6 +109,7 @@ ActiveRecord::Schema.define(version: 20131113185136) do
     t.boolean  "active",                  default: true
     t.integer  "creator_id"
     t.integer  "winner_id"
+    t.integer  "reward"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -145,20 +153,15 @@ ActiveRecord::Schema.define(version: 20131113185136) do
     t.datetime "updated_at"
   end
 
-  create_table "team_subscriptions", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "team_id"
-    t.boolean  "admin",      default: false
+  create_table "teams", force: true do |t|
+    t.string   "name"
+    t.integer  "teamable_id"
+    t.string   "teamable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "teams", force: true do |t|
-    t.string   "name"
-    t.integer  "competition_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+  add_index "teams", ["teamable_id", "teamable_type"], name: "index_teams_on_teamable_id_and_teamable_type", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false

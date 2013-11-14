@@ -8,14 +8,10 @@
   = @challenge.reward
 %p
   %b Difficulty:
-  = @challenge.difficulty_id
+  = @challenge.difficulty.level
 %p
   %b Challenge type:
-  = @challenge.challenge_type_id
-
-= link_to 'Edit', edit_challenge_path(@challenge)
-\|
-= link_to 'Back', challenges_path
+  = @challenge.challenge_type.name
 
 = form_for @attempt do |f|
   = f.hidden_field :user_id, value: current_user.id
@@ -30,4 +26,5 @@
     - @challenge.challenge_attempts.each do |attempt|
       %li
         = Time.at(attempt.completion_time).utc.strftime("%H:%M:%S")
+
 

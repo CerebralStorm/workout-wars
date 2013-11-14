@@ -3,19 +3,20 @@ class Competition < ActiveRecord::Base
   belongs_to :competition_type
   belongs_to :category
 
-  has_many :competition_subscriptions, dependent: :destroy
   has_many :competition_transactions, dependent: :destroy
-  has_many :competition_exercises
-  has_many :users, through: :competition_subscriptions, source: :user
-  has_many :teams, dependent: :destroy
-  has_many :exercise_types, through: :competition_exercises
+  has_many :competable_registrations, as: :registerable, dependent: :destroy
+  has_many :competable_exercises, as: :competable, dependent: :destroy
+  has_many :users, through: :competable_registrations, source: :user
+  has_many :teams, as: :teamable, dependent: :destroy
+  has_many :exercise_types, through: :competable_exercises
 
   after_create :create_teams, :unless => Proc.new{ self.team == false }
   
-  accepts_nested_attributes_for :competition_exercises, allow_destroy: true
+  accepts_nested_attributes_for :competable_exercises, allow_destroy: true
   accepts_nested_attributes_for :teams, allow_destroy: true
 
   validates_presence_of :name
+  validates_presence_of :public
   validates_uniqueness_of :name, case_sensitive: false
 
   def creator
@@ -26,22 +27,20 @@ class Competition < ActiveRecord::Base
     team? ? Team.find_by(id: winner_id) : User.find_by(id: winner_id)
   end
 
-  def team?
-    teams.count > 0
+  def visibility
+    public? ? "Public" : "Private"
   end
 
   def registered?(user)
-    competition_subscriptions.find_by(user: user, competition: self).present?
+    competable_registrations.find_by(user: user).present?
   end
 
-  def user_team(user)
-    teams.collect {|t| t if t.users.include?(user)}.reject(&:nil?).first
+  def user_registration(user)
+    competable_registrations.find_by(user: user)
   end
 
-  def user_team_subscription(user)
-    team = user_team(user)
-    return if team.nil?
-    TeamSubscription.find_by(user_id: user.id, team_id: team.id)
+  def team_registration(team)
+    competable_registrations.find_by(team: team)
   end
 
   def users_by_rank
@@ -49,7 +48,7 @@ class Competition < ActiveRecord::Base
   end
 
   def contains_exercise_type?(exercise_type)
-    competition_exercises.where(exercise_type: exercise_type).present?
+    competable_exercises.where(exercise_type: exercise_type).present?
   end
 
   def level
@@ -68,7 +67,7 @@ class Competition < ActiveRecord::Base
 
   def set_individual_win_condition(user)
     result = []
-    competition_exercises.each do |comp_e|       
+    competable_exercises.each do |comp_e|       
       comp_e.metrics.each do |metric|      
         exercise_total = user_total_by_exercise_type_and_metric(user, comp_e.exercise_type, metric)
         result << (exercise_total >= comp_e.limit)
@@ -81,19 +80,18 @@ class Competition < ActiveRecord::Base
 
   def set_team_win_condition
     result = []
-    competition_exercises.each do |comp_e|       
+    competable_exercises.each do |comp_e|       
       comp_e.metrics.each do |metric| 
         teams.each do |team|         
           team_metric_total = 0
           team.users.each do |user|
             team_metric_total += user_total_by_exercise_type_and_metric(user, comp_e.exercise_type, metric)
           end
-          result << (team_metric_total >= comp_e.limit)  
+          result << (team_metric_total >= comp_e.limit) 
         end  
       end  
     end
-
-    is_won = result.any? { |r| r } # returns true if all limits met
+    is_won = result.any? { |r| r } # will contain a true if any team met the limit
     
     if is_won
       teams.each_with_index do |team, index|
@@ -115,14 +113,14 @@ class Competition < ActiveRecord::Base
   # set_winner_for_total_xp(:user) for individual
   def set_winner_for_total_xp(user_or_team)
     return if Date.today < end_date     
-    units = competition_subscriptions.collect{|comp_s| comp_s.send(user_or_team)}
+    units = competable_registrations.collect{|comp_s| comp_s.send(user_or_team)}
     winner = units.max { |a, b| a.total_xp_for_competition(self) <=> b.total_xp_for_competition(self) }     
     set_winner(winner)
   end
 
   def set_winner(user_or_team)
-    subscription = CompetitionSubscription.find_by(user: user_or_team, competition: self) if user_or_team.kind_of? User
-    subscription = CompetitionSubscription.find_by(team: user_or_team, competition: self) if user_or_team.kind_of? Team
+    subscription = user_registration(user_or_team) if user_or_team.kind_of? User
+    subscription = team_registration(user_or_team) if user_or_team.kind_of? Team
     subscription.rank = 1
     subscription.save
     self.active = false

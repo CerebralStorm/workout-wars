@@ -110,12 +110,3 @@ jQuery ->
   new ExerciseForm() if $('#exercise_exercise_type_id').length > 0
   new UserStats() if $("#statChart").length > 0
 
-  pattern = /\btab=[a-z]+/;
-  tab = location.search.match(pattern)
-  if tab
-    $('a[href="#exercises"]').tab('show') 
-
-  $('.tab-button').on 'mouseup', (e) ->
-    $('.tab-button').removeClass('active')
-    $(e.target).addClass('active')
-

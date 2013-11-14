@@ -4,6 +4,8 @@ class CreateChallengeTypes < ActiveRecord::Migration
       t.string :name
       t.integer :category_id
       t.integer :xp_multiplier
+      t.boolean :use_date, default: false
+      t.boolean :use_limit, default: false
 
       t.timestamps
     end

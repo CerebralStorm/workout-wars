@@ -1,14 +1,14 @@
 class Team < ActiveRecord::Base
-  has_many :competition_subscriptions
-  has_many :users, through: :competition_subscriptions, source: :user
-  belongs_to :competition
+  has_many :competable_registrations
+  has_many :users, through: :competable_registrations, source: :user
+  belongs_to :teamable, polymorphic: true
 
   def registered?(user)
-    competition_subscriptions.find_by(user_id: user.id, team_id: self.id).present?
+    competable_registrations.find_by(user_id: user.id, team_id: self.id).present?
   end
 
   def unregister(user)
-    competition_subscriptions.find_by(user_id: user.id, team_id: self.id).destroy
+    competable_registrations.find_by(user_id: user.id, team_id: self.id).destroy
   end
 
   def total_xp_for_competition(competition)

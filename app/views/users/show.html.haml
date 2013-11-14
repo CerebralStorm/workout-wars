@@ -6,31 +6,23 @@
   .col-md-2
     %h2 
       Profile for 
-      = @user.name
-    %ul
-      %li
-        Nickname
-        %br
-        = @user.nickname
+      = @user.index_name
     %ul
       %li 
         Email
         %br
         = @user.email
-    %ul
       %li{id: "user_level"} 
         Level
         %br
         = @user.level
-    %ul
       %li{id: "user_xp"} 
         Total Experience
         %br
         = @user.xp
-    %ul
       %li{id: "user_levelup"} 
         Experience for next level  
-      %br
+        %br
         = @user.xp_for_levelup
 
     -if @user.friends.any?

@@ -36,8 +36,8 @@ describe User do
     end
 
     it 'should belong to a user' do
-      User.reflect_on_association(:competition_subscriptions).should_not be_nil
-      User.reflect_on_association(:competition_subscriptions).macro.should eql(:has_many)
+      User.reflect_on_association(:competable_registrations).should_not be_nil
+      User.reflect_on_association(:competable_registrations).macro.should eql(:has_many)
     end
   end
 
@@ -104,8 +104,8 @@ describe User do
     it "should count my exercises toward my competitions" do
       competition = FactoryGirl.create(:competition)
       exercise_type = FactoryGirl.create(:exercise_type)
-      FactoryGirl.create(:competition_exercise, competition: competition, exercise_type: exercise_type)
-      FactoryGirl.create(:competition_subscription, user: user, competition: competition)      
+      FactoryGirl.create(:competable_exercise, competable: competition, exercise_type: exercise_type)
+      FactoryGirl.create(:competable_registration, user: user, registerable: competition)      
       exercise = FactoryGirl.create(:exercise, exercise_type: exercise_type, user: user)
       user.competition_total_for(competition, exercise_type, :total_xp).should == 95
     end
@@ -115,8 +115,8 @@ describe User do
     before do 
       @individual_comp = FactoryGirl.create(:competition)
       @team_comp = FactoryGirl.create(:team_competition)
-      @subscription1 = FactoryGirl.create(:competition_subscription, user: user, competition: @individual_comp) 
-      FactoryGirl.create(:competition_subscription, user: user, competition: @team_comp, team: @team_comp.teams.first) 
+      @subscription1 = FactoryGirl.create(:competable_registration, user: user, registerable: @individual_comp) 
+      FactoryGirl.create(:competable_registration, user: user, registerable: @team_comp, team: @team_comp.teams.first) 
     end
 
     it "should return my active competitions" do
