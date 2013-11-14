@@ -56,8 +56,8 @@
     .col-md-8  
       %h1 Exercises for this competition
       %hr
-      / -if @competition.competable_exercises.empty?
-      /   - @competition.competable_exercises.build
+      -if @competition.competable_exercises.empty?
+        - @competition.competable_exercises.build
 
       = link_to_add_fields "Add Another Exercise", f, :competable_exercises
       = f.fields_for :competable_exercises do |builder|

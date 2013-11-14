@@ -5,7 +5,7 @@ class CompetableExercise < ActiveRecord::Base
   delegate :name, to: :exercise_type
   delegate :metrics, to: :exercise_type
 
-  def self.default_scope
-    includes(:exercise_type).order('exercise_types.name ASC')
-  end
+  # def self.default_scope
+  #   includes(:exercise_type).order('exercise_types.name ASC')
+  # end
 end

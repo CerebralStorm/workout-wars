@@ -1,6 +1,6 @@
 class CompetableExercisesController < ApplicationController
   def create
-    @competable_exercise = CompetitionExercise.create(competable_exercise_params)
+    @competable_exercise = CompetableExercise.create(competable_exercise_params)
     respond_to do |format|
       if @competable_exercise.save
         format.html { redirect_to @competable_exercise.competition, notice: 'Exercise Succesfully Added' }
@@ -12,7 +12,7 @@ class CompetableExercisesController < ApplicationController
   end
 
   def destroy
-    @competable_exercise = CompetitionExercise.find(params[:id])
+    @competable_exercise = CompetableExercise.find(params[:id])
     @competition = @competable_exercise.competition
     @competable_exercise.destroy
     respond_to do |format|

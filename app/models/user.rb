@@ -10,15 +10,14 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6 }, unless: Proc.new { |u| u.password.blank? }
 
   before_create :generate_nickname
-  after_create :setup_global_competition 
 
   has_many :xp_transactions
   has_many :exercises
   has_many :challenge_attempts
   has_many :challenges, through: :challenge_attempts
-  has_many :competition_subscriptions, dependent: :destroy
-  has_many :competitions, through: :competition_subscriptions, source: :competition
-  has_many :teams, through: :competition_subscriptions, source: :team
+  has_many :registrations, as: :registerable, dependent: :destroy
+  has_many :competitions, through: :registrations, source: :registerable, source_type: 'Competition'
+  has_many :teams, through: :registrations, source: :team
   has_many :competition_transactions, dependent: :destroy  
   has_many :friendships, foreign_key: "user_id", dependent: :destroy
   has_many :occurances_as_friend, class_name: "Friendship", foreign_key: "friend_id", dependent: :destroy
@@ -46,7 +45,7 @@ class User < ActiveRecord::Base
   end
 
   def competitions_won
-    competition_subscriptions.where(rank: 1).collect{|comp_s| comp_s.competition}.flatten   
+    registrations.where(rank: 1).collect{|comp_s| comp_s.competition}.flatten   
   end
 
   def active_competitions
@@ -54,7 +53,7 @@ class User < ActiveRecord::Base
   end
 
   def competition_subscription_by_competition(competition)
-    competition_subscriptions.find_by(competition: competition)
+    registrations.find_by(competition: competition)
   end
   
   def active_team_competitions
@@ -142,11 +141,6 @@ class User < ActiveRecord::Base
     comps_for_exercise.each do |comp|
       CompetitionTransaction.create(user_id: self.id, exercise_id: exercise.id, competition_id: comp.id)
     end
-  end
-
-  def setup_global_competition
-    global_comp = Competition.find_by(name: "Global")
-    CompetitionSubscription.create(user: self, competition: global_comp)
   end
 
   def generate_nickname

@@ -3,10 +3,10 @@ class Competition < ActiveRecord::Base
   belongs_to :competition_type
   belongs_to :category
 
-  has_many :competition_subscriptions, dependent: :destroy
   has_many :competition_transactions, dependent: :destroy
-  has_many :competable_exercises, as: :competable
-  has_many :users, through: :competition_subscriptions, source: :user
+  has_many :registrations, as: :registerable, dependent: :destroy
+  has_many :competable_exercises, as: :competable, dependent: :destroy
+  has_many :users, through: :registrations, source: :registerable, source_type: 'User'
   has_many :teams, dependent: :destroy
   has_many :exercise_types, through: :competable_exercises
 
@@ -31,17 +31,7 @@ class Competition < ActiveRecord::Base
   end
 
   def registered?(user)
-    competition_subscriptions.find_by(user: user, competition: self).present?
-  end
-
-  def user_team(user)
-    teams.collect {|t| t if t.users.include?(user)}.reject(&:nil?).first
-  end
-
-  def user_team_subscription(user)
-    team = user_team(user)
-    return if team.nil?
-    TeamSubscription.find_by(user_id: user.id, team_id: team.id)
+    registrations.find_by(user: user).present?
   end
 
   def users_by_rank
@@ -49,7 +39,7 @@ class Competition < ActiveRecord::Base
   end
 
   def contains_exercise_type?(exercise_type)
-    competable_exercises.where(exercise_type: exercise_type).present?
+    competition_exercises.where(exercise_type: exercise_type).present?
   end
 
   def level
@@ -68,7 +58,7 @@ class Competition < ActiveRecord::Base
 
   def set_individual_win_condition(user)
     result = []
-    competable_exercises.each do |comp_e|       
+    competition_exercises.each do |comp_e|       
       comp_e.metrics.each do |metric|      
         exercise_total = user_total_by_exercise_type_and_metric(user, comp_e.exercise_type, metric)
         result << (exercise_total >= comp_e.limit)
@@ -81,7 +71,7 @@ class Competition < ActiveRecord::Base
 
   def set_team_win_condition
     result = []
-    competable_exercises.each do |comp_e|       
+    competition_exercises.each do |comp_e|       
       comp_e.metrics.each do |metric| 
         teams.each do |team|         
           team_metric_total = 0
@@ -115,7 +105,7 @@ class Competition < ActiveRecord::Base
   # set_winner_for_total_xp(:user) for individual
   def set_winner_for_total_xp(user_or_team)
     return if Date.today < end_date     
-    units = competition_subscriptions.collect{|comp_s| comp_s.send(user_or_team)}
+    units = registrations.collect{|comp_s| comp_s.send(user_or_team)}
     winner = units.max { |a, b| a.total_xp_for_competition(self) <=> b.total_xp_for_competition(self) }     
     set_winner(winner)
   end

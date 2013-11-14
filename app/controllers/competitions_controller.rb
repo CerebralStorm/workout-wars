@@ -6,8 +6,8 @@ class CompetitionsController < ApplicationController
   end
 
   def show
-    @subscription = CompetitionSubscription.find_by user_id: current_user.id, competition_id: @competition.id
-    @subscription = CompetitionSubscription.new if @subscription.nil? 
+    @registration = @competition.registrations.find_by(user_id: current_user.id)
+    @registration = Registration.new if @registration.nil? 
   end
 
   def new
@@ -62,7 +62,7 @@ class CompetitionsController < ApplicationController
       params.require(:competition).permit(
         :name, :start_date, :end_date, :max_participants, :lower_level_restriction, :upper_level_restriction,
         :difficulty_id, :public, :number_of_teams, :competition_type_id, :team,
-        :competable_exercises_attributes => [:id, :competition_id, :exercise_type_id, :limit, :_destroy]
+        :competable_exercises_attributes => [:id, :competable_id, :competable_type, :exercise_type_id, :limit, :_destroy]
       )
     end
 end

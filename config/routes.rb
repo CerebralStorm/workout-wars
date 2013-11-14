@@ -4,7 +4,6 @@ Workoutwars::Application.routes.draw do
   get '/user_exercises/users/:id', to: 'users#user_exercises'
 
   resources :challenge_attempts
-  resources :team_subscriptions
   resources :exercise_types
   resources :competition_types
   
@@ -18,7 +17,7 @@ Workoutwars::Application.routes.draw do
     resources :teams
   end
 
-  resources :competition_subscriptions, only: [:create, :destroy]
+  resources :registrations, only: [:create, :destroy]
 
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
   resources :users, only: [:index, :show, :update, :destroy]
