@@ -3,6 +3,8 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 class @CompetitionForm
   constructor: () -> 
+    window.competitionForm = this
+    window.use_limit = true
     $('.datepicker').datepicker
       dateFormat: 'yy-mm-dd'
     $('#competition_competition_type_id').bind "change", @competitionTypeSelected
@@ -16,6 +18,7 @@ class @CompetitionForm
     time = new Date().getTime()
     regexp = new RegExp($(this).data('id'), 'g')
     $(this).after($(this).data('fields').replace(regexp, time))
+    competitionForm.setUseLimit(window.use_limit)
     event.preventDefault()
 
   removeExercise: (event) ->
@@ -40,7 +43,14 @@ class @CompetitionForm
   competitionTypeSelected: (event) -> 
     competition_type_id = $(@).val()
     path = '/competition_types/' + competition_type_id
-    callGetJSON(path)    
+    callGetJSON(path) 
+
+  setUseLimit: (bool) =>   
+    window.use_limit = bool
+    if bool
+      $('.use_limit').show()
+    else
+      $('.use_limit').hide()
 
   callGetJSON = (path) ->
     $.getJSON path, (data) ->
@@ -50,6 +60,8 @@ class @CompetitionForm
       else
         $("label[for='competition_end_date']").hide()
         $('#competition_end_date').hide()
+      competitionForm.setUseLimit(data.use_limit)
+
 
 jQuery ->
   new CompetitionForm()
