@@ -15,9 +15,9 @@ class User < ActiveRecord::Base
   has_many :exercises
   has_many :challenge_attempts
   has_many :challenges, through: :challenge_attempts
-  has_many :competable_competable_registrations, as: :registerable, dependent: :destroy
-  has_many :competitions, through: :competable_competable_registrations, source: :registerable, source_type: 'Competition'
-  has_many :teams, through: :competable_competable_registrations, source: :team
+  has_many :competable_registrations
+  has_many :competitions, through: :competable_registrations, source: :registerable, source_type: 'Competition'
+  has_many :teams, through: :competable_registrations, source: :team
   has_many :competition_transactions, dependent: :destroy  
   has_many :friendships, foreign_key: "user_id", dependent: :destroy
   has_many :occurances_as_friend, class_name: "Friendship", foreign_key: "friend_id", dependent: :destroy

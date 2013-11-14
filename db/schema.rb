@@ -58,6 +58,16 @@ ActiveRecord::Schema.define(version: 20131030175958) do
 
   add_index "competable_exercises", ["competable_id", "competable_type"], name: "index_competable_exercises_on_competable_id_and_competable_type", using: :btree
 
+  create_table "competable_registrations", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "registerable_id"
+    t.string   "registerable_type"
+    t.integer  "team_id"
+    t.integer  "rank"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "competition_transactions", force: true do |t|
     t.integer  "competition_id"
     t.integer  "user_id"
@@ -131,18 +141,6 @@ ActiveRecord::Schema.define(version: 20131030175958) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "registrations", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "registerable_id"
-    t.string   "registerable_type"
-    t.integer  "team_id"
-    t.integer  "rank"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "registrations", ["registerable_id", "registerable_type"], name: "index_registrations_on_registerable_id_and_registerable_type", using: :btree
 
   create_table "teams", force: true do |t|
     t.string   "name"

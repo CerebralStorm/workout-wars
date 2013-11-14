@@ -1,6 +1,6 @@
 class CompetableRegistrationsController < ApplicationController
   def create
-    @registration = Registration.create(registration_params)
+    @registration = CompetableRegistration.create(registration_params)
 
     respond_to do |format|
       if @registration.save
@@ -13,7 +13,7 @@ class CompetableRegistrationsController < ApplicationController
   end
 
   def destroy
-    @registration = Registration.find(params[:id])
+    @registration = CompetableRegistration.find(params[:id])
     registerable = @registration.registerable
     @registration.destroy
     respond_to do |format|
@@ -25,6 +25,6 @@ class CompetableRegistrationsController < ApplicationController
 private
   
   def registration_params
-    params.require(:registration).permit(:user_id, :registerable_id, :registerable_type, :team_id)
+    params.require(:competable_registration).permit(:user_id, :registerable_id, :registerable_type, :team_id)
   end
 end

@@ -8,6 +8,6 @@ class CreateCompetableRegistration < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :competable_registrations, [:registerable_id, :registerable_type]
+    #add_index :competable_registrations, [:registerable_id, :registerable_type]
   end
 end
