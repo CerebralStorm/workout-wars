@@ -41,7 +41,7 @@ CompetitionType.destroy_all
 end
 
 ChallengeType.destroy_all
-["Best Time"].each do |name|
+["Best Time", "Total By Date", "Reach A Goal"].each do |name|
   ChallengeType.create!(name: name)
 end
 

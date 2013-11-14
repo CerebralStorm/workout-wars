@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
   end
 
   def competitions_won
-    competable_registrations.where(rank: 1).collect{|comp_s| comp_s.competition}.flatten   
+    competable_registrations.where(rank: 1).collect{|comp_s| comp_s.registerable}.flatten   
   end
 
   def active_competitions
