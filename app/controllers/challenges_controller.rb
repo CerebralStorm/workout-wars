@@ -71,6 +71,6 @@
     # Never trust parameters from the scary internet, only allow the white list through.
     def challenge_params
       params.require(:challenge).permit(:name, :reward, :difficulty_id, :challenge_type_id,
-        :challenge_exercises_attributes => [:id, :challenge_id, :exercise_type_id, :limit, :_destroy])
+        :competable_exercises_attributes => [:id, :competable_id, :competable_type, :exercise_type_id, :limit, :_destroy])
     end
 end

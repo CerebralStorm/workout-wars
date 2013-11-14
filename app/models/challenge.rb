@@ -1,11 +1,14 @@
 class Challenge < ActiveRecord::Base
   belongs_to :challenge_type
+  belongs_to :difficulty
+  
   has_many :challenge_attempts
-  has_many :challenge_exercises, as: :competable
+  has_many :competable_exercises, as: :competable, dependent: :destroy
+  has_many :users, through: :registrations, source: :registerable, source_type: 'User'
   has_many :users, through: :challenge_attempts
   has_many :xp_transactions, as: :xp_source
 
-  accepts_nested_attributes_for :challenge_exercises, allow_destroy: true
+  accepts_nested_attributes_for :competable_exercises, allow_destroy: true
 
   validates_presence_of :name
 

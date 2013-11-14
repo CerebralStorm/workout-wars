@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :competition_subscription do
+  factory :registration do
     user
     competition
   end
