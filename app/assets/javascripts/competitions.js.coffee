@@ -1,7 +1,7 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
-class @CompetitionForm
+class CompetitionForm
   constructor: () -> 
     window.competitionForm = this
     window.use_limit = true
@@ -64,4 +64,4 @@ class @CompetitionForm
 
 
 jQuery ->
-  new CompetitionForm()
+  new CompetitionForm() if $('.competition-form').length > 0

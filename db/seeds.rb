@@ -41,8 +41,13 @@ CompetitionType.destroy_all
 end
 
 ChallengeType.destroy_all
-["Best Time", "Total By Date", "Reach A Goal"].each do |name|
-  ChallengeType.create!(name: name)
+[
+  {name: "Best Time", use_date: false, use_limit: true},
+  {name: "Total By Date", use_date: true, use_limit: false},
+  {name: "Reach A Goal By Date", use_date: true, use_limit: false},
+  {name: "Reach A Goal By Limit", use_date: false, use_limit: true},
+].each do |challenge_type|
+  ChallengeType.create!(challenge_type)
 end
 
 best_time = ChallengeType.find_by(name: "Best Time")

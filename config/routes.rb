@@ -6,6 +6,7 @@ Workoutwars::Application.routes.draw do
   resources :challenge_attempts
   resources :exercise_types
   resources :competition_types
+  resources :challenge_types
   
   resources :challenges do
     resources :competable_exercises, only: [:new, :create, :destroy]

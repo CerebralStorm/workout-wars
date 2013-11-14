@@ -34,15 +34,25 @@ ActiveRecord::Schema.define(version: 20131030175958) do
     t.string   "name"
     t.integer  "category_id"
     t.integer  "xp_multiplier"
+    t.boolean  "use_date",      default: false
+    t.boolean  "use_limit",     default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "challenges", force: true do |t|
     t.string   "name"
-    t.integer  "reward"
-    t.integer  "difficulty_id"
+    t.datetime "start_date"
+    t.datetime "end_date"
     t.integer  "challenge_type_id"
+    t.integer  "max_participants"
+    t.integer  "number_of_teams"
+    t.integer  "lower_level_restriction"
+    t.integer  "upper_level_restriction"
+    t.integer  "difficulty_id"
+    t.boolean  "team",                    default: false
+    t.boolean  "public",                  default: true
+    t.integer  "reward"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -99,6 +109,7 @@ ActiveRecord::Schema.define(version: 20131030175958) do
     t.boolean  "active",                  default: true
     t.integer  "creator_id"
     t.integer  "winner_id"
+    t.integer  "reward"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
