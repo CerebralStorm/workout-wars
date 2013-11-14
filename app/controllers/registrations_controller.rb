@@ -1,10 +1,11 @@
 class RegistrationsController < ApplicationController
   def create
     @registration = Registration.create(registration_params)
+
     respond_to do |format|
       if @registration.save
-        format.html { redirect_to @registration.competition, notice: 'Registration successful' }
-        format.json { render action: 'show', status: :created, location: @registration.competition }
+        format.html { redirect_to @registration.registerable, notice: 'Registration successful' }
+        format.json { render action: 'show', status: :created, location: @registration.registerable }
       else
         redirect_to :back
       end
@@ -13,10 +14,10 @@ class RegistrationsController < ApplicationController
 
   def destroy
     @registration = Registration.find(params[:id])
-    competition = @registration.competition
+    registerable = @registration.registerable
     @registration.destroy
     respond_to do |format|
-      format.html { redirect_to competition }
+      format.html { redirect_to registerable }
       format.json { head :no_content }
     end
   end

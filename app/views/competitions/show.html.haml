@@ -18,7 +18,8 @@
           = link_to "Leave This Team", @registration, method: :delete, class: "btn btn-lg btn-primary"
       -else
         = form_for @registration do |f|
-          = f.hidden_field :competition_id, value: @competition.id
+          = f.hidden_field :registerable_id, value: @competition.id
+          = f.hidden_field :registerable_type, value: "Competition"
           = f.hidden_field :user_id, value: current_user.id
           = f.hidden_field :team_id, value: team.id
           .actions
@@ -34,7 +35,7 @@
   -else
     = form_for @registration do |f|
       = f.hidden_field :user_id, value: current_user.id
-      = f.hidden_field :competition_id, value: @competition.id
+      = f.hidden_field :registerable_id, value: @competition.id
       .actions
         = f.submit "Register", class: "btn btn-lg btn-primary"
 .row
